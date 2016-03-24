@@ -4,18 +4,23 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>.xcodeproj配置技巧 | Hexo</title>
+  <title>创建私有pod库 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作为一名iOS开发人员，关于.xcodeproj一些简单使用的配置技巧，以下的一些内容你必须要知道：">
+  <meta name="description" content="一,  创建pod工程只要输入pod lib create &amp;lt;项目名称&amp;gt;命令即可完成初始项目的搭建：
+1.执行命令pod lib create martshow_public，具体操作如下实例：123456789101112131415161718192021222324252627282930iMac-8:martshowPeel tianww$ pod lib create mar">
 <meta property="og:type" content="article">
-<meta property="og:title" content=".xcodeproj配置技巧">
-<meta property="og:url" content="http://yoursite.com/2016/03/23/xcodeproj配置技巧/index.html">
+<meta property="og:title" content="创建私有pod库">
+<meta property="og:url" content="http://yoursite.com/2016/03/24/创建私有pod库/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="作为一名iOS开发人员，关于.xcodeproj一些简单使用的配置技巧，以下的一些内容你必须要知道：">
-<meta property="og:updated_time" content="2016-03-23T12:46:43.000Z">
+<meta property="og:description" content="一,  创建pod工程只要输入pod lib create &amp;lt;项目名称&amp;gt;命令即可完成初始项目的搭建：
+1.执行命令pod lib create martshow_public，具体操作如下实例：123456789101112131415161718192021222324252627282930iMac-8:martshowPeel tianww$ pod lib create mar">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/C4ED9A8C-9DAB-49F3-A9D2-8215FB9905C7.png">
+<meta property="og:updated_time" content="2016-03-24T13:34:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=".xcodeproj配置技巧">
-<meta name="twitter:description" content="作为一名iOS开发人员，关于.xcodeproj一些简单使用的配置技巧，以下的一些内容你必须要知道：">
+<meta name="twitter:title" content="创建私有pod库">
+<meta name="twitter:description" content="一,  创建pod工程只要输入pod lib create &amp;lt;项目名称&amp;gt;命令即可完成初始项目的搭建：
+1.执行命令pod lib create martshow_public，具体操作如下实例：123456789101112131415161718192021222324252627282930iMac-8:martshowPeel tianww$ pod lib create mar">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/C4ED9A8C-9DAB-49F3-A9D2-8215FB9905C7.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -164,11 +169,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-xcodeproj配置技巧" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-创建私有pod库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/23/xcodeproj配置技巧/" class="article-date">
-  	<time datetime="2016-03-23T12:44:59.000Z" itemprop="datePublished">2016-03-23</time>
+      <a href="/2016/03/24/创建私有pod库/" class="article-date">
+  	<time datetime="2016-03-24T06:49:08.000Z" itemprop="datePublished">2016-03-24</time>
 </a>
     </div>
   
@@ -181,7 +186,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      .xcodeproj配置技巧
+      创建私有pod库
     </h1>
   
 
@@ -197,7 +202,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>作为一名iOS开发人员，关于.xcodeproj一些简单使用的配置技巧，以下的一些内容你必须要知道：</p>
+        <h3 id="一-创建pod工程"><a href="#一-创建pod工程" class="headerlink" title="一,  创建pod工程"></a>一,  创建pod工程</h3><p>只要输入pod lib create &lt;项目名称&gt;命令即可完成初始项目的搭建：</p>
+<h5 id="1-执行命令pod-lib-create-martshow-public，具体操作如下实例："><a href="#1-执行命令pod-lib-create-martshow-public，具体操作如下实例：" class="headerlink" title="1.执行命令pod lib create martshow_public，具体操作如下实例："></a>1.执行命令pod lib create martshow_public，具体操作如下实例：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">iMac-8:martshowPeel tianww$ pod lib create martshow_public</span><br><span class="line">Cloning `https://github.com/CocoaPods/pod-template.git` into `martshow_public`.</span><br><span class="line">Configuring martshow_public template.</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">To get you started we need to ask a few questions, this should only take a minute.</span><br><span class="line"></span><br><span class="line">If this is your first time we recommend running through with the guide: </span><br><span class="line"> - http://guides.cocoapods.org/making/using-pod-lib-create.html</span><br><span class="line"> ( hold cmd and double click links to open in a browser. )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">What language do you want to use?? [ ObjC / Swift ]</span><br><span class="line"> &gt; objc</span><br><span class="line"></span><br><span class="line">Would you like to include a demo application with your library? [ Yes / No ]</span><br><span class="line"> &gt; yes</span><br><span class="line"></span><br><span class="line">Which testing frameworks will you use? [ Specta / Kiwi / None ]</span><br><span class="line"> &gt; no</span><br><span class="line"></span><br><span class="line">Possible answers are [ Specta / Kiwi / None ]</span><br><span class="line"> &gt; none</span><br><span class="line"></span><br><span class="line">Would you like to do view based testing? [ Yes / No ]</span><br><span class="line"> &gt; no</span><br><span class="line"></span><br><span class="line">What is your class prefix?</span><br><span class="line"> &gt; BB</span><br></pre></td></tr></table></figure>
+<p>以上操作后，一个简单的私有pod库项目搭建完成。进入目录，我们会看到如下目录文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example			Pod			_Pods.xcodeproj</span><br><span class="line">LICENSE			README.md		martshow_public.podspec</span><br></pre></td></tr></table></figure>
+<p>我们添加的文件需要放在Pod/Classes目录，我们可以打开Exaple文件，双击.xcworkspace文件，这个就是我们的pod工作工程，也可以在如下图中加入文件：<br><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/C4ED9A8C-9DAB-49F3-A9D2-8215FB9905C7.png" alt="Editor preferences pane"></p>
 
       
     </div>
@@ -207,18 +216,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/24/创建私有pod库/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          创建私有pod库
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/23/UITouch简单使用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">UITouch简单使用</div>
+    <a href="/2016/03/23/xcodeproj配置技巧/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">.xcodeproj配置技巧</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -253,7 +253,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="xcodeproj配置技巧" data-title=".xcodeproj配置技巧" data-url="http://yoursite.com/2016/03/23/xcodeproj配置技巧/"></div>
+	<div class="ds-thread" data-thread-key="创建私有pod库" data-title="创建私有pod库" data-url="http://yoursite.com/2016/03/24/创建私有pod库/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
