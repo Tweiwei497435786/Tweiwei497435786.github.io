@@ -17,7 +17,9 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/078CC6A2-339F-460E-8097-2D87AFDD8CFB.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/B03E92F8-6437-4B4E-9FF7-26B97C63D667.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/FB38FDA1-F9BD-423C-8353-186994CBDBF1.png">
-<meta property="og:updated_time" content="2016-03-28T03:28:34.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/6B319E1B-BA49-4385-9717-504A027B6F55.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/CF976049-2C43-4681-9268-3485D53BF0E4.png">
+<meta property="og:updated_time" content="2016-03-28T07:40:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=".xcodeproj配置技巧">
 <meta name="twitter:description" content="作为一名iOS开发人员，关于.xcodeproj一些简单使用的配置技巧，以下的一些内容你必须要知道：
@@ -213,6 +215,10 @@
 <p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/FB38FDA1-F9BD-423C-8353-186994CBDBF1.png" alt="Markdown preferences pane"></p>
 <p>在代码中具体操作如下，表示当前仅仅在越狱环境下才其左右，那样在不同的打包操作情况下不同的操作：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#if defined (CONFIGURATION_Develop)</span><br><span class="line">        //仅用于越狱渠道</span><br><span class="line">        [NBSAppAgent startWithAppID:@&quot;cba82ccbb7fb43eb8ad1b1c71&quot;];</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>2.为了开发人员测试，而不影响其它人员开发使用证书的问题，大家统一在Build Settings中Product Bundle Identifier修改Debug当前开发证书，而不要在General的Bundle Identifier中设置，对其它人工作造成影响。</p>
+<p>3.在有些情况下，我们在无法区分ipa文件是那种Configuration情况的的ipa文件，为了解决这个问题，我们可以在Build Settings中选择自定义一些参数，选择“＋” Add User Defined Settings，定义用户setting选项BUNDLE_DISPLAY_NAME_SUFFIX对不同Configuration进行图标展示不同的环境，如下图。</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/6B319E1B-BA49-4385-9717-504A027B6F55.png" alt="Markdown preferences pane"></p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/CF976049-2C43-4681-9268-3485D53BF0E4.png" alt="Markdown preferences pane"></p>
 
       
     </div>
