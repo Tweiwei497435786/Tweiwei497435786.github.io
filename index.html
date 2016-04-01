@@ -165,6 +165,137 @@
 
       <div class="body-wrap">
   
+    <article id="post-iOS开发工具" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/01/iOS开发工具/" class="article-date">
+  	<time datetime="2016-04-01T09:09:21.000Z" itemprop="datePublished">2016-04-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/01/iOS开发工具/">iOS开发工具</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p><a href="http://iterm2.com" target="_blank" rel="external">iterm2</a>被称为是mac上最强大的终端，各种功能都很强大，具体<a href="http://www.yangzhiping.com/tech/iterm2.html" target="_blank" rel="external">特色功能</a>见这里。然后搭配安装<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">ohmyzsh</a>,中文版本<a href="http://linglong117.blog.163.com/blog/static/27714547201241111838971/" target="_blank" rel="external">详解</a></p>
+</li>
+<li><p>用的那个代码格式化的工具 <a href="http://git.husor.com.cn/ios/beibei/wikis/clang-format" target="_blank" rel="external">clang-format</a>，找到了一个 git commit-hook 脚本，可以在每次提交的时候自动调用它检查格式,因为这种 hook 是每个想用的人要自己在本地项目里面装的，于是我搞了一个一键安装的脚本<a href="http://git.husor.com.cn/ios/beibei/wikis/clang-format-git-hook" target="_blank" rel="external">安装使用</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iOS知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/01/iOS知识点/" class="article-date">
+  	<time datetime="2016-04-01T09:06:58.000Z" itemprop="datePublished">2016-04-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/01/iOS知识点/">iOS知识点</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>苹果谷歌OC标准<a href="https://github.com/QianKaiLu/Objective-C-Coding-Guidelines-In-Chinese" target="_blank" rel="external">命名规范</a>，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。</li>
+<li>减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod update beibei_oversea &amp;&amp; find . -iname &quot;*.pch&quot; -exec touch -t 01010000 &quot;&#123;&#125;&quot;</span><br></pre></td></tr></table></figure>
+<p>1.因为每个pod都有一个pch文件,每次pod update或者pod install都会导致pch的时间戳改变，这样这个pch文件就会导致整个pod重新编译，上面一行的意思是将工程中所有的pch文件的时间戳改为01010000,这样pch的时间戳不变，就不会导致整个pod需要重新编译了!</p>
+<p>2.以上方式建议使用iterm2进行操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">然后把这两个函数放到你的~/.zshrc下</span><br><span class="line"></span><br><span class="line">function pod_dev &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=DEV &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     echo $command;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function pod_online &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=ONLINE &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只要pod_dev update —no-repo-update beibei_oversea就行了</p>
+<p><code>注意</code>:如果使用了pod_dev,此时PODFILE_TYPE被改成了DEV,如果要用线上的，请务必用pod_online(而非pod)，这样会把<code>PODFILE_TYPE</code>改为<code>ONLINE</code>,就可以正常使用线上的pod了</p>
+<ul>
+<li>lldb的e命令小技巧可以在调试程序时立即暂时地修改一个视图的颜色，不用去改代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e button.backgroundColor = [UIColor redColor]</span><br><span class="line">(UICachedDeviceRGBColor *) $0 = 0x00007f9f13290c30</span><br><span class="line">(lldb) e (void)[CATransaction flush]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>lldb的expression命令小技巧可以在调试程序时暂时地修改内容，不用去改代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) expression target = @&quot;tuan_list&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>po [[UIWindow keyWindow] recursiveDescription]可以打印当前window对象的所有视图层级，方便快速定位。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Jenkins-Github-Fir-CI实战" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -439,7 +570,7 @@
 <p>如果出现了The program ‘git’ is currently not installed. You can install it by typing:提示则表示没有安装，使用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
 <p>输入密码即可以等待安装成功。</p>
-<h5 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">1. git clone &lt;https,ssh项目的地址&gt;  (表示clone所有的分支)</span><br><span class="line">   example: git clone http://git.husor.com.cn/ios/beibei.git</span><br><span class="line"></span><br><span class="line">2. git clone -b &lt;分支名称&gt; &lt;https,ssh项目的地址&gt; （表示clone某一个分支）</span><br><span class="line">   example: git clone -b release/v4.0.0 http://git.husor.com.cn/ios/beibei.git</span><br><span class="line">   </span><br><span class="line">3. git branch -r （查看当前项目所有的分支）</span><br><span class="line">   example: git branch -r</span><br><span class="line">    origin/HEAD -&gt; origin/master</span><br><span class="line">  	origin/beibei_pod</span><br><span class="line">  	origin/develop_merge_to_pods</span><br><span class="line">  	origin/feature/brand_martshow_4.0</span><br><span class="line">  	origin/feature/develop_4.0.1</span><br><span class="line">  	origin/feature/lyd_chaozhi</span><br><span class="line">  	origin/release/v4.0.0</span><br><span class="line">  	......</span><br><span class="line">4. git checkout &lt;分支名称&gt; （表示检出新的远程分支到本地）</span><br><span class="line">   example: git checkout feature/martshow_peel</span><br><span class="line">	Branch feature/martshow_peel set up to track remote branch feature/martshow_peel from origin.</span><br><span class="line">	Switched to a new branch &apos;feature/martshow_peel&apos;</span><br><span class="line">5. git commit -a (提交本地的修改文件到暂存区，这个时候会默认调用vim编辑器，输入提交信息)；也可以使用git commit -a  -m &quot;commit info&quot;</span><br><span class="line">   example1: git commit -a</span><br><span class="line">   </span><br><span class="line">   example2: git commit -a -m &quot;.gitignore文件&quot;</span><br><span class="line">   </span><br><span class="line">   如果出现：(表示没有跟踪到的问题）</span><br><span class="line">   Untracked files:</span><br><span class="line">	BeiBeiAPP.xcodeproj/xcshareddata/</span><br><span class="line">	这种类型行的问题，则需要使用git add BeiBeiAPP.xcodeproj/xcshareddata/命令后重新提交即可</span><br><span class="line">6. git push &lt;远程分支&gt;  (表示将本地修改的暂存区的内容提交到对应的远程分支）</span><br><span class="line">   example: git push feature/martshow_peel</span><br><span class="line">7. git merge &lt;远程分支&gt; (表示从远程分支拉取代码合并到本地)</span><br><span class="line">   example: git merge release/v4.0.0 （以下的合并存在冲突）</span><br><span class="line">            Auto-merging BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (content): Merge conflict in BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (modify/delete): BeiBeiAPP/BBClasses/C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m 			  deleted in HEAD and modified in release/v4.0.0. Version release/v4.0.0 of BeiBeiAPP/BBClasses/			  C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m left in tree.</span><br><span class="line">            Auto-merging BeiBeiAPP.xcodeproj/project.pbxproj</span><br><span class="line">            Automatic merge failed; fix conflicts and then commit the result.</span><br></pre></td></tr></table></figure>
+<h5 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">1. git clone &lt;https,ssh项目的地址&gt;  (表示clone所有的分支)</span><br><span class="line">   example: git clone http://git.husor.com.cn/ios/beibei.git</span><br><span class="line"></span><br><span class="line">2. git clone -b &lt;分支名称&gt; &lt;https,ssh项目的地址&gt; （表示clone某一个分支）</span><br><span class="line">   example: git clone -b release/v4.0.0 http://git.husor.com.cn/ios/beibei.git</span><br><span class="line">   </span><br><span class="line">3. git branch -r （查看当前项目所有的分支）</span><br><span class="line">   example: git branch -r</span><br><span class="line">    origin/HEAD -&gt; origin/master</span><br><span class="line">  	origin/beibei_pod</span><br><span class="line">  	origin/develop_merge_to_pods</span><br><span class="line">  	origin/feature/brand_martshow_4.0</span><br><span class="line">  	origin/feature/develop_4.0.1</span><br><span class="line">  	origin/feature/lyd_chaozhi</span><br><span class="line">  	origin/release/v4.0.0</span><br><span class="line">  	......</span><br><span class="line">4. git checkout &lt;分支名称&gt; （表示检出新的远程分支到本地）</span><br><span class="line">   example: git checkout feature/martshow_peel</span><br><span class="line">	Branch feature/martshow_peel set up to track remote branch feature/martshow_peel from origin.</span><br><span class="line">	Switched to a new branch &apos;feature/martshow_peel&apos;</span><br><span class="line">5. git commit -a (提交本地的修改文件到暂存区，这个时候会默认调用vim编辑器，输入提交信息)；也可以使用git commit -a  -m &quot;commit info&quot;</span><br><span class="line">   example1: git commit -a</span><br><span class="line">   </span><br><span class="line">   example2: git commit -a -m &quot;.gitignore文件&quot;</span><br><span class="line">   </span><br><span class="line">   如果出现：(表示没有跟踪到的问题）</span><br><span class="line">   Untracked files:</span><br><span class="line">	BeiBeiAPP.xcodeproj/xcshareddata/</span><br><span class="line">	这种类型行的问题，则需要使用git add BeiBeiAPP.xcodeproj/xcshareddata/命令后重新提交即可</span><br><span class="line">6. git push &lt;远程分支&gt;  (表示将本地修改的暂存区的内容提交到对应的远程分支）</span><br><span class="line">   example: git push feature/martshow_peel</span><br><span class="line">7. git merge &lt;远程分支&gt; (表示从远程分支拉取代码合并到本地)</span><br><span class="line">   example: git merge release/v4.0.0 （以下的合并存在冲突）</span><br><span class="line">            Auto-merging BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (content): Merge conflict in BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (modify/delete): BeiBeiAPP/BBClasses/C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m 			  deleted in HEAD and modified in release/v4.0.0. Version release/v4.0.0 of BeiBeiAPP/BBClasses/			  C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m left in tree.</span><br><span class="line">            Auto-merging BeiBeiAPP.xcodeproj/project.pbxproj</span><br><span class="line">            Automatic merge failed; fix conflicts and then commit the result.</span><br><span class="line">            </span><br><span class="line">8. git tag -l</span><br><span class="line">   example: iMac-tortoise:BBCore tianww$ git tag -l</span><br></pre></td></tr></table></figure>
 <h5 id="Git常用的工具"><a href="#Git常用的工具" class="headerlink" title="Git常用的工具"></a>Git常用的工具</h5><p>SourceTree（推荐，appstore上面即可下载，简单实用功能强大）</p>
 <p>GitBash</p>
 <p>EGit</p>
