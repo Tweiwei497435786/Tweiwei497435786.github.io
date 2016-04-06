@@ -15,7 +15,7 @@
 <meta property="og:description" content="在一个团队中如何保证所有的开发人员的代码风格一致，并且符合一定的规范，也许ClangFormat－Xcode插件可以帮助你解决该问题。
 定制ClangFormat-Xcode如何需要定制你自己的格式化插件，下载ClangFormat-Xcode需要修改项目根本目录相面的.clang-format不可见文件(“defaults write com.apple.finder AppleShowAllF">
 <meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/2016-01-13_4.56.29.png">
-<meta property="og:updated_time" content="2016-04-06T12:05:46.000Z">
+<meta property="og:updated_time" content="2016-04-06T12:10:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ClangFormat代码格式化">
 <meta name="twitter:description" content="在一个团队中如何保证所有的开发人员的代码风格一致，并且符合一定的规范，也许ClangFormat－Xcode插件可以帮助你解决该问题。
@@ -213,7 +213,7 @@
 <h3 id="提交代码检测"><a href="#提交代码检测" class="headerlink" title="提交代码检测"></a>提交代码检测</h3><p>如果我们想要在提交之前做些检测代码规范的工作，那么接下来的操作就很重要了，通过下面的<a href="https://gist.github.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9" target="_blank" rel="external">脚本</a>，这个检测的规范就是上面ClangFormat中制定的规范内容。</p>
 <h5 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h5><ol>
 <li><p>打开命令行，进入项目目录，执行命令：</p>
-<p>curl <a href="https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/clang-format-githook-install.sh" target="_blank" rel="external">https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/clang-format-githook-install.sh</a> | sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/clang-format-githook-install.sh | sh</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>或者手动下载 <a href="https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/pre-commit-clang-format" target="_blank" rel="external">https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/pre-commit-clang-format</a> 保存为项目目录下的 .git/hooks/pre-commit，并修改文件权限为可执行。</p>
 <p><strong>这种方法并不会自动使用 [HBClangFormat-Xcode] 里面自带的 <code>clang-format</code>，而是写死了用 <code>/usr/local/bin/clang-format</code>，如果需要用其它路径的话可以自己修改文件头部的路径</strong></p>
