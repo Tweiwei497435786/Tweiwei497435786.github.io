@@ -165,6 +165,78 @@
 
       <div class="body-wrap">
   
+    <article id="post-Git版本控制-gitignore文件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/22/Git版本控制-gitignore文件/" class="article-date">
+  	<time datetime="2016-03-22T09:55:33.000Z" itemprop="datePublished">2016-03-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/22/Git版本控制-gitignore文件/">Git版本控制.gitignore文件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Git忽略规则。"><a href="#Git忽略规则。" class="headerlink" title="Git忽略规则。"></a>Git忽略规则。</h3><h5 id="gitignore文件。"><a href="#gitignore文件。" class="headerlink" title=".gitignore文件。"></a>.gitignore文件。</h5><p>.gitignore 配置文件用于配置不需要加入版本管理的文件，配置好该文件可以为我们的版本管理带来很大的便利.版本库中目录下的.gitignore文件作用于整个目录及子目录，会随着该版本库同其他人共享。文件存放在当前Respositories工作目录下，当然默认是不可见的，可以调用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.finder AppleShowAllFiles YES //显示隐藏文件</span><br><span class="line">defaults write com.apple.finder AppleShowAllFiles NO//隐藏不可见文件</span><br></pre></td></tr></table></figure>
+<p>然后输入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:beibei tianww$ cd /Users/tianww/Documents/ipa_Project/beibei </span><br><span class="line">iMac-7:beibei tianww$ vim .gitignore</span><br></pre></td></tr></table></figure>
+<p>我们会看到以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">*~</span><br><span class="line">.DS_Store</span><br><span class="line">.idea/</span><br><span class="line"></span><br><span class="line"># Xcode</span><br><span class="line">#</span><br><span class="line">build/</span><br><span class="line">buildipa/</span><br><span class="line">*.pbxuser</span><br><span class="line">!default.pbxuser</span><br><span class="line">*.mode1v3</span><br><span class="line">!default.mode1v3</span><br><span class="line">*.mode2v3</span><br><span class="line">!default.mode2v3</span><br><span class="line">*.perspectivev3</span><br><span class="line">!default.perspectivev3</span><br><span class="line">xcuserdata</span><br><span class="line">*.xccheckout</span><br><span class="line">*.moved-aside</span><br><span class="line">DerivedData</span><br><span class="line">*.hmap</span><br><span class="line">*.ipa</span><br><span class="line">*.xcuserstate</span><br><span class="line">xcshareddata/</span><br><span class="line"></span><br><span class="line">Pods/</span><br><span class="line">Podfile.lock</span><br><span class="line"></span><br><span class="line">*.xcuserdatad</span><br><span class="line">&quot;.gitignore&quot; 8501L, 482577C</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，有些东西是xcode默认会在.gitignore中忽略掉的：比喻在修改了schemes的时候，无论你怎么修改，都看不到在在git里面有修改记录的，其实这个是默认会忽略掉的。这个时候，我们为了统一控制一些东西，就需要修改.gitignore中的内容了，需要将（*.xcuserstate xcshareddata/）两个删除掉，修改成功后提交git，那么所有人的配置就一致了，这个时候我们重新添加刚刚删除的内容，无论别人怎么修改也不会修改默认的统一的配置了。</p>
+<h5 id="exclude文件。"><a href="#exclude文件。" class="headerlink" title="exclude文件。"></a>exclude文件。</h5><p>本地的针对具体版本库的独享式忽略文件</p>
+<p>即在版本库.git目录下的文件info/exclude中设置文件忽略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:~ tianww$ cd /Users/tianww/Documents/ipa_Project/beibei/.git/info/</span><br><span class="line">iMac-7:info tianww$ ls</span><br><span class="line">exclude	refs</span><br><span class="line">iMac-7:info tianww$ vim exclude</span><br></pre></td></tr></table></figure>
+<h5 id="core-excludesfile文件。"><a href="#core-excludesfile文件。" class="headerlink" title="core.excludesfile文件。"></a>core.excludesfile文件。</h5><p> 本地的全局的独享式忽略文件,通过Git的配置变量core.excludesfile指定的一个忽略文件（指定文件名），其设置的忽略对所有本地版本库均有效。设置方法如下（文件名可以任意设置）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.excludesfile ~/.gitignore</span><br></pre></td></tr></table></figure>
+<h3 id="Git忽略文件语法。"><a href="#Git忽略文件语法。" class="headerlink" title="Git忽略文件语法。"></a>Git忽略文件语法。</h3><ol>
+<li>忽略文件中的空行或以井号（#）开始的行将会被忽略。</li>
+<li>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等。</li>
+<li>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</li>
+<li>如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在此目录下，而子目录中的文件不忽略。</li>
+<li>如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</li>
+</ol>
+<p>example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这是注释行，将被忽略</span><br><span class="line">*.a       # 忽略所有以.a为扩展名的文件    </span><br><span class="line">!lib.a    # 但是名为lib.a的文件或目录不要忽略，即使前面设置了对*.a的忽略</span><br><span class="line">/TODO     # 只忽略此目录下的TODO文件，子目录中的TODO文件不忽略</span><br><span class="line">build/    # 忽略所有build目录下的文件，但如果是名为build的文件则不忽略</span><br><span class="line">doc/*.txt # 忽略文件如doc/notes.txt，但是文件如doc/server/arch.txt不忽略</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-iOS使用Jenkins进行持续集成" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
