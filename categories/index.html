@@ -4,27 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>iOS知识点 | Hexo</title>
+  <title>categories | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="苹果谷歌OC标准命名规范，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。
-减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：
-
-1pod update beibei_oversea &amp;amp;&amp;amp; find . -iname &amp;quot;*.pch&amp;quot; -exec tou">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS知识点">
-<meta property="og:url" content="http://yoursite.com/2016/04/01/iOS知识点/index.html">
+  <meta name="description" content="Enjoying my work!Enjoying my life!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://yoursite.com/categories/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="苹果谷歌OC标准命名规范，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。
-减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：
-
-1pod update beibei_oversea &amp;amp;&amp;amp; find . -iname &amp;quot;*.pch&amp;quot; -exec tou">
-<meta property="og:updated_time" content="2016-04-19T12:14:46.000Z">
+<meta property="og:description" content="Enjoying my work!Enjoying my life!">
+<meta property="og:updated_time" content="2016-04-19T12:16:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS知识点">
-<meta name="twitter:description" content="苹果谷歌OC标准命名规范，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。
-减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：
-
-1pod update beibei_oversea &amp;amp;&amp;amp; find . -iname &amp;quot;*.pch&amp;quot; -exec tou">
+<meta name="twitter:title" content="categories">
+<meta name="twitter:description" content="Enjoying my work!Enjoying my life!">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -181,11 +172,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-iOS知识点" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/01/iOS知识点/" class="article-date">
-  	<time datetime="2016-04-01T09:06:58.000Z" itemprop="datePublished">2016-04-01</time>
+      <a href="/categories/index.html" class="article-date">
+  	<time datetime="2016-04-19T12:04:51.000Z" itemprop="datePublished">2016-04-19</time>
 </a>
     </div>
   
@@ -198,7 +189,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      iOS知识点
+      categories
     </h1>
   
 
@@ -207,10 +198,6 @@
       <div class="article-info article-info-post">
         
         
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
 
         <div class="clearfix"></div>
       </div>
@@ -218,53 +205,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>苹果谷歌OC标准<a href="https://github.com/QianKaiLu/Objective-C-Coding-Guidelines-In-Chinese" target="_blank" rel="external">命名规范</a>，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。</li>
-<li>减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod update beibei_oversea &amp;&amp; find . -iname &quot;*.pch&quot; -exec touch -t 01010000 &quot;&#123;&#125;&quot;</span><br></pre></td></tr></table></figure>
-<p>1.因为每个pod都有一个pch文件,每次pod update或者pod install都会导致pch的时间戳改变，这样这个pch文件就会导致整个pod重新编译，上面一行的意思是将工程中所有的pch文件的时间戳改为01010000,这样pch的时间戳不变，就不会导致整个pod需要重新编译了!</p>
-<p>2.以上方式建议使用iterm2进行操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">然后把这两个函数放到你的~/.zshrc下</span><br><span class="line"></span><br><span class="line">function pod_dev &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=DEV &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     echo $command;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function pod_online &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=ONLINE &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>只要pod_dev update —no-repo-update beibei_oversea就行了</p>
-<p><code>注意</code>:如果使用了pod_dev,此时PODFILE_TYPE被改成了DEV,如果要用线上的，请务必用pod_online(而非pod)，这样会把<code>PODFILE_TYPE</code>改为<code>ONLINE</code>,就可以正常使用线上的pod了</p>
-<ul>
-<li>lldb的e命令小技巧可以在调试程序时立即暂时地修改一个视图的颜色，不用去改代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e button.backgroundColor = [UIColor redColor]</span><br><span class="line">(UICachedDeviceRGBColor *) $0 = 0x00007f9f13290c30</span><br><span class="line">(lldb) e (void)[CATransaction flush]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>lldb的expression命令小技巧可以在调试程序时暂时地修改内容，不用去改代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) expression target = @&quot;tuan_list&quot;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>po [[UIWindow keyWindow] recursiveDescription]可以打印当前window对象的所有视图层级，方便快速定位。</li>
-</ul>
-
+        
       
     </div>
     
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2016/04/01/iOS开发工具/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          iOS开发工具
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Jenkins+Github+Xcode+Fir CI实战</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
   
 </article>
 
@@ -294,7 +241,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="iOS知识点" data-title="iOS知识点" data-url="http://yoursite.com/2016/04/01/iOS知识点/"></div>
+	<div class="ds-thread" data-thread-key="undefined" data-title="categories" data-url="http://yoursite.com/categories/index.html"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -338,7 +285,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
