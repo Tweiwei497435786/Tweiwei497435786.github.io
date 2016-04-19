@@ -18,7 +18,7 @@
 配置build jenkins
 进入jenkins主页登录成功后，选择（新建），输入item的名称，选择（构建一个自由风格的软件项目），填写必要的描述信息。
 源码管理，我这里选择git（我的代码在git上面），（1）Repository URL填写项目的git地址">
-<meta property="og:updated_time" content="2016-04-08T08:34:15.000Z">
+<meta property="og:updated_time" content="2016-04-19T05:50:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins+Github+Xcode+Fir CI实战">
 <meta name="twitter:description" content="上一篇：iOS使用Jenkins进行持续集成详细的讲了Mac上面搭建jenkins，接下来将会详细介绍jenkins的实际应用案例。
@@ -229,6 +229,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#进入ipa生成的目录</span><br><span class="line">$&#123;WORKSPACE&#125;/Enterprise_ipa/</span><br><span class="line">#登录fir这里的需要填写你的 API Token</span><br><span class="line">fir login 858b83d2f15f5f</span><br><span class="line">curDir=`pwd`</span><br><span class="line"># 下面上传dsym文件到fir上面对应，这个需要在项目中集成fir的bughd错误日志收集,-p 表示项目的token -v当前的时间</span><br><span class="line">#fir mapping /$&#123;WORKSPACE&#125;/build/beibei.app.dSYM.zip  -v `date &quot;+%Y-%m-%d/%H:%M:%S&quot;` -P 56528e39a1de52</span><br><span class="line">#上传ipa文件，并且上传变更日志，这个是当前job的build的修改记录的地址</span><br><span class="line">fir publish &quot;beibei.ipa&quot; -c &quot;如需要查看修改记录点击下面地址....:http://192.168.44.132:8080/job/$&#123;JOB_NAME&#125;/$&#123;BUILD_NUMBER&#125;/changes&quot;</span><br></pre></td></tr></table></figure>
 <p>3.如果你需要通过fir提供的jenkins插件上传到fir相关的，那就在构建步骤添加插件的名称，填写必要的配置信息。可以参考<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir jenkins</a>的各种参数配置</p>
 <h5 id="二-通过FTP上传到自己的服务器"><a href="#二-通过FTP上传到自己的服务器" class="headerlink" title="二.通过FTP上传到自己的服务器"></a>二.通过FTP上传到自己的服务器</h5><p>1.在构建步骤中选择Send build artifacts over FTP前提是你安装了该jenkins插件，具体参考<a href="https://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+FTP+Plugin" target="_blank" rel="external">这里</a>！</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>jenkins 1.656版本会并且在由于xcode 7出来没多久，且在xcode 7上build setting中多了一个Product Bundle Idenitfier的项，且jenkins没有修改此处的bundle id，导致无法编译通过。所以为了避免这个问题我们可以在对应的configuration下面设置bundle id而不影响其它人，但同时也不允许其它人更改对应configuration的内容。这样限制就会比较麻烦，我们可以通过编写脚本修改bundle id，或者采用接下来的fastlane方式。新版本估计jenkins会将这个问题修复。</li>
+</ol>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.jianshu.com/p/a17167274463" target="_blank" rel="external">Jenkins+GitHub+Xcode+fir搭了一个持续集成环境</a></p>
 <p>2.<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir.im Jenkins 插件使用方法</a></p>
 <p>3.<a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Jenkins Plugins</a>这里有各种各样的插件</p>

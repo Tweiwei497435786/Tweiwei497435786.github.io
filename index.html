@@ -165,6 +165,71 @@
 
       <div class="body-wrap">
   
+    <article id="post-FTP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/19/FTP/" class="article-date">
+  	<time datetime="2016-04-19T05:51:37.000Z" itemprop="datePublished">2016-04-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/19/FTP/">FTP</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>FTP 是File Transfer Protocol（文件传输协议）的英文简称，而中文简称为“文传协议”。用于Internet上的控制文件的双向传输。在FTP的使用当中，用户经常遇到两个概念：”下载”（Download）和”上传”（Upload）。”下载”文件就是从远程主机拷贝文件至自己的计算机上；”上传”文件就是将文件从自己的计算机中拷贝至远程主机上。用Internet语言来说，用户可通过客户机程序向（从）远程主机上传（下载）文件。</p>
+<h3 id="一-FTP常用的命令"><a href="#一-FTP常用的命令" class="headerlink" title="一. FTP常用的命令"></a>一. FTP常用的命令</h3><ol>
+<li>用户连接远程FTP服务器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp 主机名称</span><br><span class="line">eg:ftp v0.ftp.upyun.com</span><br></pre></td></tr></table></figure>
+<ol>
+<li>进入对应的ftp的目录，将目录下面的文件下载到本地文件夹中,或者本地的文件上传到服务端</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">首先需要在本地创建目录，登录成功后进入ftp目录，lcd进入本地创建的目录</span><br><span class="line"> lcd 本地的目录</span><br><span class="line"> eg:lcd /Users/tianww/Desktop/NewiOS</span><br><span class="line"> get ftp文件名称</span><br><span class="line"> eg:get Install.html</span><br><span class="line"> put 本地文件名称</span><br><span class="line"> put Install.html</span><br></pre></td></tr></table></figure>
+<h3 id="二-FTP常用的Mac端工具"><a href="#二-FTP常用的Mac端工具" class="headerlink" title="二. FTP常用的Mac端工具"></a>二. FTP常用的Mac端工具</h3><ol>
+<li>Mac自带的FTP工具，连接服务器即可</li>
+<li>Mac的<a href="http://www.macgg.com/archives/21664.html" target="_blank" rel="external">FTP工具集合</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Jenkins-Git-Fastlane-Fir-CI集成" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -676,6 +741,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#进入ipa生成的目录</span><br><span class="line">$&#123;WORKSPACE&#125;/Enterprise_ipa/</span><br><span class="line">#登录fir这里的需要填写你的 API Token</span><br><span class="line">fir login 858b83d2f15f5f</span><br><span class="line">curDir=`pwd`</span><br><span class="line"># 下面上传dsym文件到fir上面对应，这个需要在项目中集成fir的bughd错误日志收集,-p 表示项目的token -v当前的时间</span><br><span class="line">#fir mapping /$&#123;WORKSPACE&#125;/build/beibei.app.dSYM.zip  -v `date &quot;+%Y-%m-%d/%H:%M:%S&quot;` -P 56528e39a1de52</span><br><span class="line">#上传ipa文件，并且上传变更日志，这个是当前job的build的修改记录的地址</span><br><span class="line">fir publish &quot;beibei.ipa&quot; -c &quot;如需要查看修改记录点击下面地址....:http://192.168.44.132:8080/job/$&#123;JOB_NAME&#125;/$&#123;BUILD_NUMBER&#125;/changes&quot;</span><br></pre></td></tr></table></figure>
 <p>3.如果你需要通过fir提供的jenkins插件上传到fir相关的，那就在构建步骤添加插件的名称，填写必要的配置信息。可以参考<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir jenkins</a>的各种参数配置</p>
 <h5 id="二-通过FTP上传到自己的服务器"><a href="#二-通过FTP上传到自己的服务器" class="headerlink" title="二.通过FTP上传到自己的服务器"></a>二.通过FTP上传到自己的服务器</h5><p>1.在构建步骤中选择Send build artifacts over FTP前提是你安装了该jenkins插件，具体参考<a href="https://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+FTP+Plugin" target="_blank" rel="external">这里</a>！</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>jenkins 1.656版本会并且在由于xcode 7出来没多久，且在xcode 7上build setting中多了一个Product Bundle Idenitfier的项，且jenkins没有修改此处的bundle id，导致无法编译通过。所以为了避免这个问题我们可以在对应的configuration下面设置bundle id而不影响其它人，但同时也不允许其它人更改对应configuration的内容。这样限制就会比较麻烦，我们可以通过编写脚本修改bundle id，或者采用接下来的fastlane方式。新版本估计jenkins会将这个问题修复。</li>
+</ol>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.jianshu.com/p/a17167274463" target="_blank" rel="external">Jenkins+GitHub+Xcode+fir搭了一个持续集成环境</a></p>
 <p>2.<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir.im Jenkins 插件使用方法</a></p>
 <p>3.<a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Jenkins Plugins</a>这里有各种各样的插件</p>
@@ -870,69 +938,6 @@
 <p>可以通过以下方法测试：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (void)createTestModelArray</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:4];</span><br><span class="line">    for (NSInteger j = 0; j &lt; 4; j++) &#123;</span><br><span class="line">        NSArray *array = [[NSArray alloc] init];</span><br><span class="line">        BBHotspotModel *mode = [[BBHotspotModel alloc] init];</span><br><span class="line">        for (NSInteger i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">            NSInteger hang = ((j%2 == 0) ? j/2:(j/2));</span><br><span class="line">            NSInteger lei = ((j%2 == 0) ? 0:1);</span><br><span class="line">            CGFloat orgX = lei * (SCREEN_WIDTH/2.0);</span><br><span class="line">            CGFloat orgY = hang * (200/2.0);</span><br><span class="line">            array = [NSArray arrayWithObjects:@(orgX),@(orgY),@(SCREEN_WIDTH/2.0),@(200/2.0),nil];</span><br><span class="line">        &#125;</span><br><span class="line">        mode.rect = array;</span><br><span class="line">        mode.target = [NSString stringWithFormat:@&quot;跳转%ld&quot;,j];</span><br><span class="line">        [tempArray addObject:mode];</span><br><span class="line">    &#125;</span><br><span class="line">    self.hotspotArray = [NSMutableArray arrayWithObjects:tempArray,nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>经过测试发现，根据给定每一个特定区域,点击操作实现相关委托即可。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Git常用命令" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/23/Git常用命令/" class="article-date">
-  	<time datetime="2016-03-23T01:59:38.000Z" itemprop="datePublished">2016-03-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/23/Git常用命令/">Git常用命令</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001373962845513aefd77a99f4145f0a2c7a7ca057e7570000" target="_blank" rel="external">Git</a>是什么？</p>
-<p>Git是目前世界上最先进的分布式版本控制系统<br>由于使用的mac系统，mac默认安装了Git。可以通过下面命令，在terminate确认是否安装了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git</span><br></pre></td></tr></table></figure>
-<p>如果出现了The program ‘git’ is currently not installed. You can install it by typing:提示则表示没有安装，使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
-<p>输入密码即可以等待安装成功。</p>
-<h5 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">1. git clone &lt;https,ssh项目的地址&gt;  (表示clone所有的分支)</span><br><span class="line">   example: git clone http://git.husor.com.cn/ios/beibei.git</span><br><span class="line"></span><br><span class="line">2. git clone -b &lt;分支名称&gt; &lt;https,ssh项目的地址&gt; （表示clone某一个分支）</span><br><span class="line">   example: git clone -b release/v4.0.0 http://git.husor.com.cn/ios/beibei.git</span><br><span class="line">   </span><br><span class="line">3. git branch -r （查看当前项目所有的分支）</span><br><span class="line">   example: git branch -r</span><br><span class="line">    origin/HEAD -&gt; origin/master</span><br><span class="line">  	origin/beibei_pod</span><br><span class="line">  	origin/develop_merge_to_pods</span><br><span class="line">  	origin/feature/brand_martshow_4.0</span><br><span class="line">  	origin/feature/develop_4.0.1</span><br><span class="line">  	origin/feature/lyd_chaozhi</span><br><span class="line">  	origin/release/v4.0.0</span><br><span class="line">  	......</span><br><span class="line">4. git checkout &lt;分支名称&gt; （表示检出新的远程分支到本地）</span><br><span class="line">   example: git checkout feature/martshow_peel</span><br><span class="line">	Branch feature/martshow_peel set up to track remote branch feature/martshow_peel from origin.</span><br><span class="line">	Switched to a new branch &apos;feature/martshow_peel&apos;</span><br><span class="line">5. git commit -a (提交本地的修改文件到暂存区，这个时候会默认调用vim编辑器，输入提交信息)；也可以使用git commit -a  -m &quot;commit info&quot;</span><br><span class="line">   example1: git commit -a</span><br><span class="line">   </span><br><span class="line">   example2: git commit -a -m &quot;.gitignore文件&quot;</span><br><span class="line">   </span><br><span class="line">   如果出现：(表示没有跟踪到的问题）</span><br><span class="line">   Untracked files:</span><br><span class="line">	BeiBeiAPP.xcodeproj/xcshareddata/</span><br><span class="line">	这种类型行的问题，则需要使用git add BeiBeiAPP.xcodeproj/xcshareddata/命令后重新提交即可</span><br><span class="line">6. git push &lt;远程分支&gt;  (表示将本地修改的暂存区的内容提交到对应的远程分支）</span><br><span class="line">   example: git push feature/martshow_peel</span><br><span class="line">7. git merge &lt;远程分支&gt; (表示从远程分支拉取代码合并到本地)</span><br><span class="line">   example: git merge release/v4.0.0 （以下的合并存在冲突）</span><br><span class="line">            Auto-merging BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (content): Merge conflict in BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (modify/delete): BeiBeiAPP/BBClasses/C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m 			  deleted in HEAD and modified in release/v4.0.0. Version release/v4.0.0 of BeiBeiAPP/BBClasses/			  C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m left in tree.</span><br><span class="line">            Auto-merging BeiBeiAPP.xcodeproj/project.pbxproj</span><br><span class="line">            Automatic merge failed; fix conflicts and then commit the result.</span><br><span class="line">            </span><br><span class="line">8. git tag -l</span><br><span class="line">   example: iMac-tortoise:BBCore tianww$ git tag -l</span><br></pre></td></tr></table></figure>
-<h5 id="Git常用的工具"><a href="#Git常用的工具" class="headerlink" title="Git常用的工具"></a>Git常用的工具</h5><p>SourceTree（推荐，appstore上面即可下载，简单实用功能强大）</p>
-<p><a href="http://www.isofts.org/tower/" target="_blank" rel="external">Tower</a> （强大，但是要钱）</p>
-<p>GitBash</p>
-<p>EGit</p>
 
       
     </div>

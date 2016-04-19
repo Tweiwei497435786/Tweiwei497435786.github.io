@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Jenkins+Git+Fastlane+Fir CI集成 | Hexo</title>
+  <title>FTP | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  <meta name="description" content="FTP 是File Transfer Protocol（文件传输协议）的英文简称，而中文简称为“文传协议”。用于Internet上的控制文件的双向传输。在FTP的使用当中，用户经常遇到两个概念：”下载”（Download）和”上传”（Upload）。”下载”文件就是从远程主机拷贝文件至自己的计算机上；”上传”文件就是将文件从自己的计算机中拷贝至远程主机上。用Internet语言来说，用户可通过客户">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Jenkins+Git+Fastlane+Fir CI集成">
-<meta property="og:url" content="http://yoursite.com/2016/04/08/Jenkins-Git-Fastlane-Fir-CI集成/index.html">
+<meta property="og:title" content="FTP">
+<meta property="og:url" content="http://yoursite.com/2016/04/19/FTP/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-04-08T13:27:38.000Z">
+<meta property="og:description" content="FTP 是File Transfer Protocol（文件传输协议）的英文简称，而中文简称为“文传协议”。用于Internet上的控制文件的双向传输。在FTP的使用当中，用户经常遇到两个概念：”下载”（Download）和”上传”（Upload）。”下载”文件就是从远程主机拷贝文件至自己的计算机上；”上传”文件就是将文件从自己的计算机中拷贝至远程主机上。用Internet语言来说，用户可通过客户">
+<meta property="og:updated_time" content="2016-04-19T06:12:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jenkins+Git+Fastlane+Fir CI集成">
-<meta name="twitter:description">
+<meta name="twitter:title" content="FTP">
+<meta name="twitter:description" content="FTP 是File Transfer Protocol（文件传输协议）的英文简称，而中文简称为“文传协议”。用于Internet上的控制文件的双向传输。在FTP的使用当中，用户经常遇到两个概念：”下载”（Download）和”上传”（Upload）。”下载”文件就是从远程主机拷贝文件至自己的计算机上；”上传”文件就是将文件从自己的计算机中拷贝至远程主机上。用Internet语言来说，用户可通过客户">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -164,11 +164,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Jenkins-Git-Fastlane-Fir-CI集成" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-FTP" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/08/Jenkins-Git-Fastlane-Fir-CI集成/" class="article-date">
-  	<time datetime="2016-04-08T13:27:38.000Z" itemprop="datePublished">2016-04-08</time>
+      <a href="/2016/04/19/FTP/" class="article-date">
+  	<time datetime="2016-04-19T05:51:37.000Z" itemprop="datePublished">2016-04-19</time>
 </a>
     </div>
   
@@ -181,7 +181,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Jenkins+Git+Fastlane+Fir CI集成
+      FTP
     </h1>
   
 
@@ -197,7 +197,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>FTP 是File Transfer Protocol（文件传输协议）的英文简称，而中文简称为“文传协议”。用于Internet上的控制文件的双向传输。在FTP的使用当中，用户经常遇到两个概念：”下载”（Download）和”上传”（Upload）。”下载”文件就是从远程主机拷贝文件至自己的计算机上；”上传”文件就是将文件从自己的计算机中拷贝至远程主机上。用Internet语言来说，用户可通过客户机程序向（从）远程主机上传（下载）文件。</p>
+<h3 id="一-FTP常用的命令"><a href="#一-FTP常用的命令" class="headerlink" title="一. FTP常用的命令"></a>一. FTP常用的命令</h3><ol>
+<li>用户连接远程FTP服务器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp 主机名称</span><br><span class="line">eg:ftp v0.ftp.upyun.com</span><br></pre></td></tr></table></figure>
+<ol>
+<li>进入对应的ftp的目录，将目录下面的文件下载到本地文件夹中,或者本地的文件上传到服务端</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">首先需要在本地创建目录，登录成功后进入ftp目录，lcd进入本地创建的目录</span><br><span class="line"> lcd 本地的目录</span><br><span class="line"> eg:lcd /Users/tianww/Desktop/NewiOS</span><br><span class="line"> get ftp文件名称</span><br><span class="line"> eg:get Install.html</span><br><span class="line"> put 本地文件名称</span><br><span class="line"> put Install.html</span><br></pre></td></tr></table></figure>
+<h3 id="二-FTP常用的Mac端工具"><a href="#二-FTP常用的Mac端工具" class="headerlink" title="二. FTP常用的Mac端工具"></a>二. FTP常用的Mac端工具</h3><ol>
+<li>Mac自带的FTP工具，连接服务器即可</li>
+<li>Mac的<a href="http://www.macgg.com/archives/21664.html" target="_blank" rel="external">FTP工具集合</a></li>
+</ol>
+
       
     </div>
     
@@ -206,18 +219,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/19/FTP/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          FTP
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/04/08/Fastlane自动化部署/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Fastlane自动化部署</div>
+    <a href="/2016/04/08/Jenkins-Git-Fastlane-Fir-CI集成/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Jenkins+Git+Fastlane+Fir CI集成</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -252,7 +256,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Jenkins-Git-Fastlane-Fir-CI集成" data-title="Jenkins+Git+Fastlane+Fir CI集成" data-url="http://yoursite.com/2016/04/08/Jenkins-Git-Fastlane-Fir-CI集成/"></div>
+	<div class="ds-thread" data-thread-key="FTP" data-title="FTP" data-url="http://yoursite.com/2016/04/19/FTP/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
