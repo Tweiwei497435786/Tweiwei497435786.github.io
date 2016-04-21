@@ -77,7 +77,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -770,7 +770,13 @@
 <h3 id="下面一些iOS开发的工具技巧能够极大的提高开发人员的效率"><a href="#下面一些iOS开发的工具技巧能够极大的提高开发人员的效率" class="headerlink" title="下面一些iOS开发的工具技巧能够极大的提高开发人员的效率"></a>下面一些iOS开发的工具技巧能够极大的提高开发人员的效率</h3><ul>
 <li><p>用的那个代码格式化的工具 <a href="http://tweiwei497435786.github.io/2016/04/05/ClangFormat代码格式化/" target="_blank" rel="external">ClangFormat代码格式化</a>，找到了一个 git commit-hook 脚本，可以在每次提交的时候自动调用它检查格式,因为这种 hook 是每个想用的人要自己在本地项目里面装的，于是我搞了一个一键安装的脚本<a href="http://git.husor.com.cn/ios/beibei/wikis/clang-format-git-hook" target="_blank" rel="external">安装使用</a></p>
 </li>
-<li></li>
+<li><p>在使用fastlane的时候我们实际上只是会通过fastlane上传ipa文件，由于截图文件不是使用fastlane的frameit来截图操作，会出现产品等人员等独立提供截图，和日志更新文件，为了达到也能够一键上传截图或者日志（按照fastlane的规范），手动操作还是很麻烦，所以写了一个<a href="https://github.com/Tweiwei497435786/RenameDeliver-fastlaneDeliver-/blob/master/RenameDeliver.sh" target="_blank" rel="external">renameDeliver脚本</a>可以支持根据设计[640x960 640x1136 750x1334 1242x2208]文件夹的图片（1，2，3，4，5）自动命名成fastlane的deliver screenshots的规范的内容，实现一键上传的操作。</p>
+</li>
+<li><p>在使用xib的过程中，苹果默认的将opaque设置为YES，防止有的被设置为NO。如果设为YES， 渲染系统就认为这个view是完全不透明的，这使得渲染系统优化一些渲染过程和提高性能。下面的脚本能够自动检测并修改。当然修改后为了防止view为黑色需要修改backgroundcolor为clear color。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">for f in $(find . -name &apos;*.xib&apos;); do</span><br><span class="line">	echo $f</span><br><span class="line">	sed &apos;s/opaque=&quot;NO&quot;/opaque=&quot;YES&quot;/g&apos; $f &gt; temp.xib &amp;&amp; mv temp.xib $f</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在iOS版本迭代的过程中，每个迭代版本需要替换icon图片，如果手动的替换起来，同时如果设计提供的命名不规范还需要修改名称，非常麻烦。现在只需要通过一个sips的mac命令就可以对png的图片进行剪裁，我们只需要放置最大的1024＊1024的图片即可实现全套规范的图片，然后替换掉本地Images.xcassets里面的图片的名称，暂且这个不支持jpg的格式。<a href="https://github.com/Tweiwei497435786/sips_scaleIconImage/tree/master" target="_blank" rel="external">脚本下载</a></p>
+</li>
 </ul>
 
       
