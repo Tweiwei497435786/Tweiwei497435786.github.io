@@ -7,21 +7,18 @@
   <title>SSH | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH
-一.安装SSH
-安装ssh的服务端，需要在目标服务器安装">
+一.安装SSH1.安装ssh的服务端，需要在目标服务器安装">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH">
 <meta property="og:url" content="http://yoursite.com/2016/04/19/SSH/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH
-一.安装SSH
-安装ssh的服务端，需要在目标服务器安装">
-<meta property="og:updated_time" content="2016-04-20T07:26:14.000Z">
+一.安装SSH1.安装ssh的服务端，需要在目标服务器安装">
+<meta property="og:updated_time" content="2016-04-21T13:17:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH">
 <meta name="twitter:description" content="SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH
-一.安装SSH
-安装ssh的服务端，需要在目标服务器安装">
+一.安装SSH1.安装ssh的服务端，需要在目标服务器安装">
   
   
     <link rel="icon" href="/favicon.png">
@@ -84,7 +81,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -230,23 +227,23 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH</p>
-<h3 id="一-安装SSH"><a href="#一-安装SSH" class="headerlink" title="一.安装SSH"></a>一.安装SSH</h3><ol>
-<li>安装ssh的服务端，需要在目标服务器安装</li>
-</ol>
+<h3 id="一-安装SSH"><a href="#一-安装SSH" class="headerlink" title="一.安装SSH"></a>一.安装SSH</h3><p>1.安装ssh的服务端，需要在目标服务器安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure>
-<ol>
-<li>安装ssh的客户端，需要在客户端安装</li>
-</ol>
+<p>2.安装ssh的客户端，需要在客户端安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-client</span><br></pre></td></tr></table></figure>
 <p>由于Mac系统已经安装了ssh，所以可以直接使用。</p>
-<h3 id="一-SSH简单命令"><a href="#一-SSH简单命令" class="headerlink" title="一.SSH简单命令"></a>一.SSH简单命令</h3><ol>
-<li>无选项参数运行 SSH</li>
-</ol>
+<h3 id="一-SSH简单命令"><a href="#一-SSH简单命令" class="headerlink" title="一.SSH简单命令"></a>一.SSH简单命令</h3><p>1.无选项参数运行 SSH</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 192.168.40.140</span><br></pre></td></tr></table></figure>
-<ol>
-<li>指定登陆用户</li>
-</ol>
+<p>2.指定登陆用户</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh wuxian@192.168.40.140或者下面</span><br><span class="line">ssh -l wuxian 192.168.40.140</span><br></pre></td></tr></table></figure>
+<p>3.上传本地文件到服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp /path/filename username@servername:/path</span><br><span class="line">iMac-tortoise% scp /Users/tianww/Desktop/beibei_work/小工具/renameDeliver/renameDeliver.sh wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/</span><br></pre></td></tr></table></figure>
+<p>4.从服务器上下载文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp username@servername:/path/filename /var/www/local_dir（本地目录）</span><br><span class="line">iMac-tortoise% scp wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/renameDeliver.sh /Users/tianww/Desktop/iOS</span><br></pre></td></tr></table></figure>
+<p>5.上传目录到服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp  -r local_dir username@servername:remote_dir</span><br><span class="line">iMac-tortoise% scp -r /Users/tianww/Desktop/iOS wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/</span><br></pre></td></tr></table></figure>
+<p>6.从服务器下载整个目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp -r username@servername:/var/www/remote_dir/（远程目录） /var/www/local_dir（本地目录）</span><br><span class="line">iMac-tortoise% scp -r wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/ /Users/tianww/Desktop/iOS</span><br></pre></td></tr></table></figure>
       
     </div>
     
