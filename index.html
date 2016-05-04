@@ -77,7 +77,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -214,9 +214,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>   iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。</p>
-<h4 id="开发崩溃定位"><a href="#开发崩溃定位" class="headerlink" title="开发崩溃定位"></a>开发崩溃定位</h4><p>1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB调测模式，需要下载相关GDB 相关的插件，根据崩溃内存地址内容，使用LLDB,GDB命令可以轻松定位相关的信息，同时需要勾选Diagnostics中Objective-c (Enable Zombie Objects)中显示内存地址。</p>
+<h4 id="开发崩溃定位"><a href="#开发崩溃定位" class="headerlink" title="开发崩溃定位"></a>开发崩溃定位</h4><p>1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB调测模式，需要下载相关GDB 相关的插件，根据崩溃内存地址内容，使用LLDB,GDB命令可以轻松定位相关的信息，在edit scheme中同时需要勾选Diagnostics的Run中Objective-c (Enable Zombie Objects，Malloc Stack)中显示内存地址。</p>
 <p>2.使用全局断点检测当前xcode运行出现的崩溃信息，对于当前的崩溃位置断点会自动定位。对于没有成功定位的时候，可以结合方式1定位相关的bug</p>
-<p>3.message sent to deallocated instance 0x6d564f0类似的这种崩溃问题，可以通过LLDB的命令(bt或者info malloc-history 0x6d564f0）定为道崩溃信息。当然我们也可以通过打开”活动监视器”找到对应的PID(进程ID)和当前的崩溃地址在终端输入,可以定为到详细的当前崩溃对象的完整的生命周期。</p>
+<p>3.如果是Xcode7以上，在edit sheme中需要够炫Diagnostics的Run选项中的Runtime Sanitization的Enable Address Sanitizer，出现崩溃将会自动定位。</p>
+<p>4.message sent to deallocated instance 0x6d564f0类似的这种崩溃问题，可以通过LLDB的命令(bt或者info malloc-history 0x6d564f0）定为道崩溃信息。当然我们也可以通过打开”活动监视器”找到对应的PID(进程ID)和当前的崩溃地址在终端输入,可以定为到详细的当前崩溃对象的完整的生命周期。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo malloc_history 50127 0x6d564f0</span><br></pre></td></tr></table></figure>
 <h4 id="内测崩溃定位"><a href="#内测崩溃定位" class="headerlink" title="内测崩溃定位"></a>内测崩溃定位</h4><p>1.内测版本具体的某一个设备崩溃了，可以将该设备交与开发人员，开发人员通过xcode到处设备中的crash崩溃信息，即可查看崩溃信息，分析后定为</p>
 <p>2.内测版本中也可通过集成第三方的崩溃捕捉工具进行</p>
