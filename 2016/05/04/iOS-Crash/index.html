@@ -4,27 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>iOS知识点 | Hexo</title>
+  <title>iOS Crash | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="苹果谷歌OC标准命名规范，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。
-减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：
-
-1pod update beibei_oversea &amp;amp;&amp;amp; find . -iname &amp;quot;*.pch&amp;quot; -exec tou">
+  <meta name="description" content="iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。
+开发崩溃定位1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS知识点">
-<meta property="og:url" content="http://www.tortoise.com/2016/04/01/iOS知识点/index.html">
+<meta property="og:title" content="iOS Crash">
+<meta property="og:url" content="http://www.tortoise.com/2016/05/04/iOS-Crash/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="苹果谷歌OC标准命名规范，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。
-减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：
-
-1pod update beibei_oversea &amp;amp;&amp;amp; find . -iname &amp;quot;*.pch&amp;quot; -exec tou">
-<meta property="og:updated_time" content="2016-04-19T12:14:46.000Z">
+<meta property="og:description" content="iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。
+开发崩溃定位1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB">
+<meta property="og:updated_time" content="2016-05-04T08:43:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS知识点">
-<meta name="twitter:description" content="苹果谷歌OC标准命名规范，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。
-减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：
-
-1pod update beibei_oversea &amp;amp;&amp;amp; find . -iname &amp;quot;*.pch&amp;quot; -exec tou">
+<meta name="twitter:title" content="iOS Crash">
+<meta name="twitter:description" content="iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。
+开发崩溃定位1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB">
   
   
     <link rel="icon" href="/favicon.png">
@@ -195,11 +189,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-iOS知识点" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS-Crash" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/01/iOS知识点/" class="article-date">
-  	<time datetime="2016-04-01T09:06:58.000Z" itemprop="datePublished">2016-04-01</time>
+      <a href="/2016/05/04/iOS-Crash/" class="article-date">
+  	<time datetime="2016-05-04T07:59:49.000Z" itemprop="datePublished">2016-05-04</time>
 </a>
     </div>
   
@@ -212,7 +206,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      iOS知识点
+      iOS Crash
     </h1>
   
 
@@ -232,27 +226,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>苹果谷歌OC标准<a href="https://github.com/QianKaiLu/Objective-C-Coding-Guidelines-In-Chinese" target="_blank" rel="external">命名规范</a>，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。</li>
-<li>减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod update beibei_oversea &amp;&amp; find . -iname &quot;*.pch&quot; -exec touch -t 01010000 &quot;&#123;&#125;&quot;</span><br></pre></td></tr></table></figure>
-<p>1.因为每个pod都有一个pch文件,每次pod update或者pod install都会导致pch的时间戳改变，这样这个pch文件就会导致整个pod重新编译，上面一行的意思是将工程中所有的pch文件的时间戳改为01010000,这样pch的时间戳不变，就不会导致整个pod需要重新编译了!</p>
-<p>2.以上方式建议使用iterm2进行操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">然后把这两个函数放到你的~/.zshrc下</span><br><span class="line"></span><br><span class="line">function pod_dev &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=DEV &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     echo $command;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function pod_online &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=ONLINE &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>只要pod_dev update —no-repo-update beibei_oversea就行了</p>
-<p><code>注意</code>:如果使用了pod_dev,此时PODFILE_TYPE被改成了DEV,如果要用线上的，请务必用pod_online(而非pod)，这样会把<code>PODFILE_TYPE</code>改为<code>ONLINE</code>,就可以正常使用线上的pod了</p>
+        <p>   iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。</p>
+<h4 id="开发崩溃定位"><a href="#开发崩溃定位" class="headerlink" title="开发崩溃定位"></a>开发崩溃定位</h4><p>1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB调测模式，需要下载相关GDB 相关的插件，根据崩溃内存地址内容，使用LLDB,GDB命令可以轻松定位相关的信息，同时需要勾选Diagnostics中Objective-c (Enable Zombie Objects)中显示内存地址。</p>
+<p>2.使用全局断点检测当前xcode运行出现的崩溃信息，对于当前的崩溃位置断点会自动定位。对于没有成功定位的时候，可以结合方式1定位相关的bug</p>
+<p>3.message sent to deallocated instance 0x6d564f0类似的这种崩溃问题，可以通过LLDB的命令(bt或者info malloc-history 0x6d564f0）定为道崩溃信息。当然我们也可以通过打开”活动监视器”找到对应的PID(进程ID)和当前的崩溃地址在终端输入,可以定为到详细的当前崩溃对象的完整的生命周期。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo malloc_history 50127 0x6d564f0</span><br></pre></td></tr></table></figure>
+<h4 id="内测崩溃定位"><a href="#内测崩溃定位" class="headerlink" title="内测崩溃定位"></a>内测崩溃定位</h4><p>1.内测版本具体的某一个设备崩溃了，可以将该设备交与开发人员，开发人员通过xcode到处设备中的crash崩溃信息，即可查看崩溃信息，分析后定为</p>
+<p>2.内测版本中也可通过集成第三方的崩溃捕捉工具进行</p>
 <ul>
-<li>lldb的e命令小技巧可以在调试程序时立即暂时地修改一个视图的颜色，不用去改代码</li>
+<li>fir的<a href="http://bughd.com" target="_blank" rel="external">BugHD</a>平台CI过程上传ipa同时上传每个版本的dsym文件</li>
+<li>也可以可以通过Crashlytics,友盟这些第三方的平台进行（友盟不可以上传dsym）</li>
+<li><a href="https://www.bugtags.com" target="_blank" rel="external">Bugtags</a>,超级强大的bug管理系统，方便测试人员提交bug并且高效的管理，可以直接使用手机操作提交bug，但是这个是要收费的。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e button.backgroundColor = [UIColor redColor]</span><br><span class="line">(UICachedDeviceRGBColor *) $0 = 0x00007f9f13290c30</span><br><span class="line">(lldb) e (void)[CATransaction flush]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>lldb的expression命令小技巧可以在调试程序时暂时地修改内容，不用去改代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) expression target = @&quot;tuan_list&quot;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>po [[UIWindow keyWindow] recursiveDescription]可以打印当前window对象的所有视图层级，方便快速定位。</li>
-</ul>
+<h4 id="线上崩溃定位"><a href="#线上崩溃定位" class="headerlink" title="线上崩溃定位"></a>线上崩溃定位</h4><p>1.对于需要发布的项目，可以事先在程序中将如(Crashlytics,友盟等第三方崩溃定位的文件，也可以使用QuincyKit结合PHP服务端搭建自己的bug系统管理后台），根据archive文件（也就是十六进制文件，发包前的编译文件后的内存地址，实际第三方地位到的内存地址就是这个）定位第三方服务端提供的崩溃信息（内存地址）。如下图友盟定位的崩溃信息日志，<br>对于这样的一个崩溃信息，大多数人措手不及，但是通过dsym文件（十六进制内存地址），根据提示信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3   LR                                  0x10c527 LR + 1082663</span><br><span class="line">21  LR                                  0xf258b LR + 976267</span><br></pre></td></tr></table></figure>
+<p>根据之前发包的archive文件，（关于怎么找到archive文件，Command + shift +2）<br>找到对应时间的archive文件后，选择鼠标右键find show archive文件后，找到文件后，选择显示包含的内容知道DAWF文件后具体的路径显示简介即可找到（/Users/qianjx_tyrbl/Library/Developer/Xcode/Archives/2014-08-12/4.30.xcarchive/dSYMs/LR.app.dSYM/Contents/Resources/DWARF），进入DWARF文件，在terminate终端输入 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dwarfdump --uuid LR //查看当前项目的uuid（LR表示项目名称），是否和第三方定位的崩溃匹配uuid</span><br><span class="line">atos -arch armv7 -o LR 0x10c527 //armv7内存地址对应的内容</span><br><span class="line">atos -arch arm64 -o LR 0x10c527 //arm64内存地址对应的内容</span><br></pre></td></tr></table></figure>
+<p>2.当然如果你是用电脑archive的方式，在上传appstore的时候，苹果会有提示是否勾选上传dsym文件，那么在本台机器上面即可查到对应提交版本所有线上崩溃的问题。</p>
 
       
     </div>
@@ -262,18 +252,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/01/iOS开发工具/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          iOS开发工具
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Jenkins+Github+Xcode+Fir CI实战</div>
+    <a href="/2016/04/21/Mac开发工具/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mac开发工具</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -308,7 +289,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="iOS知识点" data-title="iOS知识点" data-url="http://www.tortoise.com/2016/04/01/iOS知识点/"></div>
+	<div class="ds-thread" data-thread-key="iOS-Crash" data-title="iOS Crash" data-url="http://www.tortoise.com/2016/05/04/iOS-Crash/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
