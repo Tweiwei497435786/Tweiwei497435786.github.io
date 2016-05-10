@@ -77,7 +77,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -487,7 +487,7 @@
 </ul>
 <h4 id="线上崩溃定位"><a href="#线上崩溃定位" class="headerlink" title="线上崩溃定位"></a>线上崩溃定位</h4><p>1.对于需要发布的项目，可以事先在程序中将如(Crashlytics,友盟等第三方崩溃定位的文件，也可以使用QuincyKit结合PHP服务端搭建自己的bug系统管理后台），根据archive文件（也就是十六进制文件，发包前的编译文件后的内存地址，实际第三方地位到的内存地址就是这个）定位第三方服务端提供的崩溃信息（内存地址）。如下图友盟定位的崩溃信息日志，<br>对于这样的一个崩溃信息，大多数人措手不及，但是通过dsym文件（十六进制内存地址），根据提示信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3   LR                                  0x10c527 LR + 1082663</span><br><span class="line">21  LR                                  0xf258b LR + 976267</span><br></pre></td></tr></table></figure>
-<p>根据之前发包的archive文件，（关于怎么找到archive文件，Command + shift +2）<br>找到对应时间的archive文件后，选择鼠标右键find show archive文件后，找到文件后，选择显示包含的内容知道DAWF文件后具体的路径显示简介即可找到（/Users/qianjx_tyrbl/Library/Developer/Xcode/Archives/2014-08-12/4.30.xcarchive/dSYMs/LR.app.dSYM/Contents/Resources/DWARF），进入DWARF文件，在terminate终端输入 </p>
+<p>根据之前发包的archive文件，（关于怎么找到archive文件，Command + shift +2）<br>找到对应时间的archive文件后，选择鼠标右键find show archive文件后，找到文件后，选择显示包含的内容知道DAWF文件后具体的路径显示简介即可找到<code>/Users/qianjx_tyrbl/Library/Developer/Xcode/Archives/2014-08-12/4.30.xcarchive/dSYMs/LR.app.dSYM/Contents/Resources/DWARF</code>，进入DWARF文件，在terminate终端输入 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dwarfdump --uuid LR //查看当前项目的uuid（LR表示项目名称），是否和第三方定位的崩溃匹配uuid</span><br><span class="line">atos -arch armv7 -o LR 0x10c527 //armv7内存地址对应的内容</span><br><span class="line">atos -arch arm64 -o LR 0x10c527 //arm64内存地址对应的内容</span><br></pre></td></tr></table></figure>
 <p>2.当然如果你是用电脑archive的方式，在上传appstore的时候，苹果会有提示是否勾选上传dsym文件，那么在本台机器上面即可查到对应提交版本所有线上崩溃的问题。</p>
 
