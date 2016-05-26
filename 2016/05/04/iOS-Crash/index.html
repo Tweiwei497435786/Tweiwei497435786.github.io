@@ -1,232 +1,189 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>iOS Crash | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      iOS Crash | Hexo 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Tortoise">
+    
+    
+
+    <meta name="description" content="iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。
 开发崩溃定位1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS Crash">
+<meta property="og:title" content="iOS Crash | Hexo">
 <meta property="og:url" content="http://www.tortoise.com/2016/05/04/iOS-Crash/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。
 开发崩溃定位1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB">
 <meta property="og:updated_time" content="2016-05-10T13:27:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS Crash">
+<meta name="twitter:title" content="iOS Crash | Hexo">
 <meta name="twitter:description" content="iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。
 开发崩溃定位1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
 </head>
-
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
-			
-		</a>
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">Tortoise</a></h1>
-		</hgroup>
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
 
-		
-		<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>Menu</li>
-						<li>Tags</li>
-						
-						<li>Links</li>
-						
-						
-						<li>Über</li>
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">Home</a></li>
-				        
-							<li><a href="/archives">Archives</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
-					        
-								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
-					        
-								<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
-					        
-						</div>					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/旅行/" style="font-size: 10px;">旅行</a>
-					</div>
-				</section>
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://objccn.io">Objc中国</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.devtang.com">唐巧的技术博客</a>
-			        
-			        </div>
-				</section>
-				
-
-				
-				
-				<section class="switch-part switch-part4">
-				
-					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，追求自由与极致…</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Tortoise</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">Tortoise</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">Home</a></li>
-		        
-					<li><a href="/archives">Archives</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
-			        
-						<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-
-      <div class="body-wrap"><article id="post-iOS-Crash" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/04/iOS-Crash/" class="article-date">
-  	<time datetime="2016-05-04T07:59:49.000Z" itemprop="datePublished">2016-05-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
   
-    <h1 class="article-title" itemprop="name">
-      iOS Crash
-    </h1>
-  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
 
-      </header>
-      
-      <div class="article-info article-info-post">
         
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Hexo</a></h1>
+        <hr class="panel-cover__divider" />
+
         
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
+        <p class="panel-cover__description">
+          Enjoying my work!Enjoying my life!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
 
 
-        <div class="clearfix"></div>
+
+        </div>
+
       </div>
-      
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>   iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。</p>
+    <h1 class="post-title">iOS Crash</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-04" class="post-meta__date date">2016-05-04</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/iOS开发/">iOS开发</a>
+            </font>
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>   iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。</p>
 <h4 id="开发崩溃定位"><a href="#开发崩溃定位" class="headerlink" title="开发崩溃定位"></a>开发崩溃定位</h4><p>1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB调测模式，需要下载相关GDB 相关的插件，根据崩溃内存地址内容，使用LLDB,GDB命令可以轻松定位相关的信息，在edit scheme中同时需要勾选Diagnostics的Run中Objective-c (Enable Zombie Objects，Malloc Stack)中显示内存地址。</p>
 <p>2.使用全局断点检测当前xcode运行出现的崩溃信息，对于当前的崩溃位置断点会自动定位。对于没有成功定位的时候，可以结合方式1定位相关的bug</p>
 <p>3.如果是Xcode7以上，在edit sheme中需要够炫Diagnostics的Run选项中的Runtime Sanitization的Enable Address Sanitizer，出现崩溃将会自动定位。</p>
@@ -245,140 +202,58 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dwarfdump --uuid LR //查看当前项目的uuid（LR表示项目名称），是否和第三方定位的崩溃匹配uuid</span><br><span class="line">atos -arch armv7 -o LR 0x10c527 //armv7内存地址对应的内容</span><br><span class="line">atos -arch arm64 -o LR 0x10c527 //arm64内存地址对应的内容</span><br></pre></td></tr></table></figure>
 <p>2.当然如果你是用电脑archive的方式，在上传appstore的时候，苹果会有提示是否勾选上传dsym文件，那么在本台机器上面即可查到对应提交版本所有线上崩溃的问题。</p>
 
-      
-    </div>
-    
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/05/09/去掉Xcode工程相关警告/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          去掉Xcode工程相关警告
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/04/21/Mac开发工具/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Mac开发工具</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
+  </section>
 
+  
   
 </article>
 
 
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>
-    <a class="jiathis_button_plus"></a> 
-    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
+            <footer class="footer">
 
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="iOS-Crash" data-title="iOS Crash" data-url="http://www.tortoise.com/2016/05/04/iOS-Crash/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"true"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 Tortoise
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
 
 
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
 
 
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
 
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-  </div>
 </body>
 </html>
