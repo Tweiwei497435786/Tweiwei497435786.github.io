@@ -926,7 +926,7 @@ a {
 }
 .article-title {
   color: #696969;
-  margin-left: 0px;
+  text-align: center;
   font-weight: 300;
   line-height: 35px;
   margin-bottom: 20px;
