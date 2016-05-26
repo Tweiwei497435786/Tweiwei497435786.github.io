@@ -1,12 +1,90 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
+<!doctype html>
+
+
+
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Enjoying my work!Enjoying my life!">
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Enjoying my work!Enjoying my life!">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://www.tortoise.com/index.html">
@@ -15,205 +93,191 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="Enjoying my work!Enjoying my life!">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> Hexo </title>
 </head>
 
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
-			
-		</a>
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">Tortoise</a></h1>
-		</hgroup>
+  
 
-		
-		<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
-		
 
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>Menu</li>
-						<li>Tags</li>
-						
-						<li>Links</li>
-						
-						
-						<li>About</li>
-						
-					</ul>
-				</div>
-			</div>
-		
 
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">Home</a></li>
-				        
-							<li><a href="/archives">Archives</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
-					        
-								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
-					        
-								<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
-					        
-						</div>					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/旅行/" style="font-size: 10px;">旅行</a>
-					</div>
-				</section>
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://objccn.io">Objc中国</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.devtang.com">唐巧的技术博客</a>
-			        
-			        </div>
-				</section>
-				
 
-				
-				
-				<section class="switch-part switch-part4">
-				
-					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，追求自由与极致…</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Enjoying my work!Enjoying my life!</p>
 </div>
 
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Tortoise</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">Tortoise</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">Home</a></li>
-		        
-					<li><a href="/archives">Archives</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
-			        
-						<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-端午节骑行杭州至黄山计划" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/25/端午节骑行杭州至黄山计划/" class="article-date">
-  	<time datetime="2016-05-25T03:19:11.000Z" itemprop="datePublished">2016-05-25</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/25/端午节骑行杭州至黄山计划/">端午节骑行杭州至黄山计划</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/25/端午节骑行杭州至黄山计划/" itemprop="url">
+                  端午节骑行杭州至黄山计划
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-25T11:19:11+08:00" content="2016-05-25">
+              2016-05-25
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="端午节骑行杭州至黄山计划书"><a href="#端午节骑行杭州至黄山计划书" class="headerlink" title="端午节骑行杭州至黄山计划书"></a>端午节骑行杭州至黄山计划书</h2><blockquote>
+      
+
+      
+        
+          
+            <h2 id="端午节骑行杭州至黄山计划书"><a href="#端午节骑行杭州至黄山计划书" class="headerlink" title="端午节骑行杭州至黄山计划书"></a>端午节骑行杭州至黄山计划书</h2><blockquote>
 <h3 id="出行概要"><a href="#出行概要" class="headerlink" title="出行概要"></a>出行概要</h3></blockquote>
 <h4 id="活动时间：2016-6-9–2016-6-11"><a href="#活动时间：2016-6-9–2016-6-11" class="headerlink" title="活动时间：2016.6.9–2016.6.11"></a>活动时间：2016.6.9–2016.6.11</h4><h4 id="活动目的：骑游，赏景"><a href="#活动目的：骑游，赏景" class="headerlink" title="活动目的：骑游，赏景"></a>活动目的：骑游，赏景</h4><h4 id="道路状况：平坦路面为主"><a href="#道路状况：平坦路面为主" class="headerlink" title="道路状况：平坦路面为主"></a>道路状况：平坦路面为主</h4><h4 id="出发时间：2016-6-9"><a href="#出发时间：2016-6-9" class="headerlink" title="出发时间：2016.6.9"></a>出发时间：2016.6.9</h4><h4 id="回程时间：2016-6-11"><a href="#回程时间：2016-6-11" class="headerlink" title="回程时间：2016.6.11"></a>回程时间：2016.6.11</h4><h4 id="路程：250KM"><a href="#路程：250KM" class="headerlink" title="路程：250KM+"></a>路程：250KM+</h4><h4 id="活动强度：一般"><a href="#活动强度：一般" class="headerlink" title="活动强度：一般"></a>活动强度：一般</h4><h4 id="活动费用：含路费计划400以内"><a href="#活动费用：含路费计划400以内" class="headerlink" title="活动费用：含路费计划400以内"></a>活动费用：含路费计划400以内</h4><h4 id="联系人：Tweiwei497435786-微信"><a href="#联系人：Tweiwei497435786-微信" class="headerlink" title="联系人：Tweiwei497435786[微信]"></a>联系人：Tweiwei497435786[微信]</h4><blockquote>
 <h3 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h3></blockquote>
@@ -271,62 +335,118 @@
 <p>1.本活动是自发的，有一定的危险性，参加者须对自己的安全负责。活动中当由于意外事故或急性疾病等不可预测因素造成身体损伤时，团队的其他成员会尽全力救助，但不承担任何法律和经济责任，望能理解</p>
 <p>2.任何参与本活动的人均视为同意此免责声明</p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/旅行/">旅行</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Git-Hooks" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/16/Git-Hooks/" class="article-date">
-  	<time datetime="2016-05-16T03:50:42.000Z" itemprop="datePublished">2016-05-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/16/Git-Hooks/">Git Hooks</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/16/Git-Hooks/" itemprop="url">
+                  Git Hooks
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-16T11:50:42+08:00" content="2016-05-16">
+              2016-05-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <blockquote>
+      
+
+      
+        
+          
+            <blockquote>
 <p>Git 本身可以调用自定义的挂钩脚本，其中有两组：客户端和服务器端。客户端挂钩用于客户端的操作，如提交和合并。服务器端挂钩用于 Git 服务器端的操作，如接收被推送的提交。</p>
 </blockquote>
 <p>进入当前的项目的目录，执行如下命令，会看到git下面hooks包含的hook操作</p>
@@ -355,122 +475,234 @@
 <p>2.<a href="https://git-scm.com/book/zh/v2/自定义-Git-Git-钩子" target="_blank" rel="external">自定义 Git - Git 钩子</a></p>
 <p>3.<a href="http://blog.csdn.net/haydenwang8287/article/details/1753883" target="_blank" rel="external"> linux文件权限查看及修改-chmod ——入门的一些常识</a></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-JSPatch" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/11/JSPatch/" class="article-date">
-  	<time datetime="2016-05-11T03:38:02.000Z" itemprop="datePublished">2016-05-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/11/JSPatch/">JSPatch</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/11/JSPatch/" itemprop="url">
+                  JSPatch
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-11T11:38:02+08:00" content="2016-05-11">
+              2016-05-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://www.jspatch.com/Docs/intro" target="_blank" rel="external">JSPatch官网</a></p>
+      
+
+      
+        
+          
+            <h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://www.jspatch.com/Docs/intro" target="_blank" rel="external">JSPatch官网</a></p>
 <p>2.<a href="https://github.com/bang590/JSPatch" target="_blank" rel="external">JSPatch的Github链接</a></p>
 <p>3.<a href="http://bang590.github.io/JSPatchConvertor/" target="_blank" rel="external">OC转换为JSPatch</a>（不是万能的）</p>
 <p>4.<a href="http://www.cocoachina.com/ios/20150708/12467.html" target="_blank" rel="external">JSPatch实现原理详解</a></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Code-Snippets" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/10/Code-Snippets/" class="article-date">
-  	<time datetime="2016-05-10T13:23:24.000Z" itemprop="datePublished">2016-05-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/10/Code-Snippets/">Code Snippets</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/10/Code-Snippets/" itemprop="url">
+                  Code Snippets
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-10T21:23:24+08:00" content="2016-05-10">
+              2016-05-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>code snippets可以提供一些代码片段的操作，可以节省输入需要的时间。类似于系统的输入字母后的提示效果，点击确定后自动填充。根据下面的步骤可以实现一个简单的snippets。甚至你可以创建自己snippets的library</p>
+      
+
+      
+        
+          
+            <p>code snippets可以提供一些代码片段的操作，可以节省输入需要的时间。类似于系统的输入字母后的提示效果，点击确定后自动填充。根据下面的步骤可以实现一个简单的snippets。甚至你可以创建自己snippets的library</p>
 <h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>1.输入你想要的snippets,如下(对代理的内容进行编写snippets，防止开发人员写错属性及节省时间）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, weak) id&lt;BBMartshowDetailDelegate&gt; martshowDetailDelegate;</span><br></pre></td></tr></table></figure>
 <p>2.然后单击并按住代码块，知道文本光标变为箭头光标。接着将代码块拖放到code snippet library中，然后松开鼠标,弹出视图即使snippets内容，修改title(snippet的名称),Commpletion Short(快捷数据的内容),Platform,Language等。如下图的展示，我在这里取得名字property delegate(snippets中的名称),Completion Shortcut为pd（快捷输入提示）,Completion Scopes设置为Class Interface Methods表示只在.h中才会起作用：</p>
@@ -482,118 +714,230 @@
 <p>下面会通过gif图展示该如何操作：</p>
 <p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/2016-05-10%2021_07_57.gif" alt="General preferences pane"></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS-Runtime" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/10/iOS-Runtime/" class="article-date">
-  	<time datetime="2016-05-10T05:23:42.000Z" itemprop="datePublished">2016-05-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/10/iOS-Runtime/">iOS Runtime</a>
-    </h1>
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/10/iOS-Runtime/" itemprop="url">
+                  iOS Runtime
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-10T13:23:42+08:00" content="2016-05-10">
+              2016-05-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
+      
+
+      
+        
+          
+            
+          
         
       
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
 
-
+    <div>
       
-      <div class="clearfix"></div>
     </div>
-    
-  </div>
-  
-</article>
 
-
-
-
-
-
-
-
-
-  
-    <article id="post-getenv函数，获取环境变量的值" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/09/getenv函数，获取环境变量的值/" class="article-date">
-  	<time datetime="2016-05-09T07:50:13.000Z" itemprop="datePublished">2016-05-09</time>
-</a>
+    <div>
+      
     </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-  <div class="article-inner">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/09/getenv函数，获取环境变量的值/">getenv函数，获取环境变量的值</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/09/getenv函数，获取环境变量的值/" itemprop="url">
+                  getenv函数，获取环境变量的值
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-09T15:50:13+08:00" content="2016-05-09">
+              2016-05-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>有的时候，想要在自己的机器当前公用的工程测试特定情况的内容，提交代码之后不想影响到其它开发人员，拉取新的代码后不影响自己的工程，那么通过配置环境变量的方式将会解决该问题，getenv()用来取得参数环境变量envvar的内容。</p>
+      
+
+      
+        
+          
+            <p>有的时候，想要在自己的机器当前公用的工程测试特定情况的内容，提交代码之后不想影响到其它开发人员，拉取新的代码后不影响自己的工程，那么通过配置环境变量的方式将会解决该问题，getenv()用来取得参数环境变量envvar的内容。</p>
 <h3 id="getenv-函数"><a href="#getenv-函数" class="headerlink" title="getenv()函数"></a>getenv()函数</h3><p>参数envvar为环境变量的名称，如果该变量存在则会返回指向该内容的指针。环境变量的格式为envvar=value。getenv函数的返回值存储在一个全局二维数组里，当你再次使用getenv函数时不用担心会覆盖上次的调用结果</p>
 <p>返回值: 执行成功则返回指向该内容的指针，找不到符合的环境变量名称则返回NULL。如果变量存在但无关联值，它将运行成功并返回一个空字符串，即该字符的第一个字节是null。</p>
 <p>在iOS中如何使用该函数，如下图（之前有讲过，修改改配置文件默认gitignore会忽略掉，所以在本地修改是无法提交的也就是不会影响其它开发）：</p>
@@ -601,66 +945,118 @@
 <h3 id="方法使用"><a href="#方法使用" class="headerlink" title="方法使用"></a>方法使用</h3><p>如果要使用，则在环境变量中定义相应的变量，并且赋值如上图中，否则不会产生影响。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+ (BOOL)boolValueByKey:(NSString*)key default:(BOOL)defaultValue</span><br><span class="line">&#123;</span><br><span class="line">    BOOL value;</span><br><span class="line">    char* valueChar = getenv([key UTF8String]);</span><br><span class="line">    if(valueChar != nil &amp;&amp; valueChar != 0)&#123;//如果为nil，并且不为null，则读取配置文件，否则默认设置</span><br><span class="line">        value = [[NSString stringWithFormat:@&quot;%s&quot;, valueChar] boolValue];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        value = defaultValue;</span><br><span class="line">    &#125;</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ([self boolValueByKey:@&quot;test&quot; default:NO]) &#123;</span><br><span class="line">   NSLog(@&quot;TESTTEST&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发技巧/">开发技巧</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-去掉Xcode工程相关警告" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/09/去掉Xcode工程相关警告/" class="article-date">
-  	<time datetime="2016-05-09T06:43:45.000Z" itemprop="datePublished">2016-05-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/09/去掉Xcode工程相关警告/">去掉Xcode工程相关警告</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/09/去掉Xcode工程相关警告/" itemprop="url">
+                  去掉Xcode工程相关警告
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-09T14:43:45+08:00" content="2016-05-09">
+              2016-05-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>在我们的项目中,通常使用了大量的第三方代码,这些代码可能很复杂,我们不敢改动他们,可是作者已经停止更新了,当sdk升级或者是编译器升级后,这些遗留的代码可能会出现许许多多的警告,又或者我们自己部分的代码出现了警告，那么我们能够有办法将这些警告清理掉么？以下讲的的一些方法可能比较有效的帮助你解决问题。</p>
+      
+
+      
+        
+          
+            <p>在我们的项目中,通常使用了大量的第三方代码,这些代码可能很复杂,我们不敢改动他们,可是作者已经停止更新了,当sdk升级或者是编译器升级后,这些遗留的代码可能会出现许许多多的警告,又或者我们自己部分的代码出现了警告，那么我们能够有办法将这些警告清理掉么？以下讲的的一些方法可能比较有效的帮助你解决问题。</p>
 <h4 id="第三方代码"><a href="#第三方代码" class="headerlink" title="第三方代码"></a>第三方代码</h4><p>最直接,最一劳永逸,最安全的方式,直接找到警告的那段代码,改为不警告.这个方式,最安全.可是它有一个问题,就是,当我们很多文件都有这种类型的警告的时候,我们就需要改动很多很多的源码了, 对于不是我们写的源码,使用这种方法侵入性太强,显然就不太可取了。</p>
 <p>1.使用编译器提供的宏来操作，如下面我们经常看到的:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored&quot;-Wdeprecated-declarations&quot;</span><br><span class="line">		//写在这个中间的代码,都不会被编译器提示-Wdeprecated-declarations类型的警告</span><br><span class="line">dispatch_queue_tcurrentQueue =dispatch_get_current_queue();</span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
@@ -678,62 +1074,118 @@
 <p>2.<a href="http://stackoverflow.com/questions/7017281/performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761" target="_blank" rel="external">performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761</a></p>
 <p>3.<a href="ignore-all-warnings-in-a-specific-file-using-llvm-clang">ignore-all-warnings-in-a-specific-file-using-llvm-clang</a></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS-Crash" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/04/iOS-Crash/" class="article-date">
-  	<time datetime="2016-05-04T07:59:49.000Z" itemprop="datePublished">2016-05-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/04/iOS-Crash/">iOS Crash</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/04/iOS-Crash/" itemprop="url">
+                  iOS Crash
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-05-04T15:59:49+08:00" content="2016-05-04">
+              2016-05-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>   iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。</p>
+      
+
+      
+        
+          
+            <p>   iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。</p>
 <h4 id="开发崩溃定位"><a href="#开发崩溃定位" class="headerlink" title="开发崩溃定位"></a>开发崩溃定位</h4><p>1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB调测模式，需要下载相关GDB 相关的插件，根据崩溃内存地址内容，使用LLDB,GDB命令可以轻松定位相关的信息，在edit scheme中同时需要勾选Diagnostics的Run中Objective-c (Enable Zombie Objects，Malloc Stack)中显示内存地址。</p>
 <p>2.使用全局断点检测当前xcode运行出现的崩溃信息，对于当前的崩溃位置断点会自动定位。对于没有成功定位的时候，可以结合方式1定位相关的bug</p>
 <p>3.如果是Xcode7以上，在edit sheme中需要够炫Diagnostics的Run选项中的Runtime Sanitization的Enable Address Sanitizer，出现崩溃将会自动定位。</p>
@@ -752,62 +1204,118 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dwarfdump --uuid LR //查看当前项目的uuid（LR表示项目名称），是否和第三方定位的崩溃匹配uuid</span><br><span class="line">atos -arch armv7 -o LR 0x10c527 //armv7内存地址对应的内容</span><br><span class="line">atos -arch arm64 -o LR 0x10c527 //arm64内存地址对应的内容</span><br></pre></td></tr></table></figure>
 <p>2.当然如果你是用电脑archive的方式，在上传appstore的时候，苹果会有提示是否勾选上传dsym文件，那么在本台机器上面即可查到对应提交版本所有线上崩溃的问题。</p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Mac开发工具" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/21/Mac开发工具/" class="article-date">
-  	<time datetime="2016-04-21T06:34:59.000Z" itemprop="datePublished">2016-04-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/21/Mac开发工具/">Mac开发工具</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/21/Mac开发工具/" itemprop="url">
+                  Mac开发工具
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-04-21T14:34:59+08:00" content="2016-04-21">
+              2016-04-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Mac上面经常需要要安装的一些强大软件，便于开发人员开发工作。</p>
+      
+
+      
+        
+          
+            <p>Mac上面经常需要要安装的一些强大软件，便于开发人员开发工作。</p>
 <h3 id="下面介绍一些Mac上面经常使用的开发软件的工具"><a href="#下面介绍一些Mac上面经常使用的开发软件的工具" class="headerlink" title="下面介绍一些Mac上面经常使用的开发软件的工具"></a>下面介绍一些Mac上面经常使用的开发软件的工具</h3><ul>
 <li><p><a href="http://iterm2.com" target="_blank" rel="external">iterm2</a>被称为是mac上最强大的终端，各种功能都很强大，具体<a href="http://www.yangzhiping.com/tech/iterm2.html" target="_blank" rel="external">特色功能</a>见这里。然后搭配安装<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">ohmyzsh</a>,中文版本<a href="http://linglong117.blog.163.com/blog/static/27714547201241111838971/" target="_blank" rel="external">详解</a></p>
 </li>
@@ -819,62 +1327,118 @@
 </li>
 </ul>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/工具/">工具</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-SSH" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/19/SSH/" class="article-date">
-  	<time datetime="2016-04-19T06:29:47.000Z" itemprop="datePublished">2016-04-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/19/SSH/">SSH</a>
-    </h1>
   
 
-      </header>
-      
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-    <div class="article-entry" itemprop="articleBody">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/19/SSH/" itemprop="url">
+                  SSH
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-04-19T14:29:47+08:00" content="2016-04-19">
+              2016-04-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH</p>
+      
+
+      
+        
+          
+            <p>SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH</p>
 <h3 id="一-安装SSH"><a href="#一-安装SSH" class="headerlink" title="一.安装SSH"></a>一.安装SSH</h3><p>1.安装ssh的服务端，需要在目标服务器安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure>
 <p>2.安装ssh的客户端，需要在客户端安装</p>
@@ -892,100 +1456,236 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp  -r local_dir username@servername:remote_dir</span><br><span class="line">iMac-tortoise% scp -r /Users/tianww/Desktop/iOS wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/</span><br></pre></td></tr></table></figure>
 <p>6.从服务器下载整个目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp -r username@servername:/var/www/remote_dir/（远程目录） /var/www/local_dir（本地目录）</span><br><span class="line">iMac-tortoise% scp -r wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/ /Users/tianww/Desktop/iOS</span><br></pre></td></tr></table></figure>
+          
+        
       
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/工具/">工具</a>
-	</div>
 
-
+    <div>
       
-      <div class="clearfix"></div>
     </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
   </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Tortoise" />
+          <p class="site-author-name" itemprop="name">Tortoise</p>
+          <p class="site-description motion-element" itemprop="description">Enjoying my work!Enjoying my life!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">Kategorien</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tortoise</span>
 </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 Tortoise
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
     </div>
   </div>
-</footer>
-    </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
+  
 
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
 
-  </div>
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
 </body>
 </html>
