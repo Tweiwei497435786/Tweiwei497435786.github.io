@@ -18,7 +18,7 @@ JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可�
 
 动态更新方案
 JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可通过">
-<meta property="og:updated_time" content="2016-05-26T10:09:23.000Z">
+<meta property="og:updated_time" content="2016-05-27T08:56:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSPatch">
 <meta name="twitter:description" content="上架后的 应用 可能会遇到的一些突发状况 , 未测出的Crash、临时改点小需求 , 等等 , 我们总不能每次因为一点小改动就重新提交一次 App Store , 先不说 App Store 的审核时间 , 频繁的让用户去更新应用 , 用户也会烦的 。使用这篇文章所讲的来实现动态更新是再合适不过了
@@ -87,7 +87,7 @@ JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可�
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>A propos</li>
 						
 					</ul>
 				</div>
@@ -245,7 +245,17 @@ JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可�
 <li>….</li>
 </ul>
 <h3 id="基础原理"><a href="#基础原理" class="headerlink" title="基础原理"></a>基础原理</h3><p>JSPatch用iOS内置的JavaScriptCore.framework作为JS引擎，但没有用它JSExport的特性进行JS-OC函数互调，而是通过Objective-C Runtime，从JS传递要调用的类名函数名到Objective-C，再使用NSInvocation动态调用对应的OC方法。</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://www.jspatch.com/Docs/intro" target="_blank" rel="external">JSPatch官网</a></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h4><p>按照<a href="http://www.jspatch.com/Docs/intro" target="_blank" rel="external">JSPatch Platform</a>进行下载SDK,按照指示接入SDK。简单方便无需要考虑后台搭建，安全等问题，达到一定的用户日活量需要收费。</p>
+<h4 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h4><p><a href="https://github.com/bang590/JSPatch" target="_blank" rel="external">JSPatch</a>下载代码，或者通过pod管理方式引入JSPatch文件。如果只是在本地调用测试js代码是否作用，只需要调用如代码,并在jsPatchTest.js中加入测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@&quot;jsPatchTest&quot; ofType:@&quot;js&quot;];</span><br><span class="line">NSString *script = [NSString stringWithContentsOfFile:sourcePath encoding:NSUTF8StringEncoding error:nil];</span><br><span class="line">[JPEngine startEngine];</span><br><span class="line">[JPEngine evaluateScript:script];</span><br></pre></td></tr></table></figure>
+<p>如上仅仅是本地js代码测试，发布线上我们需要有自己的后台下发脚本，每次客户端启动app非实时或者becomeActivity实时检测最新的hotfix的脚本，根据当前的用户app的版本和hotfix的版本，用户自动请求下载脚本后保存在本地。在这一过程中可能会被劫持造成不可控的安全问题，为此我们需要在后台进行MD5或者RSA等加密，移动端进行解密操作，确保安全问题。</p>
+<h4 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h4><p>Github 开源的是 JSPatch 核心代码，使用完全免费自由，若打算自己搭建后台下发 JSPatch 脚本，可以直接使用 github 上的核心代码，与 JSPatch 平台上的 SDK 无关。JSPatch 平台的 SDK 在核心代码的基础上增加了向平台请求脚本/传输解密/版本管理等功能，只用于这个平台。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>1.定义为ivar的成员，无法获取，特别注意。属性的访问都是通过方法调用的形式。所以代码中不要使用ivar定义成员。</p>
+<p>2.注意写代码的时候能够拆分的代码，尽量简洁干净。避免hotfix的时候，需要重写大量的内容。</p>
+<p>3.JSPatch获取OC class名称的方法，用于OC判读是否属于某一个类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj.__clsDeclaration //返回的是一个字符串，通过比较改字符串与类名的字符串是否相等可以判断obj的类型。 应用于新版的JSPatch</span><br><span class="line">obj.__clsName //对于使用老版本的JSPatch需要使用该字段来获取class名称</span><br></pre></td></tr></table></figure>
+<h3 id="hotfix代码示例"><a href="#hotfix代码示例" class="headerlink" title="hotfix代码示例"></a>hotfix代码示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">defineClass(&quot;BBNewMainView&quot;, &#123;</span><br><span class="line">            // instance method definitions</span><br><span class="line">        reloadDynamicBanners:function() &#123;</span><br><span class="line">            require(&apos;BBSquareAdsView,BBAdsCollectionView&apos;);</span><br><span class="line">            var adsCollectionViewJS = self.adsCollectionView();</span><br><span class="line">            var squareAdsView = self.squareAdsView();//定义为ivar的成员，无法获取，特别注意。属性的访问都是通过方法调用的形式</span><br><span class="line">            var adsTop = adsCollectionViewJS.frame().y;//注意该地方获取origin.y的方式，相关文档上面存在错误</span><br><span class="line">            var adsHeight = adsCollectionViewJS.frame().height;</span><br><span class="line">            var adsBottom = adsTop + adsHeight;</span><br><span class="line">            squareAdsView.setFrame(&#123;x:0, y:parseInt(adsBottom), width:0, height:0&#125;);//注意这里parseInt(adsBottom)，转换为int类型的</span><br><span class="line">            self.ORIGreloadDynamicBanners(); //添加ORIG前缀表示调用oc中的原始方法</span><br><span class="line">        &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.jspatch.com/Docs/intro" target="_blank" rel="external">JSPatch官网</a></p>
 <p>2.<a href="https://github.com/bang590/JSPatch" target="_blank" rel="external">JSPatch的Github链接</a></p>
 <p>3.<a href="http://bang590.github.io/JSPatchConvertor/" target="_blank" rel="external">OC转换为JSPatch</a>（不是万能的）</p>
 <p>4.<a href="http://www.cocoachina.com/ios/20150708/12467.html" target="_blank" rel="external">JSPatch实现原理详解</a></p>
