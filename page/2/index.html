@@ -77,7 +77,7 @@
 						<li>Links</li>
 						
 						
-						<li>A propos</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 10px;">iOS开发</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/旅行/" style="font-size: 10px;">旅行</a>
+						<a href="/tags/iOS开发/" style="font-size: 10px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/旅行/" style="font-size: 10px;">旅行</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,79 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-SSH" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/19/SSH/" class="article-date">
+  	<time datetime="2016-04-19T06:29:47.000Z" itemprop="datePublished">2016-04-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/19/SSH/">SSH</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH</p>
+<h3 id="一-安装SSH"><a href="#一-安装SSH" class="headerlink" title="一.安装SSH"></a>一.安装SSH</h3><p>1.安装ssh的服务端，需要在目标服务器安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure>
+<p>2.安装ssh的客户端，需要在客户端安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-client</span><br></pre></td></tr></table></figure>
+<p>由于Mac系统已经安装了ssh，所以可以直接使用。</p>
+<h3 id="一-SSH简单命令"><a href="#一-SSH简单命令" class="headerlink" title="一.SSH简单命令"></a>一.SSH简单命令</h3><p>1.无选项参数运行 SSH</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 192.168.40.140</span><br></pre></td></tr></table></figure>
+<p>2.指定登陆用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh wuxian@192.168.40.140或者下面</span><br><span class="line">ssh -l wuxian 192.168.40.140</span><br></pre></td></tr></table></figure>
+<p>3.上传本地文件到服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp /path/filename username@servername:/path</span><br><span class="line">iMac-tortoise% scp /Users/tianww/Desktop/beibei_work/小工具/renameDeliver/renameDeliver.sh wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/</span><br></pre></td></tr></table></figure>
+<p>4.从服务器上下载文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp username@servername:/path/filename /var/www/local_dir（本地目录）</span><br><span class="line">iMac-tortoise% scp wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/renameDeliver.sh /Users/tianww/Desktop/iOS</span><br></pre></td></tr></table></figure>
+<p>5.上传目录到服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp  -r local_dir username@servername:remote_dir</span><br><span class="line">iMac-tortoise% scp -r /Users/tianww/Desktop/iOS wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/</span><br></pre></td></tr></table></figure>
+<p>6.从服务器下载整个目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp -r username@servername:/var/www/remote_dir/（远程目录） /var/www/local_dir（本地目录）</span><br><span class="line">iMac-tortoise% scp -r wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/ /Users/tianww/Desktop/iOS</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/工具/">工具</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-FTP" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -986,69 +1059,6 @@
 <p>3.在有些情况下，我们在无法区分ipa文件是那种Configuration情况的的ipa文件，为了解决这个问题，我们可以在Build Settings中选择自定义一些参数，选择“＋” Add User Defined Settings，定义用户setting选项BUNDLE_DISPLAY_NAME_SUFFIX对不同Configuration进行图标展示不同的环境，如下图。</p>
 <p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/6B319E1B-BA49-4385-9717-504A027B6F55.png" alt="Markdown preferences pane"></p>
 <p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/CF976049-2C43-4681-9268-3485D53BF0E4.png" alt="Markdown preferences pane"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-UITouch简单使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/23/UITouch简单使用/" class="article-date">
-  	<time datetime="2016-03-23T12:19:40.000Z" itemprop="datePublished">2016-03-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/23/UITouch简单使用/">UITouch简单使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有些时候为了项目的需求需要（在一张广告的图片中，点击不同的区域，需要响应不同的操作）那么我们可以创建一个UIImageView,然后通过UIResponder的相关方法，获取当前的点击区域，通过判断分别处理事件。具体代码如下：</p>
-<p>由于UIView继承UIResponder类，可以通过实现如下方法，来获取点击区域操作。</p>
-<p>-(void)touchesBegan:(NSSet<uitouch *=""> <em>)touches withEvent:(nullable UIEvent </em>)event</uitouch></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    [touches enumerateObjectsUsingBlock:^(UITouch * _Nonnull obj, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        if (obj.view == self) &#123;</span><br><span class="line">            CGPoint touchPoint = [obj locationInView:self];</span><br><span class="line">            NSInteger index = [self locationJugement:touchPoint];</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">            NSLog(@&quot;touchPoint....:%@&quot;,NSStringFromCGPoint(touchPoint));</span><br><span class="line">#endif</span><br><span class="line">            if (self.delegate &amp;&amp; [self.delegate respondsToSelector:@selector(tapEventOption:)]&amp;&amp; index &gt;= 0) &#123;</span><br><span class="line">                [self.delegate tapEventOption:[self.hotSpotAdsArray safeObjectAtIndex:index]];</span><br><span class="line">            &#125;</span><br><span class="line">            *stop = YES;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSInteger)locationJugement:(CGPoint)point</span><br><span class="line">&#123;</span><br><span class="line">   __block NSInteger returnIndex = -1;//默认为－1</span><br><span class="line">    [self.hotSpotAdsArray enumerateObjectsUsingBlock:^(BBHotspotModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">        NSLog(@&quot;obj.rect...:%@&quot;,obj.rect);</span><br><span class="line">#endif</span><br><span class="line">        if ([obj.rect count] &gt;= 4) &#123;//防止越界</span><br><span class="line">            CGFloat orgX = [[obj.rect objectAtIndex:0] floatValue];</span><br><span class="line">            CGFloat orgY = [[obj.rect objectAtIndex:1] floatValue];</span><br><span class="line">            CGFloat width = [[obj.rect objectAtIndex:2] floatValue];</span><br><span class="line">            CGFloat height = [[obj.rect objectAtIndex:3] floatValue];</span><br><span class="line">            if ( (point.x &gt; orgX &amp;&amp; point.x &lt; orgX + width) &amp;&amp; (point.y &gt; orgY &amp;&amp; point.y &lt; orgY + height)) &#123;</span><br><span class="line">                returnIndex = idx;</span><br><span class="line">                *stop = YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    return returnIndex;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>可以通过以下方法测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (void)createTestModelArray</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:4];</span><br><span class="line">    for (NSInteger j = 0; j &lt; 4; j++) &#123;</span><br><span class="line">        NSArray *array = [[NSArray alloc] init];</span><br><span class="line">        BBHotspotModel *mode = [[BBHotspotModel alloc] init];</span><br><span class="line">        for (NSInteger i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">            NSInteger hang = ((j%2 == 0) ? j/2:(j/2));</span><br><span class="line">            NSInteger lei = ((j%2 == 0) ? 0:1);</span><br><span class="line">            CGFloat orgX = lei * (SCREEN_WIDTH/2.0);</span><br><span class="line">            CGFloat orgY = hang * (200/2.0);</span><br><span class="line">            array = [NSArray arrayWithObjects:@(orgX),@(orgY),@(SCREEN_WIDTH/2.0),@(200/2.0),nil];</span><br><span class="line">        &#125;</span><br><span class="line">        mode.rect = array;</span><br><span class="line">        mode.target = [NSString stringWithFormat:@&quot;跳转%ld&quot;,j];</span><br><span class="line">        [tempArray addObject:mode];</span><br><span class="line">    &#125;</span><br><span class="line">    self.hotspotArray = [NSMutableArray arrayWithObjects:tempArray,nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过测试发现，根据给定每一个特定区域,点击操作实现相关委托即可。</p>
 
       
     </div>
