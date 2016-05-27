@@ -9,10 +9,7 @@
   <meta name="description" content="上架后的 应用 可能会遇到的一些突发状况 , 未测出的Crash、临时改点小需求 , 等等 , 我们总不能每次因为一点小改动就重新提交一次 App Store , 先不说 App Store 的审核时间 , 频繁的让用户去更新应用 , 用户也会烦的 。使用这篇文章所讲的来实现动态更新是再合适不过了
 
 动态更新方案
-JSPatch
-
-参考1.JSPatch官网
-2.JSPatch的Github链接">
+JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可通过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JSPatch">
 <meta property="og:url" content="http://www.tortoise.com/2016/05/11/JSPatch/index.html">
@@ -20,20 +17,14 @@ JSPatch
 <meta property="og:description" content="上架后的 应用 可能会遇到的一些突发状况 , 未测出的Crash、临时改点小需求 , 等等 , 我们总不能每次因为一点小改动就重新提交一次 App Store , 先不说 App Store 的审核时间 , 频繁的让用户去更新应用 , 用户也会烦的 。使用这篇文章所讲的来实现动态更新是再合适不过了
 
 动态更新方案
-JSPatch
-
-参考1.JSPatch官网
-2.JSPatch的Github链接">
-<meta property="og:updated_time" content="2016-05-26T09:04:00.000Z">
+JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可通过">
+<meta property="og:updated_time" content="2016-05-26T10:09:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSPatch">
 <meta name="twitter:description" content="上架后的 应用 可能会遇到的一些突发状况 , 未测出的Crash、临时改点小需求 , 等等 , 我们总不能每次因为一点小改动就重新提交一次 App Store , 先不说 App Store 的审核时间 , 频繁的让用户去更新应用 , 用户也会烦的 。使用这篇文章所讲的来实现动态更新是再合适不过了
 
 动态更新方案
-JSPatch
-
-参考1.JSPatch官网
-2.JSPatch的Github链接">
+JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可通过">
   
   
     <link rel="icon" href="/favicon.png">
@@ -96,7 +87,7 @@ JSPatch
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -247,12 +238,18 @@ JSPatch
 <p>上架后的 应用 可能会遇到的一些突发状况 , 未测出的Crash、临时改点小需求 , 等等 , 我们总不能每次因为一点小改动就重新提交一次 App Store , 先不说 App Store 的审核时间 , 频繁的让用户去更新应用 , 用户也会烦的 。使用这篇文章所讲的来实现动态更新是再合适不过了</p>
 </blockquote>
 <h3 id="动态更新方案"><a href="#动态更新方案" class="headerlink" title="动态更新方案"></a>动态更新方案</h3><ul>
-<li>JSPatch</li>
+<li>JSPatch (代码量少，强大持续有人维护，js语言，appstore审核可通过）</li>
+<li><a href="https://github.com/alibaba/wax" target="_blank" rel="external">alibaba/wax</a>(阿里巴巴主推)</li>
+<li><a href="https://github.com/mmin18/WaxPatch" target="_blank" rel="external">WaxPatch</a></li>
+<li>脚本</li>
+<li>….</li>
 </ul>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://www.jspatch.com/Docs/intro" target="_blank" rel="external">JSPatch官网</a></p>
+<h3 id="基础原理"><a href="#基础原理" class="headerlink" title="基础原理"></a>基础原理</h3><p>JSPatch用iOS内置的JavaScriptCore.framework作为JS引擎，但没有用它JSExport的特性进行JS-OC函数互调，而是通过Objective-C Runtime，从JS传递要调用的类名函数名到Objective-C，再使用NSInvocation动态调用对应的OC方法。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://www.jspatch.com/Docs/intro" target="_blank" rel="external">JSPatch官网</a></p>
 <p>2.<a href="https://github.com/bang590/JSPatch" target="_blank" rel="external">JSPatch的Github链接</a></p>
 <p>3.<a href="http://bang590.github.io/JSPatchConvertor/" target="_blank" rel="external">OC转换为JSPatch</a>（不是万能的）</p>
 <p>4.<a href="http://www.cocoachina.com/ios/20150708/12467.html" target="_blank" rel="external">JSPatch实现原理详解</a></p>
+<p>5.<a href="http://bluereader.org/article/52429965" target="_blank" rel="external">iOS应用架构谈 动态部署方案</a></p>
 
       
     </div>
