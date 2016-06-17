@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>iOS 多线程理解之NSThread | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关于iOS中多线程知识已经有无数前辈总结过，文章的好坏参差不齐，多线程的问题似乎是成为一个高手必修炼的内功。如果说在面试过程中面试官必出的一道题，那么非多线程内容不可，iOS中的多线程开发真的有那么难么？下面是本人的一些总结，当然也参考了前人比较好的文章，只有去实践才能深刻的理解，下面会分三篇去讲解。
+多线程多线程（multithreading)，是指从软件或者硬件上实现多个线程并发执行的技术。在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 多线程理解之NSThread">
+<meta property="og:url" content="http://www.tortoise.com/2016/05/31/iOS-多线程理解之NSThread/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="关于iOS中多线程知识已经有无数前辈总结过，文章的好坏参差不齐，多线程的问题似乎是成为一个高手必修炼的内功。如果说在面试过程中面试官必出的一道题，那么非多线程内容不可，iOS中的多线程开发真的有那么难么？下面是本人的一些总结，当然也参考了前人比较好的文章，只有去实践才能深刻的理解，下面会分三篇去讲解。
+多线程多线程（multithreading)，是指从软件或者硬件上实现多个线程并发执行的技术。在">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/202333357067475.png">
+<meta property="og:updated_time" content="2016-06-17T08:18:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 多线程理解之NSThread">
+<meta name="twitter:description" content="关于iOS中多线程知识已经有无数前辈总结过，文章的好坏参差不齐，多线程的问题似乎是成为一个高手必修炼的内功。如果说在面试过程中面试官必出的一道题，那么非多线程内容不可，iOS中的多线程开发真的有那么难么？下面是本人的一些总结，当然也参考了前人比较好的文章，只有去实践才能深刻的理解，下面会分三篇去讲解。
+多线程多线程（multithreading)，是指从软件或者硬件上实现多个线程并发执行的技术。在">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/202333357067475.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Tortoise</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
+					        
+								<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
+					        
+						</div>					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 10px;">房屋装修</a> <a href="/tags/旅行/" style="font-size: 10px;">旅行</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://objccn.io">Objc中国</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.devtang.com">唐巧的技术博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://bluereader.org/rss/25188">Casa Taloyum</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，追求自由与极致…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Tortoise</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Tortoise</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
+			        
+						<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-iOS-多线程理解之NSThread" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/31/iOS-多线程理解之NSThread/" class="article-date">
+  	<time datetime="2016-05-31T09:15:05.000Z" itemprop="datePublished">2016-05-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS 多线程理解之NSThread
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于iOS中多线程知识已经有无数前辈总结过，文章的好坏参差不齐，多线程的问题似乎是成为一个高手必修炼的内功。如果说在面试过程中面试官必出的一道题，那么非多线程内容不可，iOS中的多线程开发真的有那么难么？下面是本人的一些总结，当然也参考了前人比较好的文章，只有去实践才能深刻的理解，下面会分三篇去讲解。</p>
+<h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><p>多线程（multithreading)，是指从<code>软件</code>或者<code>硬件</code>上实现多个线程并发执行的技术。在一个程序中，独立运行的程序片段叫做“线程”(Thread)。每个正在系统上运行的程序都是一个进程，每个进程包含一到多个线程。线程是一组指令的集合，或者是程序的特殊段，它可以在程序里独立执行，线程基本上是轻量级的进程，它负责在单个程序里执行多个任务。通常由操作系统负责多个线程的调度和执行。线程是程序中一个单一的循序控制流程，在单个程序中同时运行多个线程完成不同的工作，称为多线程。</p>
+<p>在单一的线程中，一件事情没有处理完林外一件事情就不能开始，这样则会影响用户体验。在单核处理器时期就有多线程，这个时候多线程更多的用于解决线程阻塞造成的用户等待（通常是操作完UI后用户不再干涉，其它的线程在等待队列中，CPU一旦空闲就继续执行，不影响用户其它UI操作），其处理能力并没有变化。如今无论移动还是PC，服务器都是多核处理，于是<code>并行运算</code>就更多的提及。一件事情我们可以划分为多个步骤，在没有顺序要求的情况下使用多线程技能解决线程阻塞又能充分利用多核处理器运行能力。</p>
+<p>下图反映了一个包含8个操作的任务在一个有两核心的CPU中创建四个线程运行的情况。假设每个核心有两个线程，那么每个CPU中两个线程会交替执行，两个CPU之间的操作会并行运算。单就一个CPU而言两个线程可以解决线程阻塞造成的不流畅问题，其本身运行效率并没有提高，多CPU的并行运算才真正解决了运行效率问题，这也正是并发和并行的区别。当然，不管是多核还是单核开发人员不用过多的担心，因为任务具体分配给几个CPU运算是由系统调度的，开发人员不用过多关心系统有几个CPU。开发人员需要关心的是线程之间的依赖关系，因为有些操作必须在某个操作完成完才能执行，如果不能保证这个顺序势必会造成程序问题。</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/202333357067475.png" alt="General preferences"></p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>1.使用线程可以把占据时间长的程序中的任务放到后台去处理</p>
+<p>2.程序的运行速度可能加快（多核更突出）</p>
+<p>……</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>1.大量的的线程，会影响性能，因为操作系统需要在他们之间来回切换</p>
+<p>2.更多的线程需要更多的内存空间</p>
+<p>3.多线程的情况下可能会带来线程操作不当的bug，需要考虑线程之间的资源共享，线程死锁的情况。</p>
+<h4 id="iOS多线程"><a href="#iOS多线程" class="headerlink" title="iOS多线程"></a>iOS多线程</h4><p>在iOS中每个应用程序（进程）启动后都会建立主线程(UI线程)，这个线程被称作其它线程的父线程。如下代码中展示,在main函数中打印发现主线程已经创建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    NSLog(@&quot;应用程序启动的时候在main函数中创建了主线程.......:%@&quot;,[NSThread currentThread]);</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于在iOS中除了主线程，其它子线程是独立于Cocoa Touch的，所以只有<a href="http://www.lai18.com/content/1432808.html" target="_blank" rel="external">主线程可以更新UI界面</a>（同时UI的操作是非线程安全的，如果苹果大量UI部分UIKit设计为线程安全的，将会是非常耗性能的，同时会造成资源共享的bug等。当然新版本iOS中，部分UIFont，UIColor绘图等UI操作已经被设计为线程安全的，但是还是建议UI的操作保证在主线程中执行）。iOS中使用多线程并不复杂，关键是如何控制好各个线程的执行的循序，处理好资源竞争问题。常用的多线程开发有三种方式：</p>
+<ul>
+<li>NSThread</li>
+<li>NSOperation</li>
+<li>GCD</li>
+</ul>
+<p>当然使用各多线程的方式需要考虑当前具体的需求场景，甚至在项目中需要结合多种方式使用。具体的在了解完各自的具体使用后，具体的分析各自的优缺点及使用场景。</p>
+<blockquote>
+<h3 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h3></blockquote>
+<p>NSThread是轻量级的多线程开发，使用起来并不复杂，但是需要管理线程的生命周期(线程的创建create，启动start，调度cancle等）,无法有效控制线程数量。可以通过两种方式来创建线程，实例方法，类方法创建如下：</p>
+<p>通过实例方法调用（需要管理其生命周期）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//使用alloc的方式创建一个新的线程，不会阻塞当前的ui主线程的操作</span><br><span class="line">NSThread *myThread = [[NSThread alloc] initWithTarget:self selector:@selector(loadImage:) object:nil];</span><br><span class="line">[myThread start];//启动线程</span><br></pre></td></tr></table></figure>
+<p>通过类方法直接创建调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//通过类方法直接隐式创建,每次都会创建一条新的线程</span><br><span class="line">[NSThread detachNewThreadSelector:@selector(loadImage:) toTarget:self withObject:nil];</span><br></pre></td></tr></table></figure>
+<p>通过NSThread可以解决线程阻塞的问题，在通过其它线程进行图片等资源下载过程中，保证主线程UI操作不会阻塞。其它线程操作完成，通过调用主线程的方式操作UI。</p>
+<h5 id="NSObject-NSThreadPerformAdditions"><a href="#NSObject-NSThreadPerformAdditions" class="headerlink" title="NSObject (NSThreadPerformAdditions)"></a>NSObject (NSThreadPerformAdditions)</h5><p>为了简单操作，苹果提供了NSOject分类扩展方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@interface NSObject (NSThreadPerformAdditions)</span><br><span class="line"></span><br><span class="line">//在主线程上执行一个方法</span><br><span class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait modes:(nullable NSArray&lt;NSString *&gt; *)array;</span><br><span class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;</span><br><span class="line">	// equivalent to the first method with kCFRunLoopCommonModes </span><br><span class="line"></span><br><span class="line">//在指定的线程上执行一个方法，需要用户创建一个线程对象</span><br><span class="line"></span><br><span class="line">- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(nullable id)arg waitUntilDone:(BOOL)wait modes:(nullable NSArray&lt;NSString *&gt; *)array NS_AVAILABLE(10_5, 2_0);</span><br><span class="line">- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(nullable id)arg waitUntilDone:(BOOL)wait NS_AVAILABLE(10_5, 2_0);</span><br><span class="line">	// equivalent to the first method with kCFRunLoopCommonModes</span><br><span class="line"></span><br><span class="line">//在后台执行一个操作，本质就是重新创建一个线程执行当前方法	</span><br><span class="line">- (void)performSelectorInBackground:(SEL)aSelector withObject:(nullable id)arg NS_AVAILABLE(10_5, 2_0);</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h5 id="多个线程并发-Concurrent"><a href="#多个线程并发-Concurrent" class="headerlink" title="多个线程并发(Concurrent)"></a>多个线程并发(Concurrent)</h5><p>使用NSThread创建多个线程，下载图片并且在相应的UIImageview中展示，通过以下场景来了解并发：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)changeImage:(MultiModel *)model</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.当前图片请求操作都在主线程执行，当前主线程阻塞，在点击加载按钮后图片没有请求完成的情况下无法，点击顶部的返回操作,所有图片全部请求完成后一起显示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//当前主线程阻塞，在点击加载按钮后图片没有请求完成的情况下无法，点击顶部的返回操作</span><br><span class="line">//所有图片全部请求完成后一起显示</span><br><span class="line">[self changeImage:model];</span><br></pre></td></tr></table></figure>
+<p>2.每一个图片的展示使用一个NSThread线程进行请求图片的操作。由于selector不能传递多个参数，可以将数据进行对象封装处理。当点击加载后，可以点击返回到主页，不会阻塞当前的主线程的任何操作（返回首页后，子线程依旧输出内容）。虽然图片是按循序请求的，但是图片的显示顺序不是有序的，由于网络的原因每个请求线程时间都不一致。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(changeImage:) object:model];</span><br><span class="line">           thread.name = [NSString stringWithFormat:@&quot;线程%ld&quot;,index];</span><br><span class="line">           [thread start];</span><br></pre></td></tr></table></figure>
+<p>3.为了能够控制线程执行顺序，通过控制最后一张图片最后展示在最后展示，可以通过当前为1张图片的线程操作的时候，使得图片1的线程（线程0）休眠一段时间达到最后展示，实际测试多次发现并非图片1每一都是最后展示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (void)delay:(MultiModel *)model</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    if (model.index == 0) &#123;//控制第一张图片，最后展示</span><br><span class="line">        NSLog(@&quot;[NSThread currentThread].....:%@&quot;,[NSThread currentThread]);</span><br><span class="line">        [NSThread sleepForTimeInterval:20];</span><br><span class="line">    &#125;</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.当然我们也可以通过修改线程的优先级来控制，图片展示的顺序。线程优先级范围为0~1，值越大优先级越高，每个线程的优先级默认为0.5。修改图片下载方法如下，改变最后一张图片加载的优先级，这样可以提高它被优先加载的几率，但是它也未必就第一个加载:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (void)priority:(MultiModel *)model</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    if (model.index == 8) &#123;//控制最后一个最先加载，设置优先级最高</span><br><span class="line">        NSLog(@&quot;[NSThread currentThread].....:%@&quot;,[NSThread currentThread]);</span><br><span class="line">        [NSThread setThreadPriority:1.0];</span><br><span class="line">    &#125;</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明NSThread的并发操作，并不能有效的保证执行顺序，由于图片加载的顺序以及网络的原因。</p>
+<h5 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h5><p>线程的状态有三种如下，都是只读操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (readonly, getter=isExecuting) BOOL executing NS_AVAILABLE(10_5, 2_0);//判断是否在执行</span><br><span class="line">@property (readonly, getter=isFinished) BOOL finished NS_AVAILABLE(10_5, 2_0);//判断执行是否完成</span><br><span class="line">@property (readonly, getter=isCancelled) BOOL cancelled NS_AVAILABLE(10_5, 2_0);//判断执行是否取消</span><br></pre></td></tr></table></figure>
+<h5 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h5><p>在线程操作过程中可以让某个线程休眠等待，优先执行其他线程操作，而且在这个过程中还可以修改某个线程的状态或者终止某个指定线程。比喻上面并发过程中讲到的线程睡眠，优先级的操作。有下面方法可以控制线程的生命周期，包含类方法和实例方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (void)sleepUntilDate:(NSDate *)date;</span><br><span class="line">+ (void)sleepForTimeInterval:(NSTimeInterval)ti;</span><br><span class="line"></span><br><span class="line">+ (void)exit;</span><br><span class="line"></span><br><span class="line">+ (double)threadPriority;</span><br><span class="line">+ (BOOL)setThreadPriority:(double)p;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@property (readonly, getter=isCancelled) BOOL cancelled NS_AVAILABLE(10_5, 2_0);</span><br><span class="line"></span><br><span class="line">- (void)cancel NS_AVAILABLE(10_5, 2_0);</span><br><span class="line"></span><br><span class="line">- (void)start NS_AVAILABLE(10_5, 2_0);</span><br><span class="line"></span><br><span class="line">- (void)main NS_AVAILABLE(10_5, 2_0);	// thread body method</span><br></pre></td></tr></table></figure>
+<p>在用户并发加载了图片操作，立马取消所有线程操作。通过线程的状态，改变线程的生命周期。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (void)exitAllThread</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;取消所有的线程&quot;);</span><br><span class="line">    //注意如果仅仅是在这里cancel，实际上是不能阻止子线程继续执行，还需要在线程加载数据的时候，取消掉exit</span><br><span class="line">    [self.threadArray enumerateObjectsUsingBlock:^(NSThread * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        if (![obj isFinished]) &#123;</span><br><span class="line">            [obj cancel];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    if (model.index &gt; 6) &#123;</span><br><span class="line">       [NSThread sleepForTimeInterval:2];//等待主线程中取消后2s再判断，7，8线程是否取消，取消后则退出当前线程，配合断点不怎好控制</span><br><span class="line">        if ([[NSThread currentThread] isCancelled]) &#123;//当前在主线程中已经被cancle了</span><br><span class="line">            [NSThread exit];//取消掉当前的线程</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用NSThread在进行多线程开发过程中操作比较简单，但是要控制线程执行顺序并不容易（前面万不得已采用了休眠的方法），另外在这个过程中如果打印线程会发现循环几次就创建了几个线程，这在实际开发过程中是不得不考虑的问题，因为每个线程的创建也是相当占用系统开销的。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.本篇文章详细demo<a href="https://github.com/Tweiwei497435786/multiThreadingTest" target="_blank" rel="external">multiThreadingTest</a></p>
+<p>2.<a href="http://baike.baidu.com/link?url=avVQJXUNwjVPgGarmWSvyFrLkQYgfXvSgXeSMLv29_L0CptvLlEeUUdzvVmvOYZP25OOmlLpFrh2USlDw0KsH_" target="_blank" rel="external">多线程</a></p>
+<p>3.<a href="http://www.cnblogs.com/kenshincui/p/3983982.html#otherArticle" target="_blank" rel="external">iOS开发系列–并行开发其实很容易</a></p>
+<p>4.<a href="http://www.cocoachina.com/ios/20150807/12911.html" target="_blank" rel="external">超详细！iOS 并发编程之 Operation Queues</a></p>
+<p>5.<a href="http://www.cnblogs.com/yangecnu/p/3164167.html" target="_blank" rel="external">浅谈并发与并行</a></p>
+<p>6.<a href="http://3961409.blog.51cto.com/3951409/759708" target="_blank" rel="external">并发和并行的区别</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/28/房屋装修设计/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">房屋装修设计</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="iOS-多线程理解之NSThread" data-title="iOS 多线程理解之NSThread" data-url="http://www.tortoise.com/2016/05/31/iOS-多线程理解之NSThread/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Tortoise
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
