@@ -189,6 +189,79 @@
 
       <div class="body-wrap">
   
+    <article id="post-去掉Xcode工程相关警告" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/09/去掉Xcode工程相关警告/" class="article-date">
+  	<time datetime="2016-05-09T06:43:45.000Z" itemprop="datePublished">2016-05-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/09/去掉Xcode工程相关警告/">去掉Xcode工程相关警告</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在我们的项目中,通常使用了大量的第三方代码,这些代码可能很复杂,我们不敢改动他们,可是作者已经停止更新了,当sdk升级或者是编译器升级后,这些遗留的代码可能会出现许许多多的警告,又或者我们自己部分的代码出现了警告，那么我们能够有办法将这些警告清理掉么？以下讲的的一些方法可能比较有效的帮助你解决问题。</p>
+<h4 id="第三方代码"><a href="#第三方代码" class="headerlink" title="第三方代码"></a>第三方代码</h4><p>最直接,最一劳永逸,最安全的方式,直接找到警告的那段代码,改为不警告.这个方式,最安全.可是它有一个问题,就是,当我们很多文件都有这种类型的警告的时候,我们就需要改动很多很多的源码了, 对于不是我们写的源码,使用这种方法侵入性太强,显然就不太可取了。</p>
+<p>1.使用编译器提供的宏来操作，如下面我们经常看到的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored&quot;-Wdeprecated-declarations&quot;</span><br><span class="line">		//写在这个中间的代码,都不会被编译器提示-Wdeprecated-declarations类型的警告</span><br><span class="line">dispatch_queue_tcurrentQueue =dispatch_get_current_queue();</span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __clang_analyzer__</span><br><span class="line">      // Code not to be analyzed</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>具体的警告对应的类型我们可以查看<a href="http://fuckingclangwarnings.com" target="_blank" rel="external">Which Clang Warning Is Generating This Message</a>，当然也可以通过查看具体的警告信息，选择Reveal in Log可以查看到是哪种“-Wno-shorten-64-to-32”的警告，但是这种改法需要更改大量的地方。</p>
+<p>2.关闭某一个指定文件制定类型的警告，可以选择工程具体的target－&gt;Build Phases－&gt;Compile Sources找到具体的文件，双击后填写需要忽略的类型，类似忽略不使用arc<code>-fno-objc-arc</code>我们可以对这个特定的文件加入<code>-Wno-shorten-64-to-32</code>表示忽略该中类型的警告。这种工作量还是比较大。</p>
+<p>3.关闭工程中指定类型的警告，target－&gt;Build Settings－&gt;Other Warning Flags 加入<code>-Wno-shorten-64-to-32</code>表示忽略工程中该类型的所有警告。这种类型会将当前工程自己部分代码也忽略掉。</p>
+<p>4.在我们使用podfile管理第三方的文件cocoapods的时候，我们可以在引用库的的时候加入<code>inhibit_warnings =&gt; true</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;XGPush&apos;,             &apos;2.3&apos;,     :inhibit_warnings =&gt; true</span><br></pre></td></tr></table></figure>
+<h4 id="当前工程代码"><a href="#当前工程代码" class="headerlink" title="当前工程代码"></a>当前工程代码</h4><p>如果是我们工程中，那么建议最好全部按照最新的要求进行全部修改，为了避免出现警告，可以采取一些有效的措施。</p>
+<p>1.我们可以将int的类型的都定义成NSInteger,float定义成CGFloat的类型，避免在不同的armv中出现警告的问题。</p>
+<p>2.我们可以将target－&gt;Build Settings－&gt;Treat Warnings as Errors（将警告视错误）防止开发人员提交警告。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://stackoverflow.com/questions/5806101/is-it-possible-to-suppress-xcode-4-static-analyzer-warnings" target="_blank" rel="external">is-it-possible-to-suppress-xcode-4-static-analyzer-warnings</a></p>
+<p>2.<a href="http://stackoverflow.com/questions/7017281/performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761" target="_blank" rel="external">performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761</a></p>
+<p>3.<a href="ignore-all-warnings-in-a-specific-file-using-llvm-clang">ignore-all-warnings-in-a-specific-file-using-llvm-clang</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-iOS-Crash" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -974,92 +1047,6 @@
 <ul>
 <li>po [[UIWindow keyWindow] recursiveDescription]可以打印当前window对象的所有视图层级，方便快速定位。</li>
 </ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Jenkins-Github-Xcode-Fir-CI实战" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/" class="article-date">
-  	<time datetime="2016-03-28T07:41:56.000Z" itemprop="datePublished">2016-03-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/">Jenkins+Github+Xcode+Fir CI实战</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上一篇：<a href="http://tweiwei497435786.github.io/2016/03/21/iOS使用Jenkins进行持续集成/" target="_blank" rel="external">iOS使用Jenkins进行持续集成</a>详细的讲了Mac上面搭建jenkins，接下来将会详细介绍jenkins的实际应用案例。</p>
-<h3 id="配置build-jenkins"><a href="#配置build-jenkins" class="headerlink" title="配置build jenkins"></a>配置build jenkins</h3><ol>
-<li>进入jenkins主页登录成功后，选择（新建），输入item的名称，选择（构建一个自由风格的软件项目），填写必要的描述信息。</li>
-<li>源码管理，我这里选择git（我的代码在git上面），（1）Repository URL填写项目的git地址 （2）Credentials选择add添加git的账号，（3）Branch to build 选择当前项目构建的分支。这样每次构建都会从git上拉取对应分支的最新代码到本地对应job的工作空间中。</li>
-<li>构建触发器，选择触发的条件，我这里选择的是 Build when a change is pushed to GitHub，也就是只要有开发人员提交代码到对应的项目分支，就会立即打包操作。当然你也可以选择其它的条件 Poll SCM 日程表可以填写H/15 <em> </em> <em> </em>，15分支检查一次是否有提交，如果有提交的就会自动打包。</li>
-<li><p>选择增加构建步骤，里面有一些基本的构建步骤也包含自己当前所需要安装的插件，这里使用的xcode构建项目，当然你也可以自己写<a href="">打包脚本</a>或者通过<a href="">fastlane 持续集成</a>工具gym或者shengzhen进行打包操作。</p>
-<p>(1) General build settings （build的基本配置）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target：选择targets中当前项目需要对应的target</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>   (2) Code signing &amp; OS X keychain options （code sign及钥匙串keychain信息访问，主要是为了打包签名等使用）</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Change bundle ID：勾选后，表示打包操作中需要更改当前对应info.plist文件中对应bundle id。主要方便企业版本，appstore版等不同的bundle id需要。</span><br><span class="line">Code Signing Identify：也就是当前code sign的标示，（这个可以通过设置当前正确的code sign identify及code sign后，</span><br><span class="line">通过xcode打包各环境成功后，表示这些配置是正确的），然后通过当前项目中.xcodeproj文件的包含内容查找对应的Code Signing </span><br><span class="line">Identify</span><br><span class="line">Embedded Profile：也就是打包的provision file文件，也可以通过上述方式在配置文件中找到。证书安装后的地址</span><br><span class="line">/Users/tianww/Library/MobileDevice/Provisioning Profiles/中可以找到对应的证书，在这里填写正确即可。</span><br><span class="line">Unlock Keychain：由于签名等需要访问钥匙串，所以这里要勾选上，填写钥匙串的地址，访问钥匙串的密码。</span><br></pre></td></tr></table></figure>
-<p>   (3) Advanced Xcode build options （配置xcode build options）</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Xcode Schema File：选择schema，填写当前需要执行的schema的名称。</span><br><span class="line">Xcode Workspace File：如果当前的项目是基于workspace的那么这里就填写workspace（pod项目）的名称路径，不要. xcworkspace</span><br><span class="line">Xcode Project Directory：如果当前的项目是基于Project的，那么这里填写Project的路径名称,不要.xcodeproj。</span><br><span class="line">Build output directory：也就是项目的ipa的输出路径。</span><br></pre></td></tr></table></figure>
-<p>   (4) Versioning</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Marketing version：CFBundleShortVersionString</span><br><span class="line">Technical version：CFBundleVersion</span><br></pre></td></tr></table></figure>
-<h3 id="上传ipa文件"><a href="#上传ipa文件" class="headerlink" title="上传ipa文件"></a>上传ipa文件</h3><h5 id="一-通过蒲公英Fir上传"><a href="#一-通过蒲公英Fir上传" class="headerlink" title="一.通过蒲公英Fir上传"></a>一.通过蒲公英Fir上传</h5><p>1.通过<a href="http://fir.im" target="_blank" rel="external">Fir蒲公英</a>上传ipa到账号，这里可以通过脚本，当然也可以通过使用安装fir提供的<a href="http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin(1" target="_blank" rel="external">jenkins插件下载</a>.hpi)配置上传ipa到fir。</p>
-<p>以下使用脚本方式：你需要安装fir的命令<a href="https://github.com/FIRHQ/fir-cli/blob/master/README.md" target="_blank" rel="external">fir.im-cli</a>，安装fir.im-cli命令可以通过terminal的gem直接安装，<a href="https://github.com/FIRHQ/fir-cli/blob/master/doc/install.md" target="_blank" rel="external">参考</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install fir-cli</span><br></pre></td></tr></table></figure>
-<p>2.选择添加构建步骤Execute shell，填写以下脚本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#进入ipa生成的目录</span><br><span class="line">$&#123;WORKSPACE&#125;/Enterprise_ipa/</span><br><span class="line">#登录fir这里的需要填写你的 API Token</span><br><span class="line">fir login 858b83d2f15f5f</span><br><span class="line">curDir=`pwd`</span><br><span class="line"># 下面上传dsym文件到fir上面对应，这个需要在项目中集成fir的bughd错误日志收集,-p 表示项目的token -v当前的时间</span><br><span class="line">#fir mapping /$&#123;WORKSPACE&#125;/build/beibei.app.dSYM.zip  -v `date &quot;+%Y-%m-%d/%H:%M:%S&quot;` -P 56528e39a1de52</span><br><span class="line">#上传ipa文件，并且上传变更日志，这个是当前job的build的修改记录的地址</span><br><span class="line">fir publish &quot;beibei.ipa&quot; -c &quot;如需要查看修改记录点击下面地址....:http://192.168.44.132:8080/job/$&#123;JOB_NAME&#125;/$&#123;BUILD_NUMBER&#125;/changes&quot;</span><br></pre></td></tr></table></figure>
-<p>3.如果你需要通过fir提供的jenkins插件上传到fir相关的，那就在构建步骤添加插件的名称，填写必要的配置信息。可以参考<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir jenkins</a>的各种参数配置</p>
-<h5 id="二-通过FTP上传到自己的服务器"><a href="#二-通过FTP上传到自己的服务器" class="headerlink" title="二.通过FTP上传到自己的服务器"></a>二.通过FTP上传到自己的服务器</h5><p>1.在构建步骤中选择Send build artifacts over FTP前提是你安装了该jenkins插件，具体参考<a href="https://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+FTP+Plugin" target="_blank" rel="external">这里</a>！</p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
-<li>jenkins 1.656版本会并且在由于xcode 7出来没多久，且在xcode 7上build setting中多了一个Product Bundle Idenitfier的项，且jenkins没有修改此处的bundle id，导致无法编译通过。所以为了避免这个问题我们可以在对应的configuration下面设置bundle id而不影响其它人，但同时也不允许其它人更改对应configuration的内容。这样限制就会比较麻烦，我们可以通过编写脚本修改bundle id，或者采用接下来的fastlane方式。新版本估计jenkins会将这个问题修复。</li>
-</ol>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.jianshu.com/p/a17167274463" target="_blank" rel="external">Jenkins+GitHub+Xcode+fir搭了一个持续集成环境</a></p>
-<p>2.<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir.im Jenkins 插件使用方法</a></p>
-<p>3.<a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Jenkins Plugins</a>这里有各种各样的插件</p>
-<p>4.如果你觉得以上的配置内容不够详细，可以下载详细的<a href="https://github.com/Tweiwei497435786/ProjectStaticSave" target="_blank" rel="external">配置信息Demo</a>html查看吧</p>
 
       
     </div>
