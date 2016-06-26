@@ -77,7 +77,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 10px;">房屋装修</a> <a href="/tags/旅行/" style="font-size: 10px;">旅行</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 15px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 15px;">旅行计划</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,184 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-iOS-Runtime" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/10/iOS-Runtime/" class="article-date">
+  	<time datetime="2016-05-10T05:23:42.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/10/iOS-Runtime/">iOS Runtime</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>iOS Runtime简称运行时，对于一个iOS开发者来说深刻理解它至关重要，可以毫不夸张的说Runtime是OC这门语言的灵魂。那么什么是运行时呢？接下来这篇文章会向你详细讲解，以及如何使用。</p>
+<h3 id="什么是Runtime"><a href="#什么是Runtime" class="headerlink" title="什么是Runtime"></a>什么是Runtime</h3><ul>
+<li>简单回顾一下C语言的顺序执行的特性：对于C语言，函数的调用在编译的时候会决定调用哪个函数。编译完成后直接顺序的执行，没有任何的二义性。</li>
+<li>Runtime就是系统在运行的时候的一些机制，其中最主要的是<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtForwarding.html#//apple_ref/doc/uid/TP40008048-CH105-SW1" target="_blank" rel="external">消息转发</a>的机制。OC的函数调用实际就是消息发送的过程，即使这个函数并未实现，只要申明过就不会报错。只有在真正运行的时候才会根据函数的名称找到对应的函数来调用。</li>
+<li>OC中一切都被设计成一个对象，当一个类A被初始化为一个实例a,a是一个对象，实际上类A本质上也是一个对象。</li>
+<li>代码在程序运行过程中都会被转化成runtime的C代码执行，例如：[target doSomething];会被转化成objc_msgSend(target,@selector(doSomething));的方式发送消息。</li>
+</ul>
+<h3 id="OC中类的定义"><a href="#OC中类的定义" class="headerlink" title="OC中类的定义"></a>OC中类的定义</h3><p>打开objc.h文件，会发现关于类的定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/// An opaque type that represents an Objective-C class.</span><br><span class="line">typedef struct objc_class *Class;//OC中类的定义，一个对象</span><br><span class="line"></span><br><span class="line">/// Represents an instance of a class.</span><br><span class="line">struct objc_object &#123;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;//OC中类的实例定义</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/// A pointer to an instance of a class.</span><br><span class="line">typedef struct objc_object *id;//OC中类的实例</span><br><span class="line"></span><br><span class="line">typedef struct objc_selector *SEL;//方法</span><br><span class="line"></span><br><span class="line">typedef id (*IMP)(id, SEL, ...); //方法的指针</span><br></pre></td></tr></table></figure>
+<p>runtime.h中会发现objc_class实际上是一个结构体定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class &#123;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;//指针，实例的isa指向类对象，类对象的isa指向元类</span><br><span class="line"></span><br><span class="line">#if !__OBJC2__</span><br><span class="line">    Class super_class                                        OBJC2_UNAVAILABLE;//指向父类</span><br><span class="line">    const char *name                                         OBJC2_UNAVAILABLE;//类名称</span><br><span class="line">    long version                                             OBJC2_UNAVAILABLE;//类的版本信息，初始化默认为0，可以通过runtime函数class_setVersion和class_getVersion进行修改、读取</span><br><span class="line">    long info                                                OBJC2_UNAVAILABLE;//一些标识信息,如CLS_CLASS (0x1L) 表示该类为普通 class ，其中包含对象方法和成员变量;CLS_META (0x2L) 表示该类为 metaclass，其中包含类方法;</span><br><span class="line">    long instance_size                                       OBJC2_UNAVAILABLE;//该类的实例变量大小(包括从父类继承下来的实例变量);</span><br><span class="line">    struct objc_ivar_list *ivars                             OBJC2_UNAVAILABLE;//用于存储每个成员变量的地址</span><br><span class="line">    struct objc_method_list **methodLists                    OBJC2_UNAVAILABLE;//与 info 的一些标志位有关,如CLS_CLASS (0x1L),则存储对象方法，如CLS_META (0x2L)，则存储类方法;</span><br><span class="line">    struct objc_cache *cache                                 OBJC2_UNAVAILABLE;//指向最近使用的方法的指针，用于提升效率；</span><br><span class="line">    struct objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;//协议列表</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br><span class="line">/* Use `Class` instead of `struct objc_class *` */</span><br></pre></td></tr></table></figure>
+<p>以及其它等定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/// An opaque type that represents a method in a class definition.</span><br><span class="line">typedef struct objc_method *Method;//方法的描述</span><br><span class="line"></span><br><span class="line">/// An opaque type that represents an instance variable.</span><br><span class="line">typedef struct objc_ivar *Ivar;//实例变量的描述</span><br><span class="line"></span><br><span class="line">/// An opaque type that represents a category.</span><br><span class="line">typedef struct objc_category *Category;//类别的描述</span><br><span class="line"></span><br><span class="line">/// An opaque type that represents an Objective-C declared property.</span><br><span class="line">typedef struct objc_property *objc_property_t;//属性的描述</span><br><span class="line"></span><br><span class="line">typedef struct objc_object Protocol;//协议的描述</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="获取列表"><a href="#获取列表" class="headerlink" title="获取列表"></a>获取列表</h3><p>有时候会有这样的需求，我们需要知道当前类中每个属性的名称（比喻字典转模型的操作，避免后台传递null的问题，检查字典的Key和模型对象的属性名字不匹配问题，swizzing的操作等），在此可以通过runtime的一系列的方法获取类的信息（属性列表，方法的名称列表，成员变量列表，协议列表）等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">unsigned int count;</span><br><span class="line">  //获取属性列表</span><br><span class="line">  objc_property_t *propertyList = class_copyPropertyList([self class], &amp;count);</span><br><span class="line">  for (unsigned int i=0; i&lt;count; i++) &#123;</span><br><span class="line">      const char *propertyName = property_getName(propertyList[i]);</span><br><span class="line">      NSLog(@&quot;property----&gt;%@&quot;, [NSString stringWithUTF8String:propertyName]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //获取方法列表</span><br><span class="line">  Method *methodList = class_copyMethodList([self class], &amp;count);</span><br><span class="line">  for (unsigned int i; i&lt;count; i++) &#123;</span><br><span class="line">      Method method = methodList[i];</span><br><span class="line">      NSLog(@&quot;method----&gt;%@&quot;, NSStringFromSelector(method_getName(method)));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //获取成员变量列表</span><br><span class="line">  Ivar *ivarList = class_copyIvarList([self class], &amp;count);</span><br><span class="line">  for (unsigned int i; i&lt;count; i++) &#123;</span><br><span class="line">      Ivar myIvar = ivarList[i];</span><br><span class="line">      const char *ivarName = ivar_getName(myIvar);</span><br><span class="line">      NSLog(@&quot;Ivar----&gt;%@&quot;, [NSString stringWithUTF8String:ivarName]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //获取协议列表</span><br><span class="line">  __unsafe_unretained Protocol **protocolList = class_copyProtocolList([self class], &amp;count);</span><br><span class="line">  for (unsigned int i; i&lt;count; i++) &#123;</span><br><span class="line">      Protocol *myProtocal = protocolList[i];</span><br><span class="line">      const char *protocolName = protocol_getName(myProtocal);</span><br><span class="line">      NSLog(@&quot;protocol----&gt;%@&quot;, [NSString stringWithUTF8String:protocolName]);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h3><p>让我们看一下方法调用在运行时的过程</p>
+<p>如果用实例对象调用实例方法，会到实例的isa指针指向的对象（也就是类对象）操作。<br>如果调用的是类方法，就会到类对象的isa指针指向的对象（也就是元类对象）中操作。</p>
+<p>1.首先，在相应操作的对象中的cache缓存方法列表中找调用的方法，如果找到，转向相应实现并执行。</p>
+<p>2.如果没找到，在相应操作的对象中的方法列表中找调用的方法，如果找到，转向相应实现执行。并且将method放置cache中</p>
+<p>3.如果没找到，去父类指针所指向的对象中执行1，2.</p>
+<p>4.以此类推，如果一直到根类还没找到，转向拦截调用。</p>
+<p>5.如果没有重写拦截调用的方法，程序报错。</p>
+<ul>
+<li>重写父类的方法，并没有覆盖掉父类的方法，只是在当前类对象中找到了这个方法后就不会再去父类中找了。</li>
+<li>如果想调用已经重写过的方法的父类的实现，只需使用super这个编译器标识，它会在运行时跳过在当前的类对象中寻找方法的过程。</li>
+</ul>
+<h3 id="拦截调用"><a href="#拦截调用" class="headerlink" title="拦截调用"></a>拦截调用</h3><p>在方法调用中说到了，如果没有找到方法就会转向拦截调用。<br>那么什么是拦截调用呢。</p>
+<p>拦截调用就是，在找不到调用的方法程序崩溃之前，你有机会通过重写NSObject的四个方法来处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+ (BOOL)resolveClassMethod:(SEL)sel;</span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel;</span><br><span class="line">//后两个方法需要转发到其他的类处理</span><br><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector;</span><br><span class="line">- (void)forwardInvocation:(NSInvocation *)anInvocation;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个方法是当你调用一个不存在的类方法的时候，会调用这个方法，默认返回NO，你可以加上自己的处理然后返回YES。</li>
+<li>第二个方法和第一个方法相似，只不过处理的是实例方法。</li>
+<li>第三个方法是将你调用的不存在的方法重定向到一个其他声明了这个方法的类，只需要你返回一个有这个方法的target。</li>
+<li>第四个方法是将你调用的不存在的方法打包成NSInvocation传给你。做完你自己的处理后，调用invokeWithTarget:方法让某个target触发这个方法。</li>
+</ul>
+<h3 id="动态添加方法"><a href="#动态添加方法" class="headerlink" title="动态添加方法"></a>动态添加方法</h3><p>重写了拦截调用的方法并且返回了YES，我们要怎么处理呢？有一个办法是根据传进来的SEL类型的selector动态添加一个方法。如下图：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/79508335-1AEF-48AD-868D-472D26974BE0.png" alt="General preferences pane"></p>
+<h3 id="关联对象"><a href="#关联对象" class="headerlink" title="关联对象"></a>关联对象</h3><p>就是给对象添加内容，假如有如下场景：现在你准备用一个系统的类，但是系统的类并不能满足你的需求，你需要额外添加一个属性，现在你能想到的就是继承或者采用分类的方式去做，这样是否太麻烦。这时我们可以通过runtime的属性关联来实现</p>
+<p>设置内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRulePage:)];</span><br><span class="line"> objc_setAssociatedObject(tapGR, &quot;ruleUrl&quot;, ruleUrl, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">[messageLabel addGestureRecognizer:tapGR];</span><br></pre></td></tr></table></figure>
+<p>objc_setAssociatedObject的四个参数：</p>
+<p>1.id object给谁设置关联对象。</p>
+<p>2.const void *key关联对象唯一的key，获取时会用到。</p>
+<p>3.id value关联对象。</p>
+<p>4.objc_AssociationPolicy关联策略，有以下几种策略（retainCount）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">enum &#123;</span><br><span class="line">    OBJC_ASSOCIATION_ASSIGN = 0,</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1, </span><br><span class="line">    OBJC_ASSOCIATION_COPY_NONATOMIC = 3,</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN = 01401,</span><br><span class="line">    OBJC_ASSOCIATION_COPY = 01403 </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>获取内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)showRulePage:(UITapGestureRecognizer *)tapGr &#123;</span><br><span class="line">    NSString *ruleUrl = objc_getAssociatedObject(tapGr, &quot;ruleUrl&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>objc_getAssociated</p>
+<p>1.id object获取谁的关联对象。</p>
+<p>2.const void *key根据这个唯一的key获取关联对象。Object的两个参数</p>
+<h3 id="方法交换"><a href="#方法交换" class="headerlink" title="方法交换"></a>方法交换</h3><p>方法交换，顾名思义，就是将两个方法的实现交换。例如，将A方法和B方法交换，调用A方法的时候，就会执行B方法中的代码，反之亦然。这是参考Mattt大神在NSHipster上的文章自己写的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;UIViewController+swizzling.h&quot;</span><br><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line"></span><br><span class="line">@implementation UIViewController (swizzling)</span><br><span class="line"></span><br><span class="line">//load方法会在类第一次加载的时候被调用</span><br><span class="line">//调用的时间比较靠前，适合在这个方法里做方法交换</span><br><span class="line">+ (void)load&#123;</span><br><span class="line">    //方法交换应该被保证，在程序中只会执行一次</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line"></span><br><span class="line">        //获得viewController的生命周期方法的selector</span><br><span class="line">        SEL systemSel = @selector(viewWillAppear:);</span><br><span class="line">        //自己实现的将要被交换的方法的selector</span><br><span class="line">        SEL swizzSel = @selector(swiz_viewWillAppear:);</span><br><span class="line">        //两个方法的Method</span><br><span class="line">        Method systemMethod = class_getInstanceMethod([self class], systemSel);</span><br><span class="line">        Method swizzMethod = class_getInstanceMethod([self class], swizzSel);</span><br><span class="line"></span><br><span class="line">        //首先动态添加方法，实现是被交换的方法，返回值表示添加成功还是失败</span><br><span class="line">        BOOL isAdd = class_addMethod(self, systemSel, method_getImplementation(swizzMethod), method_getTypeEncoding(swizzMethod));</span><br><span class="line">        if (isAdd) &#123;</span><br><span class="line">            //如果成功，说明类中不存在这个方法的实现</span><br><span class="line">            //将被交换方法的实现替换到这个并不存在的实现</span><br><span class="line">            class_replaceMethod(self, swizzSel, method_getImplementation(systemMethod), method_getTypeEncoding(systemMethod));</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            //否则，交换两个方法的实现</span><br><span class="line">            method_exchangeImplementations(systemMethod, swizzMethod);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)swiz_viewWillAppear:(BOOL)animated&#123;</span><br><span class="line">    //这时候调用自己，看起来像是死循环</span><br><span class="line">    //但是其实自己的实现已经被替换了</span><br><span class="line">    [self swiz_viewWillAppear:animated];</span><br><span class="line">    NSLog(@&quot;swizzle&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>基本的讲解已经完成，下一章会着重讲解swizzle的相关内容。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.cocoachina.com/ios/20141018/9960.html" target="_blank" rel="external">Objective-C总Runtime的那点事儿（一）消息机制</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-getenv函数，获取环境变量的值" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/09/getenv函数，获取环境变量的值/" class="article-date">
+  	<time datetime="2016-05-09T07:50:13.000Z" itemprop="datePublished">2016-05-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/09/getenv函数，获取环境变量的值/">getenv函数，获取环境变量的值</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有的时候，想要在自己的机器当前公用的工程测试特定情况的内容，提交代码之后不想影响到其它开发人员，拉取新的代码后不影响自己的工程，那么通过配置环境变量的方式将会解决该问题，getenv()用来取得参数环境变量envvar的内容。</p>
+<h3 id="getenv-函数"><a href="#getenv-函数" class="headerlink" title="getenv()函数"></a>getenv()函数</h3><p>参数envvar为环境变量的名称，如果该变量存在则会返回指向该内容的指针。环境变量的格式为envvar=value。getenv函数的返回值存储在一个全局二维数组里，当你再次使用getenv函数时不用担心会覆盖上次的调用结果</p>
+<p>返回值: 执行成功则返回指向该内容的指针，找不到符合的环境变量名称则返回NULL。如果变量存在但无关联值，它将运行成功并返回一个空字符串，即该字符的第一个字节是null。</p>
+<p>在iOS中如何使用该函数，如下图（之前有讲过，修改改配置文件默认gitignore会忽略掉，所以在本地修改是无法提交的也就是不会影响其它开发）：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/BC5F3ECA-AF6C-4E2F-8A83-133F85721BC3.png" alt="General preferences pane"></p>
+<h3 id="方法使用"><a href="#方法使用" class="headerlink" title="方法使用"></a>方法使用</h3><p>如果要使用，则在环境变量中定义相应的变量，并且赋值如上图中，否则不会产生影响。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+ (BOOL)boolValueByKey:(NSString*)key default:(BOOL)defaultValue</span><br><span class="line">&#123;</span><br><span class="line">    BOOL value;</span><br><span class="line">    char* valueChar = getenv([key UTF8String]);</span><br><span class="line">    if(valueChar != nil &amp;&amp; valueChar != 0)&#123;//如果为nil，并且不为null，则读取配置文件，否则默认设置</span><br><span class="line">        value = [[NSString stringWithFormat:@&quot;%s&quot;, valueChar] boolValue];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        value = defaultValue;</span><br><span class="line">    &#125;</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ([self boolValueByKey:@&quot;test&quot; default:NO]) &#123;</span><br><span class="line">   NSLog(@&quot;TESTTEST&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发技巧/">开发技巧</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-去掉Xcode工程相关警告" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -902,151 +1080,6 @@
 <li>在使用代码提交检测的时候，由于在别人的代码基础上面做的修改，而检测的范围是提交的整个文件，这个时候不想改其它人的代码。我们可以修改项目目录下的 .git/hooks/pre-commit的exit为1，或者删除该文件。</li>
 </ol>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.tuicool.com/articles/22AN7rN" target="_blank" rel="external">iOS代码规范自动化</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS开发工具" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/01/iOS开发工具/" class="article-date">
-  	<time datetime="2016-04-01T09:09:21.000Z" itemprop="datePublished">2016-04-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/01/iOS开发工具/">iOS开发工具</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>iOS开发过程中，我们经常会需要使用一些小技巧来优化的我们的开发工作，下面的一些小技巧会极大提供我们的开发效率。</p>
-<h3 id="下面一些iOS开发的工具技巧能够极大的提高开发人员的效率"><a href="#下面一些iOS开发的工具技巧能够极大的提高开发人员的效率" class="headerlink" title="下面一些iOS开发的工具技巧能够极大的提高开发人员的效率"></a>下面一些iOS开发的工具技巧能够极大的提高开发人员的效率</h3><ul>
-<li><p>用的那个代码格式化的工具 <a href="http://tweiwei497435786.github.io/2016/04/05/ClangFormat代码格式化/" target="_blank" rel="external">ClangFormat代码格式化</a>，找到了一个 git commit-hook 脚本，可以在每次提交的时候自动调用它检查格式,因为这种 hook 是每个想用的人要自己在本地项目里面装的，于是我搞了一个一键安装的脚本<a href="http://git.husor.com.cn/ios/beibei/wikis/clang-format-git-hook" target="_blank" rel="external">安装使用</a></p>
-</li>
-<li><p>在使用fastlane的时候我们实际上只是会通过fastlane上传ipa文件，由于截图文件不是使用fastlane的frameit来截图操作，会出现产品等人员等独立提供截图，和日志更新文件，为了达到也能够一键上传截图或者日志（按照fastlane的规范），手动操作还是很麻烦，所以写了一个<a href="https://github.com/Tweiwei497435786/RenameDeliver-fastlaneDeliver-/blob/master/RenameDeliver.sh" target="_blank" rel="external">renameDeliver脚本</a>可以支持根据设计[640x960 640x1136 750x1334 1242x2208]文件夹的图片（1，2，3，4，5）自动命名成fastlane的deliver screenshots的规范的内容，实现一键上传的操作。</p>
-</li>
-<li><p>在使用xib的过程中，苹果默认的将opaque设置为YES，防止有的被设置为NO。如果设为YES， 渲染系统就认为这个view是完全不透明的，这使得渲染系统优化一些渲染过程和提高性能。下面的脚本能够自动检测并修改。当然修改后为了防止view为黑色需要修改backgroundcolor为clear color。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">for f in $(find . -name &apos;*.xib&apos;); do</span><br><span class="line">	echo $f</span><br><span class="line">	sed &apos;s/opaque=&quot;NO&quot;/opaque=&quot;YES&quot;/g&apos; $f &gt; temp.xib &amp;&amp; mv temp.xib $f</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在iOS版本迭代的过程中，每个迭代版本需要替换icon图片，如果手动的替换起来，同时如果设计提供的命名不规范还需要修改名称，非常麻烦。现在只需要通过一个sips的mac命令就可以对png的图片进行剪裁，我们只需要放置最大的1024＊1024的图片即可实现全套规范的图片，然后替换掉本地Images.xcassets里面的图片的名称，暂且这个不支持jpg的格式。<a href="https://github.com/Tweiwei497435786/sips_scaleIconImage/tree/master" target="_blank" rel="external">脚本下载</a></p>
-</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/工具/">工具</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS知识点" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/01/iOS知识点/" class="article-date">
-  	<time datetime="2016-04-01T09:06:58.000Z" itemprop="datePublished">2016-04-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/01/iOS知识点/">iOS知识点</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>苹果谷歌OC标准<a href="https://github.com/QianKaiLu/Objective-C-Coding-Guidelines-In-Chinese" target="_blank" rel="external">命名规范</a>，比较详细规范，大家可以参考看看，里面有些相关的内容是我们这边存在遗漏的。</li>
-<li>减少我们的工程文件编译的时间，由于当前我们的pod工程文件包含了其它多pod库，为了减少工程编译时间，可以做以下的优化，比喻在终端输入：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod update beibei_oversea &amp;&amp; find . -iname &quot;*.pch&quot; -exec touch -t 01010000 &quot;&#123;&#125;&quot;</span><br></pre></td></tr></table></figure>
-<p>1.因为每个pod都有一个pch文件,每次pod update或者pod install都会导致pch的时间戳改变，这样这个pch文件就会导致整个pod重新编译，上面一行的意思是将工程中所有的pch文件的时间戳改为01010000,这样pch的时间戳不变，就不会导致整个pod需要重新编译了!</p>
-<p>2.以上方式建议使用iterm2进行操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">然后把这两个函数放到你的~/.zshrc下</span><br><span class="line"></span><br><span class="line">function pod_dev &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=DEV &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     echo $command;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function pod_online &#123;</span><br><span class="line">     command=&quot;export PODFILE_TYPE=ONLINE &amp;&amp; pod $@ &amp;&amp; find Pods -iname &apos;*.pch&apos; -exec touch -t 01010000 &apos;&#123;&#125;&apos; \;&quot;;</span><br><span class="line">     eval $command;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>只要pod_dev update —no-repo-update beibei_oversea就行了</p>
-<p><code>注意</code>:如果使用了pod_dev,此时PODFILE_TYPE被改成了DEV,如果要用线上的，请务必用pod_online(而非pod)，这样会把<code>PODFILE_TYPE</code>改为<code>ONLINE</code>,就可以正常使用线上的pod了</p>
-<ul>
-<li>lldb的e命令小技巧可以在调试程序时立即暂时地修改一个视图的颜色，不用去改代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e button.backgroundColor = [UIColor redColor]</span><br><span class="line">(UICachedDeviceRGBColor *) $0 = 0x00007f9f13290c30</span><br><span class="line">(lldb) e (void)[CATransaction flush]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>lldb的expression命令小技巧可以在调试程序时暂时地修改内容，不用去改代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) expression target = @&quot;tuan_list&quot;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>po [[UIWindow keyWindow] recursiveDescription]可以打印当前window对象的所有视图层级，方便快速定位。</li>
-</ul>
 
       
     </div>
