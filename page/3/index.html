@@ -77,7 +77,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 15px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 15px;">旅行计划</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 15px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 15px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,294 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Fastlane自动化部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/08/Fastlane自动化部署/" class="article-date">
+  	<time datetime="2016-04-08T09:34:04.000Z" itemprop="datePublished">2016-04-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/08/Fastlane自动化部署/">Fastlane自动化部署</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>   在上一篇中有讲过使用<a href="http://tweiwei497435786.github.io/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/" target="_blank" rel="external">Jenkins+Git+Xcode+Fir</a>的使用进行CI集成工作,但是会存在一些问题，对于开发者测试版本，企业版版本是可行的。如果想同时集成app store也自动化,越狱版本的话，那样就不能满足了。接下来的fastlane这一神器工具将会满足需求，一起进入<a href="https://fastlane.tools" target="_blank" rel="external">fastlane</a>的神奇世界吧！</p>
+<h3 id="What’s-fastlane"><a href="#What’s-fastlane" class="headerlink" title="What’s fastlane?"></a>What’s fastlane?</h3><p>fastlane是一键式自动化部署，CI集成工具，能够极大的简化app的部署和发布流程。</p>
+<h5 id="为什么要使用fastlane？"><a href="#为什么要使用fastlane？" class="headerlink" title="为什么要使用fastlane？"></a>为什么要使用fastlane？</h5><p>我们可以回顾一下，一般发布一个appstore所需要的流程，其中大概流程如下：</p>
+<ol>
+<li>创建appID</li>
+<li>创建cert和provision</li>
+<li>下载provision并安</li>
+<li>使用Xcode的archive工具进行打包</li>
+<li>在itunnesConnect上创建此app的相关信息(包括多张截图),编辑相关信息等</li>
+</ol>
+<p>除开上面的1，2，3步骤后（当然这些内容还必须要依赖机器的特定的环境），就是进行每次的4，5步骤也是极其复杂的流程，并且会阻塞当前工作流程。</p>
+<p>fastlane只要安装了相关的环境后，即可远程一键式发布。fastlane工作的方式是通过不同的<code>lane</code>的任务来进行工作，并且其本身就是由许多工具集组合而成，每一个独立的工具即可实现一项特有的功能（eg：screenshot，deliver，gym等）。接下来我们会一步步的熟悉fastlane工具。</p>
+<h3 id="安装fastlane"><a href="#安装fastlane" class="headerlink" title="安装fastlane"></a>安装fastlane</h3><h5 id="fastlane-dependency"><a href="#fastlane-dependency" class="headerlink" title="fastlane dependency"></a>fastlane dependency</h5><ul>
+<li>OS X系统:Mavericks以上</li>
+<li>Ruby 2.0或2.0以上</li>
+<li>Xcode</li>
+<li>已付费的个人开发者帐号或在公司的开发者帐号里</li>
+</ul>
+<p>由于fastlane是一由一套Ruby脚本实现，你必须有正确的相对应的Ruby版本，OSX Mavericks之后的操作系统默认都安装了Ruby 2.0,可以通过以下命令来查看Ruby的版本号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -v</span><br></pre></td></tr></table></figure>
+<p>我们还需确认安装了Xcode的<code>Command Line Tools</code>工具(CLT)<code>git, xcrun, xcodebuild等等,C complier</code>,输入以下命令来查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+<p>如果xcode的CLT已经安装了，你会看到以下错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command line tools are already installed, use &quot;Software Update&quot; to install updates</span><br></pre></td></tr></table></figure>
+<p>如果CLT未安装,Terminal将会继承提示你安装Xcode CLT</p>
+<p>一旦以上条件准备好了，我们就可以安装fastlane了，输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install fastlane -v 1.48.0 --verbose</span><br></pre></td></tr></table></figure>
+<p><code>千万注意</code>以上的版本号,以下的步骤在1.48.0能编译通过,但如果你升级到了最新的版本，可能会造成以下<code>lane</code>步骤出错，到时请查看官网,按最新的步骤来做</p>
+<p>以上安装可能需要花费几分钟，请耐心等待，一旦安装好了，你就可以让你的工程使用fastlane啦，相信你已经跃跃欲试了吧， 不过在开始之前，我们先整体看看fastlane的工具链吧</p>
+<h5 id="fastlane-Toolchain"><a href="#fastlane-Toolchain" class="headerlink" title="fastlane Toolchain"></a>fastlane Toolchain</h5><ul>
+<li><code>produce</code>:在iTunes Connect和Apple Developer创建新的app</li>
+<li><code>cert</code>:自动创建维护iOS的代码签名证书</li>
+<li><code>sign</code>:创建，刷新,下载,修复provision mobile profile</li>
+<li><code>snapshot</code>:自动帮你在每一台指定的机型上创建每一张本地化的screenshot</li>
+<li><code>frameit</code>:将你的截图添加上相应机器的外框</li>
+<li><code>gym</code>:编译并打包iOS app</li>
+<li><code>deliver</code>:上传screenshots,metadata(应用描述等)和你的app到appstore上</li>
+<li><code>pem</code>:自动生成并刷新app的apns证书</li>
+<li>……</li>
+</ul>
+<h3 id="fastlane-init"><a href="#fastlane-init" class="headerlink" title="fastlane init"></a>fastlane init</h3><p>进入你的工程根目录下,执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane init</span><br></pre></td></tr></table></figure>
+<p><code>注意</code>：如果提示<code>permission denied</code>错误，你需要在此命令前加<code>sudo</code></p>
+<p>几分钟后，fastlane将显示以下步骤来让你设置初始步骤</p>
+<ol>
+<li><p>Do you want to get started? This will move your Deliverfile and Snapfile (if they exist) (y/n)<br>Enter y</p>
+</li>
+<li><p>Do you have everything committed in version control? If not please do so!<br>Enter y</p>
+</li>
+<li><p>App Identifier (com.krausefx.app):<br>Enter a unique app ID. Keep this app ID handy, as you will need it later!</p>
+</li>
+<li>Your Apple ID (fastlane@krausefx.com):<br>Enter your Apple ID</li>
+<li>Do you want to setup ‘deliver’, which is used to upload app screenshots, app metadata and app updates to the App Store or Apple TestFlight? (y/n)<br>Enter n</li>
+<li>Do you want to setup ‘snapshot’, which will help you to automatically take screenshots of your iOS app in all languages/devices? (y/n)<br>Enter y</li>
+<li>Do you want to use ‘sigh’, which will maintain and download the provisioning profile for your app? (y/n)<br>Enter y</li>
+<li>Optional: The scheme name of your app: (If you don’t need one, just hit Enter.)<br>Press enter</li>
+</ol>
+<p>执行完以上步骤后,打开mZone的工程文件夹,你会注意到工程下已经有了fastlane的文件夹了</p>
+<p><img src="https://i.imgur.com/qCb6UiV.jpg" alt="Smaller icon"></p>
+<h3 id="fastlane-Toolchain-1"><a href="#fastlane-Toolchain-1" class="headerlink" title="fastlane Toolchain"></a>fastlane Toolchain</h3><ul>
+<li><code>provision lane</code></li>
+</ul>
+<p>在你的fastlane的文件夹下的fastlane加入<code>provision lane</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">platform :ios do</span><br><span class="line"> </span><br><span class="line">  # 1 </span><br><span class="line">  desc &quot;Creating a code signing certificate and provisioning profile&quot;</span><br><span class="line">  # 2</span><br><span class="line">  lane :provision do</span><br><span class="line">    # 3 </span><br><span class="line">    produce(</span><br><span class="line">      app_name: &apos;ENTER_A_UNIQUE_APP_NAME_HERE&apos;,</span><br><span class="line">      language: &apos;English&apos;,</span><br><span class="line">      app_version: &apos;1.0&apos;,</span><br><span class="line">      sku: &apos;123abc&apos;</span><br><span class="line">    )</span><br><span class="line">    # 4</span><br><span class="line">    cert</span><br><span class="line">    # 5</span><br><span class="line">    sigh(force: true)</span><br><span class="line">  end</span><br><span class="line"> </span><br><span class="line">  error do |lane, exception|</span><br><span class="line">    # This block is called, if there was an error running a specific lane.</span><br><span class="line">  end</span><br><span class="line"> </span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>将<code>ENTER_A_UNIQUE_APP_NAME_HERE</code>替换成一个新的app名字(此名字不能和已知的重名),你的itunesConnect的用户名和app identifier自动从Appfile中加载，所以你无需在这里指定它们</p>
+<p>如果你从来没用过Ruby,以上的语法看起来可能有点奇怪，让我们一条条过一下</p>
+<ol>
+<li>为<code>lane</code>指定了相应的描述,一个lane是一个按顺序工作的工作流</li>
+<li>为这个lane指定一个名字</li>
+<li>在指定app identifier,名字，语言和version number后,使用<code>produce</code>来在ITC和Developer Portal创建一个app</li>
+<li>使用<code>cert</code>来创建私钥和签名申请文件,下载并安装生成的certificate并将所有文件安装到keychain中</li>
+<li>使用<code>sigh</code>来生成一个provision profile,指定<code>force: true</code>,在每一次运行的时候都会创建一个新的provision profile</li>
+</ol>
+<p><code>注意</code>:<code>sigh</code>每次默认都会创建App Store Distribution，如果你想创建一个adhoc的profile,你可以指定<code>sigh(adhoc:true)</code>,如果想指定一个开发证书, 可以指定<code>sigh(development:true)</code>为简单起见，在此教程中，我们只创建distribution profile</p>
+<p>好啦！我们已经创建了第一个<code>lane</code>了，打开终端，进入你的工程根目录下，输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane provision</span><br></pre></td></tr></table></figure>
+<p>它让fastlane运行你的<code>provision</code> lane</p>
+<p>一两分钟后,fastlane会请求你的ITC密码,不必担心，此密码会安全地保存在电脑的<code>keychain</code>里，输入你的密码，一旦成功后，你的终端窗口看起来应该如下图</p>
+<p><img src="https://i.imgur.com/VWUIjFW.png" alt="produce"> </p>
+<p><code>注意</code>:如果你碰到一些错误，特别是<code>Creation of apps of this type is not available</code>这样的错误时，登录ITC,确保没有任何需要签名的agreements</p>
+<p>现在你可以登录<code>iTunes Connect</code>,可以看到你已经创建了app，怎么样 ，是不是很神奇</p>
+<p><img src="https://i.imgur.com/liErSzN.png" alt="itunesConnect"></p>
+<ul>
+<li><code>Screeshots lane</code></li>
+</ul>
+<p>当提交app时，app的截图是必不可少，可是人工截图又是如此无趣，特别是如果你要针对多语言开发时，会浪费很多宝贵的时间做这种无聊的截图工作，幸运的是，fastlane可以帮你搞定这些工作!<br>在fastlane文件夹下打开<code>Snapfile</code>文件,替换成以下内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">devices([</span><br><span class="line">   &quot;iPhone 6&quot;,</span><br><span class="line">   &quot;iPhone 6 Plus&quot;,</span><br><span class="line">   &quot;iPhone 5&quot;,</span><br><span class="line">   &quot;iPhone 4s&quot;,</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">languages([</span><br><span class="line">  &quot;en-US&quot;,</span><br><span class="line">  &quot;de-DE&quot;,</span><br><span class="line">  &quot;it-IT&quot;</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">snapshot#launch_arguments</span><br><span class="line"></span><br><span class="line">screenshots before creating new ones</span><br></pre></td></tr></table></figure>
+<p>以是内容指定了你想支持的机型和语言,<code>clear_previous_screenshots</code>将清除之前已创建好的screenshots</p>
+<p>保存文件并关掉它</p>
+<p>打开<code>Fastfile</code>文件，在<code>error do |lane, exception|</code>上添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">desc &quot;Take screenshots&quot;</span><br><span class="line">lane :screenshot do</span><br><span class="line">  snapshot</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>我们创建了一个新的名叫<code>screenshot</code>的<code>lane</code>,它使用<code>snapshot</code>来截你在Snapfile中指定支持的设备和语言的截图</p>
+<p>保存文件,打开终端输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane screenshot</span><br></pre></td></tr></table></figure>
+<p>神奇的事情发生了，所有的截图操作都自动帮你搞定啦</p>
+<p><img src="https://i.imgur.com/TSiud1V.gif" alt="screenshot"></p>
+<p><code>注意</code>:这版的教程中的<code>snapshot</code>使用了<code>UI Automation</code>和<code>JavaScript</code>来驱动模拟器,但<code>snapshot</code> 1.0使用了Xcode 7的UI Testing,也就是说你可以用Swift或OC来写自动化脚本了</p>
+<p>需要<code>特别注意</code>的是:为了让<code>snapshot</code>正常截图,它需要首先能正常访问在Snapfile中列举的设备列表,如果Xcode中少了其中的某些devices,你需要在Xcode中的<code>Window\Devices</code>中的左下角下，点击<code>+</code>来添加新的模拟器</p>
+<p>一旦此过程结束,我们可以到fastlane文件夹下找到一下<code>screenshots</code>的文件夹</p>
+<p><img src="https://i.imgur.com/i6KLJld.png" alt="screenshotresult"></p>
+<p>现在你有<code>English</code>和<code>French</code>这两语言支持的所有设备截图了,你也会注意到一个<code>screenshots.html</code>的文件,打开它可以看到所有的screenshot!</p>
+<ul>
+<li><code>gym</code></li>
+</ul>
+<p>好了，现在我们可以准备创建<code>IPA</code>文件了<br>打开<code>Fastfile</code>文件并且在<code>screenshot</code>的<code>end</code>后面添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">desc &quot;Create ipa&quot;</span><br><span class="line">lane :build do</span><br><span class="line">  gym</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>以上创建了一个<code>build</code>的<code>lane</code>,它使用<code>gym</code>来创建一个签名的<code>ipa</code>文件</p>
+<p>在终端中保存<code>Fastfile</code>,在mZone工程根目录下输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane build</span><br></pre></td></tr></table></figure>
+<p>一旦完成,你可以在mZone工程根目录下看到一个签名的ipa文件</p>
+<p><img src="https://i.imgur.com/lSZaKcQ.png" alt="ipa"></p>
+<ul>
+<li>…..</li>
+</ul>
+<p>其它的工具需要你自己去探索了</p>
+<h3 id="fastlane一键式发布"><a href="#fastlane一键式发布" class="headerlink" title="fastlane一键式发布"></a>fastlane一键式发布</h3><p>为了将screenshots,metadata,ipa文件发送到iTunes Connect,我们可以使用<code>deliver</code>这个工具</p>
+<p>首先,我们需要初始化工程以让它使用<code>deliver</code>这个工具,进入工程文件夹下，输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deliver init</span><br></pre></td></tr></table></figure>
+<p>一旦完成，你的终端窗口看起来应该像以下这样 </p>
+<p><img src="https://i.imgur.com/dicfvzP.png" alt="delivery"></p>
+<p>我们可以看到<code>deliver</code>自动检测到了<code>ipa</code>文件和screenshots的位置</p>
+<p>它也创建了一个<code>metadata</code>文件夹和一堆text文件,这些文件包含了常见的App Store items如description, keywords, categories等等</p>
+<p>通常你应该填完这些信息，但教程为方便起见只添加了一句简单的描述,打开<code>en-US/description.txt</code>添加以下文字:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mZone is a simple poker calculator for No Limit Texas Hold’em tournaments that displays a recommended course of action based on your chip count and the current big blind level.</span><br></pre></td></tr></table></figure>
+<p>不过在我们继续之前，我们需要修复一个issue,打开<code>metadata</code>文件夹，注意到尽管我们的应该支持<code>French</code>和<code>English</code>，只有<code>en-US</code>文件夹存在</p>
+<p>为了解决这个问题，我们对<code>en-US</code>文件夹作一份copy，并将它命名为<code>fr-FR</code>.现在你的工程看起来应该如下</p>
+<p><img src="https://i.imgur.com/l80R2Jp.png" alt="prepare"></p>
+<p>打开<code>Fastfile</code>并在<code>build</code>lane的<code>end</code>之后添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">desc &quot;Upload to App Store&quot;</span><br><span class="line">lane :upload do</span><br><span class="line">  deliver</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>打开终端，输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane upload</span><br></pre></td></tr></table></figure>
+<p>这个命令，fastlane以HTML的形式展现了一个它最终将要上传的内容的preview</p>
+<p>如果所有看起来都OK，在<code>“Does the Preview on path ‘./Preview.html’ look okay for you? (y/n)”</code>此问题后面输入<code>y</code>,好了，现在静静地喝杯咖啡吧，fastlane将会把所以该上传的都上传到appstore</p>
+<p>进入iTunesConnect,现在看看，所有显示的内容是不是都与你本地的一一对应啦!</p>
+<p>需要<code>注意</code>以下文件</p>
+<ul>
+<li><code>Appfile</code>: 记录了app的idenfifier和你的appleID</li>
+<li><code>Fastfile</code>:管理你需要执行actions的所有<code>lanes</code></li>
+<li><code>Snapfile</code>:让你指定对所有语言对应的设备尺寸进行截图</li>
+</ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://fastlane.tools" target="_blank" rel="external">fastlane官网</a></li>
+<li><a href="https://www.raywenderlich.com/116065/fastlane-tutorial-getting-started" target="_blank" rel="external">fastlane Tutorial: Getting Started</a></li>
+<li><a href="https://github.com/fastlane/fastlane" target="_blank" rel="external">fastlane git</a>开源项目</li>
+<li><a href="http://www.07net01.com/2015/07/879465.html" target="_blank" rel="external">Xcode中Command Line Tools安装方法</a></li>
+<li>下一篇<a href="http://tweiwei497435786.github.io/2016/04/08/Jenkins-Git-Fastlane-Fir-CI集成/" target="_blank" rel="external">Jenkins+Git+Fastlane+Fir CI集成</a>，将会详细介绍具体项目中使用</li>
+</ol>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>不要随便更新版本，如果更新了版本会导致相关<code>lane</code>存在问题，那这个时候需要看最新的官网的更新。现在fastlane更新的速度较快，需要持续关注。</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-ClangFormat代码格式化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/05/ClangFormat代码格式化/" class="article-date">
+  	<time datetime="2016-04-05T03:13:23.000Z" itemprop="datePublished">2016-04-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/05/ClangFormat代码格式化/">ClangFormat代码格式化</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在一个团队中如何保证所有的开发人员的代码风格一致，并且符合一定的规范，也许<a href="https://github.com/travisjeffery/ClangFormat-Xcode" target="_blank" rel="external">ClangFormat－Xcode</a>插件可以帮助你解决该问题。</p>
+<h3 id="定制ClangFormat-Xcode"><a href="#定制ClangFormat-Xcode" class="headerlink" title="定制ClangFormat-Xcode"></a>定制ClangFormat-Xcode</h3><p>如何需要定制你自己的格式化插件，下载ClangFormat-Xcode需要修改项目根本目录相面的<code>.clang-format</code>不可见文件(“defaults write com.apple.finder AppleShowAllFiles -bool true”）。修改完成后，然后将该项目运行，运行的时候会提示「Skip Bundle」和「Load Bundle」选择「Load Bundle」后插件即可安装成功后重新启动xcode，在你的<code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/</code>目录下面可看到插件安装成功。</p>
+<p>其中<code>.clang-format</code>如下，参考<a href="http://clang.llvm.org/docs/ClangFormatStyleOptions.html" target="_blank" rel="external">ClangFormatStyleOptions</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AccessModifierOffset: 0</span><br><span class="line">AlignEscapedNewlinesLeft: false</span><br><span class="line">AlignTrailingComments: true</span><br><span class="line">AllowAllParametersOfDeclarationOnNextLine: false</span><br><span class="line">AllowShortFunctionsOnASingleLine: false</span><br><span class="line">AllowShortIfStatementsOnASingleLine: false</span><br><span class="line">AllowShortLoopsOnASingleLine: false</span><br><span class="line">AlwaysBreakBeforeMultilineStrings: false</span><br><span class="line">AlwaysBreakTemplateDeclarations: false</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>Edit-&gt;HBClang Format</p>
+<p>Format Selected Text // 格式化选中的内容 快捷键为Ctrl+U</p>
+<p>Enable Format on Save //当保存的时候自动格式化。</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/2016-01-13_4.56.29.png" alt="Markdown preferences pane"></p>
+<h3 id="提交代码检测"><a href="#提交代码检测" class="headerlink" title="提交代码检测"></a>提交代码检测</h3><p>如果我们想要在提交之前做些检测代码规范的工作，那么接下来的操作就很重要了，通过下面的<a href="https://gist.github.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9" target="_blank" rel="external">脚本</a>，这个检测的规范就是上面ClangFormat中制定的规范内容。</p>
+<h5 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h5><ol>
+<li>打开命令行，进入项目目录，执行命令：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/clang-format-githook-install.sh | sh</span><br></pre></td></tr></table></figure>
+<ol>
+<li>或者手动下载保存为项目目录下的 .git/hooks/pre-commit，并修改文件权限为可执行。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/pre-commit-clang-format</span><br></pre></td></tr></table></figure>
+<p>这种方法并不会自动使用 [HBClangFormat-Xcode] 里面自带的 <code>clang-format</code>，而是写死了用 <code>/usr/local/bin/clang-format</code>，如果需要用其它路径的话可以自己修改文件头部的路径</p>
+<h5 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h5><ol>
+<li>我们提交代码通过sourceTree或者命令行提交代码，通过检测如果代码不符合规范，会出现提示信息，无法提交代码。</li>
+</ol>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>Xcode 安装插件手误选择了「Skip Bundle」后需要重新允许「Load Bundle」的解决方法。<a href="http://www.cnblogs.com/huangjianwu/archive/2015/11/06/4943737.html" target="_blank" rel="external">参考</a>。</li>
+<li>在使用代码提交检测的时候，由于在别人的代码基础上面做的修改，而检测的范围是提交的整个文件，这个时候不想改其它人的代码。我们可以修改项目目录下的 .git/hooks/pre-commit的exit为1，或者删除该文件。</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.tuicool.com/articles/22AN7rN" target="_blank" rel="external">iOS代码规范自动化</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-iOS开发工具" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -766,155 +1054,9 @@
 
 
   
-    <article id="post-iOS使用Jenkins进行持续集成" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/21/iOS使用Jenkins进行持续集成/" class="article-date">
-  	<time datetime="2016-03-21T12:50:33.000Z" itemprop="datePublished">2016-03-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/21/iOS使用Jenkins进行持续集成/">iOS使用Jenkins进行持续集成</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>持续集成是个简单重复劳动，人来操作费时费力，使用自动化构建工具完成是最好不过的了,为了达到这个需求我选择了<a href="https://jenkins.io" target="_blank" rel="external">jenkins</a></p>
-<p>Jenkins是基于Java开发的一种持续集成工具，用于监控持续重复的工作，功能包括：</p>
-<p>1、持续的软件版本发布/测试项目。</p>
-<p>2、监控外部调用执行的工作。</p>
-<p>3、类目丰富的插件8000多种支持</p>
-<p>4、支持RSS/Email通知机制</p>
-<h3 id="搭建Mac系统的jenkins-CI-Continuous-integration"><a href="#搭建Mac系统的jenkins-CI-Continuous-integration" class="headerlink" title="搭建Mac系统的jenkins CI(Continuous integration)"></a>搭建Mac系统的jenkins CI(Continuous integration)</h3><p>1、进入<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">brew</a>官网,通过使用Homebrew命令安装jenkins，安装brew的方式按照提示在terminate中输入以下命令。或者直接从<a href="https://jenkins.io/index.html" target="_blank" rel="external">Jenkins</a>下载，推荐使用第一种方式，以下为第一种方式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
-<p>2、安装jenkins，在terminate中输入以下命令，安装jenkins。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install jenkins</span><br></pre></td></tr></table></figure>
-<p>3、步骤1，2成功后，在terminate中输入jenkins启动Jenkins后，打开<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>，即可进入jenkins主页面,如下图：</p>
-<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/96C581C1-831C-463A-8F2E-547FFE618229.png" alt="Markdown preferences pane"></p>
-<p>4、设置jenkins安全权限设置，点击左侧的系统管理，选择Configure Global Security，参考<a href="http://blog.csdn.net/wangmuming/article/details/22926025" target="_blank" rel="external">安全设置</a>，如下图：</p>
-<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/5C226026-8205-4409-9070-F16E88D8F4EF.png" alt="Markdown preferences pane"></p>
-<p>5、安装必要的插件，选择系统管理－&gt;管理插件－&gt;可选插件（选择必要的插件即可，CocaoPods Jenkins Integration,fir-plugin,Github plugin,Publish Over FTP,Xcode integration等可根据实际情况选择。如果仅仅测试jenkins打包ipa可直接选择最后一个插件即可）。当前我选择的所有插件满足以下需求，每隔15分钟（如果有开发人员提交代码），会自动从github上面拉取代码，更新pod库，jenkins打包成功后自动上传到fir或者FTP服务器。</p>
-<p>6、以上基本环境搭建成功后，即可选择新建一个项目item－&gt;item名称－&gt;构建一个自由风格的软件项目（一些必要的信息填写）</p>
-<p>7、下一篇会重点介绍<a href="http://tweiwei497435786.github.io/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/" target="_blank" rel="external">Jenkins+Github+Xcode+Fir CI实战</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hexo+Github搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/07/Hexo+Github搭建个人博客/" class="article-date">
-  	<time datetime="2016-03-07T13:15:17.000Z" itemprop="datePublished">2016-03-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/07/Hexo+Github搭建个人博客/">Hexo+Github搭建个人博客</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>总想着搭建自己的个人博客，找了好久。再一次面试过程中，有看到面试者的个人简历介绍中有谈到Hexo+Github的方式搭建自己个人博客，如是就有了下面的内容了。之前有使用过其它的一些第三方的博客，总之是各种广告内容，看着不舒服；当然也有使用有道笔记，总是感觉缺少点什么。一方面为了，提升自己的写作能力，同时也是对日常工作的整理。好吧，正文从下面开始吧。</p>
-<h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><h5 id="安装Node（必须）"><a href="#安装Node（必须）" class="headerlink" title="安装Node（必须）"></a>安装Node（必须）</h5><p>作用：用来生成静态页面的到Node.js<a href="https://nodejs.org/en/" target="_blank" rel="external">官网</a>下载相应平台的最新版本，一路安装即可。<br>安装Git（必须）作用：把本地的hexo内容提交到github上去.安装Xcode就自带有Git，我就不多说了。<br>申请<a href="https://github.com" target="_blank" rel="external">GitHub</a>（必须）作用：是用来做博客的远程创库、域名、服务器之类的，怎么与本地hexo建立连接等下讲。github账号我也不再啰嗦了,没有的话直接申请就行了，跟一般的注册账号差不多，SSH Keys，看你自己了，可以不配制，不配置的话以后每次对自己的博客有改动提交的时候就要手动输入账号密码，配置了就不需要了，怎么配置我就不多说了，网上有很多教程。</p>
-<h5 id="正式安装Hexo"><a href="#正式安装Hexo" class="headerlink" title="正式安装Hexo"></a>正式安装Hexo</h5><p>Node和Git都安装好后，可执行如下命令安装hexo：<br>npm install -g （安装hexo的命令）<br>hexo初始化然后，执行init命令初始化hexo到你指定的目录，<br>我是直接cd到目标目录执行hexo init的。命令：<br>hexo init（init hexo的目录）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-<h5 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h5><p>启动本地服务，进行文章预览调试，命令：<br>hexo server<br>浏览器输入<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 配置正常的话，会进入本地服务的页面<br>我不知道你们能不能，反正我不能，因为我还有环境没配置好<br>我的hexo版本信息如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:beibei tianww$ hexo version</span><br><span class="line">hexo-cli: 1.0.1</span><br><span class="line">os: Darwin 15.3.0 darwin x64</span><br><span class="line">http_parser: 2.6.2</span><br><span class="line">node: 5.7.0</span><br><span class="line">v8: 4.6.85.31</span><br><span class="line">uv: 1.8.0</span><br><span class="line">zlib: 1.2.8</span><br><span class="line">ares: 1.10.1-DEV</span><br><span class="line">icu: 56.1</span><br><span class="line">modules: 47</span><br><span class="line">openssl: 1.0.2f</span><br></pre></td></tr></table></figure>
-<h3 id="配置Github"><a href="#配置Github" class="headerlink" title="配置Github"></a>配置Github</h3><p>首先需要在Github上面注册帐号后，建立Repository项目，仓库的名称必须为【your_user_name.github.io】固定写法，然后建立关联。本地的blog地址为/Users/tianww/Desktop/hexo,ls目录下面的内容：<br>_config.yml    node_modules    public        source<br>db.json        package.json    scaffolds    themes<br>现在我们需要_config.yml文件，来建立关联，命令：<br>vim _config.yml到最下面加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/Tweiwei497435786/Tweiwei497435786.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>把上面对应的改成你的帐户就可以了。网上会有很多说法，有的type是github, 还有repository 最后面的后缀也不一样是github.com.git，我也踩了很多坑，我现在的版本见上面，执行命令hexo -vsersion就出来了,貌似3.0后全部改成我上面这种格式了<br>然后执行配置部署命令：<br>hexo deploy<br>在浏览器中输入<a href="http://Tweiwei497435786.github.io/" target="_blank" rel="external">http://Tweiwei497435786.github.io/</a>就行了,改成你自己的。</p>
-<h5 id="部署的步骤"><a href="#部署的步骤" class="headerlink" title="部署的步骤"></a>部署的步骤</h5><p>每次部署的步骤，可以按照三步进行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>1.如发生 ERROR Deployer not found: git 或者 ERROR Deployer not found: github<br>解决方法： npm install hexo-deployer-git  –save</p>
-<p>2.由于yml语法比较严格，注意配置的时候冒号：之前都是有空格的</p>
-<p>3.在本地生成的目录中的public文件夹和你远程的github的项目中是对应，不能通过git方式直接操作远程的。由于每次本地会deploy操作。所以需要添加文件的操作，可以直接在本地文件目录public下面直接添加，然后重新部署，这样远端和本地就一样了。</p>
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h5 id="hexo常用的命令"><a href="#hexo常用的命令" class="headerlink" title="hexo常用的命令"></a>hexo常用的命令</h5><p>hexo new”postName” #新建文章<br>hexo new page”pageName” #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo deploy #将.deploy目录部署到GitHub<br>hexo help #查看帮助<br>hexo version #查看Hexo的版本</p>
-<h5 id="博客主题theme"><a href="#博客主题theme" class="headerlink" title="博客主题theme"></a>博客主题theme</h5><p>这里有大量的<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">主题</a>,选择一款自己喜欢的主题</p>
-<p><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">Yilia</a>- Responsive and simple style 优雅简洁响应式主题，我用得就是这个<br>注意直接下载该主题，然后拷贝yilia文件目录到本地目录的themes下面，修改_config.yml文件的theme: yilia就可以了，开始你的博客吧！</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>
