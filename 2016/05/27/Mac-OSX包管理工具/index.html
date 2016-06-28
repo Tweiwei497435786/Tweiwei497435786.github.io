@@ -16,7 +16,7 @@ HomebrewHomebrew简称为brew，是Mac OSX上的软件包管理工具，能在Ma
 <meta property="og:description" content="工欲善其事，必先利其器。在window上面安装工具，直接下载一个安装即可。由于Mac OSX是基于unix架构，在linux上面我们多习惯用命令来安装工具。接下来一些强大的Mac管理工具，作为Mac开发人员你不可不知。
 HomebrewHomebrew简称为brew，是Mac OSX上的软件包管理工具，能在Mac中方便的安装软件或者卸载软件， 只需要一个命令， 非常方便。
 安装brew只需要在终端">
-<meta property="og:updated_time" content="2016-05-31T02:15:03.000Z">
+<meta property="og:updated_time" content="2016-06-27T12:19:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac OSX包管理工具">
 <meta name="twitter:description" content="工欲善其事，必先利其器。在window上面安装工具，直接下载一个安装即可。由于Mac OSX是基于unix架构，在linux上面我们多习惯用命令来安装工具。接下来一些强大的Mac管理工具，作为Mac开发人员你不可不知。
@@ -118,7 +118,7 @@ HomebrewHomebrew简称为brew，是Mac OSX上的软件包管理工具，能在Ma
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 15px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 15px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 13.33px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -244,35 +244,6 @@ HomebrewHomebrew简称为brew，是Mac OSX上的软件包管理工具，能在Ma
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br></pre></td></tr></table></figure>
 <p>示例：在首篇文章中搭建hexo的时候就是使用npm安装hexo：npm install -g （安装hexo的命令）</p>
 <h3 id="Gem"><a href="#Gem" class="headerlink" title="Gem"></a>Gem</h3><p>由于在CocoaPods类库管理工具中需要使用，<a href="https://rubygems.org/pages/download#formats" target="_blank" rel="external">Gem</a>是Ruby（一种跨平台的脚本语言）的环境下的命令，在Mac OXS系统中，已经自动安装了Xcode，Xcode已经安装ruby的环境。</p>
-<h3 id="CocoaPods"><a href="#CocoaPods" class="headerlink" title="CocoaPods"></a>CocoaPods</h3><p>iOS 最新版 CocoaPods 的安装流程</p>
-<p>1.移除现有Ruby默认源</p>
-<p>$gem sources –remove <a href="https://rubygems.org/" target="_blank" rel="external">https://rubygems.org/</a></p>
-<p>2.使用新的源</p>
-<p>$gem sources -a <a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org/</a></p>
-<p>3.验证新源是否替换成功</p>
-<p>$gem sources -l</p>
-<p>4.安装CocoaPods</p>
-<p>(1) $sudo gem install cocoapods</p>
-<p> 备注：苹果系统升级 OS X EL Capitan 后改为 $sudo gem install -n /usr/local/bin cocoapods</p>
-<p>(2) $pod setup</p>
-<p>5.更新gem</p>
-<p>$sudo gem update –system</p>
-<ol>
-<li>新建工程，并在终端用cd指令到文件夹内</li>
-</ol>
-<p>$pod search 第三方</p>
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>错误1：</p>
-<p>Error fetching <a href="http://ruby.taobao.org/" target="_blank" rel="external">http://ruby.taobao.org/</a>:</p>
-<p>bad response Not Found 404 (<a href="http://ruby.taobao.org/specs.4.8.gz" target="_blank" rel="external">http://ruby.taobao.org/specs.4.8.gz</a>)</p>
-<p>解决方案：把安装流程中 $gem sources -a <a href="http://ruby.taobao.org/" target="_blank" rel="external">http://ruby.taobao.org/</a>   —改为—-&gt; $gem sources -a <a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org/</a></p>
-<p>错误2：</p>
-<p>ERROR:  While executing gem … (Errno::EPERM)</p>
-<p>Operation not permitted - /usr/bin/pod</p>
-<p>解决方案：苹果系统升级OS X EL Capitan后会出现的插件错误，将安装流程 4.安装CocoaPods 的 (1)sudo gem install cocoapods ——&gt;改为sudo gem install -n /usr/local/bin cocoapods</p>
-<p>错误3：</p>
-<p>[!] Unable to satisfy the following requirements: - <code>AVOSCloud (~&gt; 3.1.6.3)</code> required by <code>Podfile</code></p>
-<p>Specs satisfying the <code>AVOSCloud (~&gt; 3.1.6.3)</code> dependency were found, but they required a higher minimum deployment target.</p>
-<p>解决方案：安装流程：Podfile文件 中   platform:ios, ‘6.0’  后边的 6.0 是平台版本号 ，一定要加上</p>
 
       
     </div>

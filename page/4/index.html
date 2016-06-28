@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 15px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 15px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 13.33px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,212 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-UITouch简单使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/23/UITouch简单使用/" class="article-date">
+  	<time datetime="2016-03-23T12:19:40.000Z" itemprop="datePublished">2016-03-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/23/UITouch简单使用/">UITouch简单使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有些时候为了项目的需求需要（在一张广告的图片中，点击不同的区域，需要响应不同的操作）那么我们可以创建一个UIImageView,然后通过UIResponder的相关方法，获取当前的点击区域，通过判断分别处理事件。具体代码如下：</p>
+<p>由于UIView继承UIResponder类，可以通过实现如下方法，来获取点击区域操作。</p>
+<p>-(void)touchesBegan:(NSSet<uitouch *=""> <em>)touches withEvent:(nullable UIEvent </em>)event</uitouch></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    [touches enumerateObjectsUsingBlock:^(UITouch * _Nonnull obj, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        if (obj.view == self) &#123;</span><br><span class="line">            CGPoint touchPoint = [obj locationInView:self];</span><br><span class="line">            NSInteger index = [self locationJugement:touchPoint];</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">            NSLog(@&quot;touchPoint....:%@&quot;,NSStringFromCGPoint(touchPoint));</span><br><span class="line">#endif</span><br><span class="line">            if (self.delegate &amp;&amp; [self.delegate respondsToSelector:@selector(tapEventOption:)]&amp;&amp; index &gt;= 0) &#123;</span><br><span class="line">                [self.delegate tapEventOption:[self.hotSpotAdsArray safeObjectAtIndex:index]];</span><br><span class="line">            &#125;</span><br><span class="line">            *stop = YES;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSInteger)locationJugement:(CGPoint)point</span><br><span class="line">&#123;</span><br><span class="line">   __block NSInteger returnIndex = -1;//默认为－1</span><br><span class="line">    [self.hotSpotAdsArray enumerateObjectsUsingBlock:^(BBHotspotModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">        NSLog(@&quot;obj.rect...:%@&quot;,obj.rect);</span><br><span class="line">#endif</span><br><span class="line">        if ([obj.rect count] &gt;= 4) &#123;//防止越界</span><br><span class="line">            CGFloat orgX = [[obj.rect objectAtIndex:0] floatValue];</span><br><span class="line">            CGFloat orgY = [[obj.rect objectAtIndex:1] floatValue];</span><br><span class="line">            CGFloat width = [[obj.rect objectAtIndex:2] floatValue];</span><br><span class="line">            CGFloat height = [[obj.rect objectAtIndex:3] floatValue];</span><br><span class="line">            if ( (point.x &gt; orgX &amp;&amp; point.x &lt; orgX + width) &amp;&amp; (point.y &gt; orgY &amp;&amp; point.y &lt; orgY + height)) &#123;</span><br><span class="line">                returnIndex = idx;</span><br><span class="line">                *stop = YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    return returnIndex;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>可以通过以下方法测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (void)createTestModelArray</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:4];</span><br><span class="line">    for (NSInteger j = 0; j &lt; 4; j++) &#123;</span><br><span class="line">        NSArray *array = [[NSArray alloc] init];</span><br><span class="line">        BBHotspotModel *mode = [[BBHotspotModel alloc] init];</span><br><span class="line">        for (NSInteger i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">            NSInteger hang = ((j%2 == 0) ? j/2:(j/2));</span><br><span class="line">            NSInteger lei = ((j%2 == 0) ? 0:1);</span><br><span class="line">            CGFloat orgX = lei * (SCREEN_WIDTH/2.0);</span><br><span class="line">            CGFloat orgY = hang * (200/2.0);</span><br><span class="line">            array = [NSArray arrayWithObjects:@(orgX),@(orgY),@(SCREEN_WIDTH/2.0),@(200/2.0),nil];</span><br><span class="line">        &#125;</span><br><span class="line">        mode.rect = array;</span><br><span class="line">        mode.target = [NSString stringWithFormat:@&quot;跳转%ld&quot;,j];</span><br><span class="line">        [tempArray addObject:mode];</span><br><span class="line">    &#125;</span><br><span class="line">    self.hotspotArray = [NSMutableArray arrayWithObjects:tempArray,nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过测试发现，根据给定每一个特定区域,点击操作实现相关委托即可。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Git常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/23/Git常用命令/" class="article-date">
+  	<time datetime="2016-03-23T01:59:38.000Z" itemprop="datePublished">2016-03-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/23/Git常用命令/">Git常用命令</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001373962845513aefd77a99f4145f0a2c7a7ca057e7570000" target="_blank" rel="external">Git</a>是什么？</p>
+<p>Git是目前世界上最先进的分布式版本控制系统<br>由于使用的mac系统，mac默认安装了Git。可以通过下面命令，在terminate确认是否安装了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git</span><br></pre></td></tr></table></figure>
+<p>如果出现了The program ‘git’ is currently not installed. You can install it by typing:提示则表示没有安装，使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
+<p>输入密码即可以等待安装成功。</p>
+<h5 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">1. git clone &lt;https,ssh项目的地址&gt;  (表示clone所有的分支)</span><br><span class="line">   example: git clone http://git.husor.com.cn/ios/beibei.git</span><br><span class="line"></span><br><span class="line">2. git clone -b &lt;分支名称&gt; &lt;https,ssh项目的地址&gt; （表示clone某一个分支）</span><br><span class="line">   example: git clone -b release/v4.0.0 http://git.husor.com.cn/ios/beibei.git</span><br><span class="line">   </span><br><span class="line">3. git branch -r （查看当前项目所有的分支）</span><br><span class="line">   example: git branch -r</span><br><span class="line">    origin/HEAD -&gt; origin/master</span><br><span class="line">  	origin/beibei_pod</span><br><span class="line">  	origin/develop_merge_to_pods</span><br><span class="line">  	origin/feature/brand_martshow_4.0</span><br><span class="line">  	origin/feature/develop_4.0.1</span><br><span class="line">  	origin/feature/lyd_chaozhi</span><br><span class="line">  	origin/release/v4.0.0</span><br><span class="line">  	......</span><br><span class="line">4. git checkout &lt;分支名称&gt; （表示检出新的远程分支到本地）</span><br><span class="line">   example: git checkout feature/martshow_peel</span><br><span class="line">	Branch feature/martshow_peel set up to track remote branch feature/martshow_peel from origin.</span><br><span class="line">	Switched to a new branch &apos;feature/martshow_peel&apos;</span><br><span class="line">5. git commit -a (提交本地的修改文件到暂存区，这个时候会默认调用vim编辑器，输入提交信息)；也可以使用git commit -a  -m &quot;commit info&quot;</span><br><span class="line">   example1: git commit -a</span><br><span class="line">   </span><br><span class="line">   example2: git commit -a -m &quot;.gitignore文件&quot;</span><br><span class="line">   </span><br><span class="line">   如果出现：(表示没有跟踪到的问题）</span><br><span class="line">   Untracked files:</span><br><span class="line">	BeiBeiAPP.xcodeproj/xcshareddata/</span><br><span class="line">	这种类型行的问题，则需要使用git add BeiBeiAPP.xcodeproj/xcshareddata/命令后重新提交即可</span><br><span class="line">6. git push &lt;远程分支&gt;  (表示将本地修改的暂存区的内容提交到对应的远程分支）</span><br><span class="line">   example: git push feature/martshow_peel</span><br><span class="line">7. git merge &lt;远程分支&gt; (表示从远程分支拉取代码合并到本地)</span><br><span class="line">   example: git merge release/v4.0.0 （以下的合并存在冲突）</span><br><span class="line">            Auto-merging BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (content): Merge conflict in BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (modify/delete): BeiBeiAPP/BBClasses/C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m 			  deleted in HEAD and modified in release/v4.0.0. Version release/v4.0.0 of BeiBeiAPP/BBClasses/			  C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m left in tree.</span><br><span class="line">            Auto-merging BeiBeiAPP.xcodeproj/project.pbxproj</span><br><span class="line">            Automatic merge failed; fix conflicts and then commit the result.</span><br><span class="line">            </span><br><span class="line">8. git tag -l</span><br><span class="line">   example: iMac-tortoise:BBCore tianww$ git tag -l</span><br></pre></td></tr></table></figure>
+<h5 id="Git常用的工具"><a href="#Git常用的工具" class="headerlink" title="Git常用的工具"></a>Git常用的工具</h5><p>SourceTree（推荐，appstore上面即可下载，简单实用功能强大）</p>
+<p><a href="http://www.isofts.org/tower/" target="_blank" rel="external">Tower</a> （强大，但是要钱）</p>
+<p>GitBash</p>
+<p>EGit</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Git版本控制-gitignore文件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/22/Git版本控制-gitignore文件/" class="article-date">
+  	<time datetime="2016-03-22T09:55:33.000Z" itemprop="datePublished">2016-03-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/22/Git版本控制-gitignore文件/">Git版本控制.gitignore文件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Git忽略规则。"><a href="#Git忽略规则。" class="headerlink" title="Git忽略规则。"></a>Git忽略规则。</h3><h5 id="gitignore文件。"><a href="#gitignore文件。" class="headerlink" title=".gitignore文件。"></a>.gitignore文件。</h5><p>.gitignore 配置文件用于配置不需要加入版本管理的文件，配置好该文件可以为我们的版本管理带来很大的便利.版本库中目录下的.gitignore文件作用于整个目录及子目录，会随着该版本库同其他人共享。文件存放在当前Respositories工作目录下，当然默认是不可见的，可以调用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.finder AppleShowAllFiles YES //显示隐藏文件</span><br><span class="line">defaults write com.apple.finder AppleShowAllFiles NO//隐藏不可见文件</span><br></pre></td></tr></table></figure>
+<p>然后输入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:beibei tianww$ cd /Users/tianww/Documents/ipa_Project/beibei </span><br><span class="line">iMac-7:beibei tianww$ vim .gitignore</span><br></pre></td></tr></table></figure>
+<p>我们会看到以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">*~</span><br><span class="line">.DS_Store</span><br><span class="line">.idea/</span><br><span class="line"></span><br><span class="line"># Xcode</span><br><span class="line">#</span><br><span class="line">build/</span><br><span class="line">buildipa/</span><br><span class="line">*.pbxuser</span><br><span class="line">!default.pbxuser</span><br><span class="line">*.mode1v3</span><br><span class="line">!default.mode1v3</span><br><span class="line">*.mode2v3</span><br><span class="line">!default.mode2v3</span><br><span class="line">*.perspectivev3</span><br><span class="line">!default.perspectivev3</span><br><span class="line">xcuserdata</span><br><span class="line">*.xccheckout</span><br><span class="line">*.moved-aside</span><br><span class="line">DerivedData</span><br><span class="line">*.hmap</span><br><span class="line">*.ipa</span><br><span class="line">*.xcuserstate</span><br><span class="line">xcshareddata/</span><br><span class="line"></span><br><span class="line">Pods/</span><br><span class="line">Podfile.lock</span><br><span class="line"></span><br><span class="line">*.xcuserdatad</span><br><span class="line">&quot;.gitignore&quot; 8501L, 482577C</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，有些东西是xcode默认会在.gitignore中忽略掉的：比喻在修改了schemes的时候，无论你怎么修改，都看不到在在git里面有修改记录的，其实这个是默认会忽略掉的。这个时候，我们为了统一控制一些东西，就需要修改.gitignore中的内容了，需要将（*.xcuserstate xcshareddata/）两个删除掉，修改成功后提交git，那么所有人的配置就一致了，这个时候我们重新添加刚刚删除的内容，无论别人怎么修改也不会修改默认的统一的配置了。</p>
+<h5 id="exclude文件。"><a href="#exclude文件。" class="headerlink" title="exclude文件。"></a>exclude文件。</h5><p>本地的针对具体版本库的独享式忽略文件</p>
+<p>即在版本库.git目录下的文件info/exclude中设置文件忽略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:~ tianww$ cd /Users/tianww/Documents/ipa_Project/beibei/.git/info/</span><br><span class="line">iMac-7:info tianww$ ls</span><br><span class="line">exclude	refs</span><br><span class="line">iMac-7:info tianww$ vim exclude</span><br></pre></td></tr></table></figure>
+<h5 id="core-excludesfile文件。"><a href="#core-excludesfile文件。" class="headerlink" title="core.excludesfile文件。"></a>core.excludesfile文件。</h5><p> 本地的全局的独享式忽略文件,通过Git的配置变量core.excludesfile指定的一个忽略文件（指定文件名），其设置的忽略对所有本地版本库均有效。设置方法如下（文件名可以任意设置）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.excludesfile ~/.gitignore</span><br></pre></td></tr></table></figure>
+<h3 id="Git忽略文件语法。"><a href="#Git忽略文件语法。" class="headerlink" title="Git忽略文件语法。"></a>Git忽略文件语法。</h3><ol>
+<li>忽略文件中的空行或以井号（#）开始的行将会被忽略。</li>
+<li>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等。</li>
+<li>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</li>
+<li>如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在此目录下，而子目录中的文件不忽略。</li>
+<li>如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</li>
+</ol>
+<p>example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这是注释行，将被忽略</span><br><span class="line">*.a       # 忽略所有以.a为扩展名的文件    </span><br><span class="line">!lib.a    # 但是名为lib.a的文件或目录不要忽略，即使前面设置了对*.a的忽略</span><br><span class="line">/TODO     # 只忽略此目录下的TODO文件，子目录中的TODO文件不忽略</span><br><span class="line">build/    # 忽略所有build目录下的文件，但如果是名为build的文件则不忽略</span><br><span class="line">doc/*.txt # 忽略文件如doc/notes.txt，但是文件如doc/server/arch.txt不忽略</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-iOS使用Jenkins进行持续集成" class="article article-type-post" itemscope itemprop="blogPost">
   
