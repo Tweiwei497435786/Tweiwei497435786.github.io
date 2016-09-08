@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/Swift学习/" style="font-size: 10px;">Swift学习</a> <a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 10px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,163 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Jenkins-Github-Xcode-Fir-CI实战" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/" class="article-date">
+  	<time datetime="2016-03-28T07:41:56.000Z" itemprop="datePublished">2016-03-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/">Jenkins+Github+Xcode+Fir CI实战</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一篇：<a href="http://tweiwei497435786.github.io/2016/03/21/iOS使用Jenkins进行持续集成/" target="_blank" rel="external">iOS使用Jenkins进行持续集成</a>详细的讲了Mac上面搭建jenkins，接下来将会详细介绍jenkins的实际应用案例。</p>
+<h3 id="配置build-jenkins"><a href="#配置build-jenkins" class="headerlink" title="配置build jenkins"></a>配置build jenkins</h3><ol>
+<li>进入jenkins主页登录成功后，选择（新建），输入item的名称，选择（构建一个自由风格的软件项目），填写必要的描述信息。</li>
+<li>源码管理，我这里选择git（我的代码在git上面），（1）Repository URL填写项目的git地址 （2）Credentials选择add添加git的账号，（3）Branch to build 选择当前项目构建的分支。这样每次构建都会从git上拉取对应分支的最新代码到本地对应job的工作空间中。</li>
+<li>构建触发器，选择触发的条件，我这里选择的是 Build when a change is pushed to GitHub，也就是只要有开发人员提交代码到对应的项目分支，就会立即打包操作。当然你也可以选择其它的条件 Poll SCM 日程表可以填写H/15 <em> </em> <em> </em>，15分支检查一次是否有提交，如果有提交的就会自动打包。</li>
+<li><p>选择增加构建步骤，里面有一些基本的构建步骤也包含自己当前所需要安装的插件，这里使用的xcode构建项目，当然你也可以自己写<a href="">打包脚本</a>或者通过<a href="">fastlane 持续集成</a>工具gym或者shengzhen进行打包操作。</p>
+<p>(1) General build settings （build的基本配置）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target：选择targets中当前项目需要对应的target</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   (2) Code signing &amp; OS X keychain options （code sign及钥匙串keychain信息访问，主要是为了打包签名等使用）</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Change bundle ID：勾选后，表示打包操作中需要更改当前对应info.plist文件中对应bundle id。主要方便企业版本，appstore版等不同的bundle id需要。</span><br><span class="line">Code Signing Identify：也就是当前code sign的标示，（这个可以通过设置当前正确的code sign identify及code sign后，</span><br><span class="line">通过xcode打包各环境成功后，表示这些配置是正确的），然后通过当前项目中.xcodeproj文件的包含内容查找对应的Code Signing </span><br><span class="line">Identify</span><br><span class="line">Embedded Profile：也就是打包的provision file文件，也可以通过上述方式在配置文件中找到。证书安装后的地址</span><br><span class="line">/Users/tianww/Library/MobileDevice/Provisioning Profiles/中可以找到对应的证书，在这里填写正确即可。</span><br><span class="line">Unlock Keychain：由于签名等需要访问钥匙串，所以这里要勾选上，填写钥匙串的地址，访问钥匙串的密码。</span><br></pre></td></tr></table></figure>
+<p>   (3) Advanced Xcode build options （配置xcode build options）</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Xcode Schema File：选择schema，填写当前需要执行的schema的名称。</span><br><span class="line">Xcode Workspace File：如果当前的项目是基于workspace的那么这里就填写workspace（pod项目）的名称路径，不要. xcworkspace</span><br><span class="line">Xcode Project Directory：如果当前的项目是基于Project的，那么这里填写Project的路径名称,不要.xcodeproj。</span><br><span class="line">Build output directory：也就是项目的ipa的输出路径。</span><br></pre></td></tr></table></figure>
+<p>   (4) Versioning</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Marketing version：CFBundleShortVersionString</span><br><span class="line">Technical version：CFBundleVersion</span><br></pre></td></tr></table></figure>
+<h3 id="上传ipa文件"><a href="#上传ipa文件" class="headerlink" title="上传ipa文件"></a>上传ipa文件</h3><h5 id="一-通过蒲公英Fir上传"><a href="#一-通过蒲公英Fir上传" class="headerlink" title="一.通过蒲公英Fir上传"></a>一.通过蒲公英Fir上传</h5><p>1.通过<a href="http://fir.im" target="_blank" rel="external">Fir蒲公英</a>上传ipa到账号，这里可以通过脚本，当然也可以通过使用安装fir提供的<a href="http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin(1" target="_blank" rel="external">jenkins插件下载</a>.hpi)配置上传ipa到fir。</p>
+<p>以下使用脚本方式：你需要安装fir的命令<a href="https://github.com/FIRHQ/fir-cli/blob/master/README.md" target="_blank" rel="external">fir.im-cli</a>，安装fir.im-cli命令可以通过terminal的gem直接安装，<a href="https://github.com/FIRHQ/fir-cli/blob/master/doc/install.md" target="_blank" rel="external">参考</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install fir-cli</span><br></pre></td></tr></table></figure>
+<p>2.选择添加构建步骤Execute shell，填写以下脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#进入ipa生成的目录</span><br><span class="line">$&#123;WORKSPACE&#125;/Enterprise_ipa/</span><br><span class="line">#登录fir这里的需要填写你的 API Token</span><br><span class="line">fir login 858b83d2f15f5f</span><br><span class="line">curDir=`pwd`</span><br><span class="line"># 下面上传dsym文件到fir上面对应，这个需要在项目中集成fir的bughd错误日志收集,-p 表示项目的token -v当前的时间</span><br><span class="line">#fir mapping /$&#123;WORKSPACE&#125;/build/beibei.app.dSYM.zip  -v `date &quot;+%Y-%m-%d/%H:%M:%S&quot;` -P 56528e39a1de52</span><br><span class="line">#上传ipa文件，并且上传变更日志，这个是当前job的build的修改记录的地址</span><br><span class="line">fir publish &quot;beibei.ipa&quot; -c &quot;如需要查看修改记录点击下面地址....:http://192.168.44.132:8080/job/$&#123;JOB_NAME&#125;/$&#123;BUILD_NUMBER&#125;/changes&quot;</span><br></pre></td></tr></table></figure>
+<p>3.如果你需要通过fir提供的jenkins插件上传到fir相关的，那就在构建步骤添加插件的名称，填写必要的配置信息。可以参考<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir jenkins</a>的各种参数配置</p>
+<h5 id="二-通过FTP上传到自己的服务器"><a href="#二-通过FTP上传到自己的服务器" class="headerlink" title="二.通过FTP上传到自己的服务器"></a>二.通过FTP上传到自己的服务器</h5><p>1.在构建步骤中选择Send build artifacts over FTP前提是你安装了该jenkins插件，具体参考<a href="https://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+FTP+Plugin" target="_blank" rel="external">这里</a>！</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>jenkins 1.656版本会并且在由于xcode 7出来没多久，且在xcode 7上build setting中多了一个Product Bundle Idenitfier的项，且jenkins没有修改此处的bundle id，导致无法编译通过。所以为了避免这个问题我们可以在对应的configuration下面设置bundle id而不影响其它人，但同时也不允许其它人更改对应configuration的内容。这样限制就会比较麻烦，我们可以通过编写脚本修改bundle id，或者采用接下来的fastlane方式。新版本估计jenkins会将这个问题修复。</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.jianshu.com/p/a17167274463" target="_blank" rel="external">Jenkins+GitHub+Xcode+fir搭了一个持续集成环境</a></p>
+<p>2.<a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">fir.im Jenkins 插件使用方法</a></p>
+<p>3.<a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Jenkins Plugins</a>这里有各种各样的插件</p>
+<p>4.如果你觉得以上的配置内容不够详细，可以下载详细的<a href="https://github.com/Tweiwei497435786/ProjectStaticSave" target="_blank" rel="external">配置信息Demo</a>html查看吧</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-创建私有pod库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/24/创建私有pod库/" class="article-date">
+  	<time datetime="2016-03-24T06:49:08.000Z" itemprop="datePublished">2016-03-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/24/创建私有pod库/">创建私有pod库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一-创建Github的"><a href="#一-创建Github的" class="headerlink" title="一, 创建Github的"></a>一, 创建Github的</h3><p> 在Gitthub创建一个pod工程的名称martshow的项目，使用git clone到本地</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iMac-tortoise:martshow tianww$ git clone https://github.com/Tweiwei497435786/martshow.git</span><br></pre></td></tr></table></figure>
+<h3 id="二-创建本地pod工程"><a href="#二-创建本地pod工程" class="headerlink" title="二,  创建本地pod工程"></a>二,  创建本地pod工程</h3><p>只要输入pod lib create &lt;项目名称&gt;命令即可完成初始项目的搭建：</p>
+<h5 id="1-执行命令pod-lib-create-martshow-public，具体操作如下实例："><a href="#1-执行命令pod-lib-create-martshow-public，具体操作如下实例：" class="headerlink" title="1.执行命令pod lib create martshow_public，具体操作如下实例："></a>1.执行命令pod lib create martshow_public，具体操作如下实例：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">iMac-8:martshow tianww$ pod lib create martshow_public</span><br><span class="line">Cloning `https://github.com/CocoaPods/pod-template.git` into `martshow`.</span><br><span class="line">Configuring martshow template.</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">To get you started we need to ask a few questions, this should only take a minute.</span><br><span class="line"></span><br><span class="line">If this is your first time we recommend running through with the guide: </span><br><span class="line"> - http://guides.cocoapods.org/making/using-pod-lib-create.html</span><br><span class="line"> ( hold cmd and double click links to open in a browser. )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">What language do you want to use?? [ ObjC / Swift ]</span><br><span class="line"> &gt; objc</span><br><span class="line"></span><br><span class="line">Would you like to include a demo application with your library? [ Yes / No ]</span><br><span class="line"> &gt; yes</span><br><span class="line"></span><br><span class="line">Which testing frameworks will you use? [ Specta / Kiwi / None ]</span><br><span class="line"> &gt; no</span><br><span class="line"></span><br><span class="line">Possible answers are [ Specta / Kiwi / None ]</span><br><span class="line"> &gt; none</span><br><span class="line"></span><br><span class="line">Would you like to do view based testing? [ Yes / No ]</span><br><span class="line"> &gt; no</span><br><span class="line"></span><br><span class="line">What is your class prefix?</span><br><span class="line"> &gt; BB</span><br></pre></td></tr></table></figure>
+<p>以上操作后，一个简单的私有pod库项目搭建完成。进入目录，我们会看到如下目录文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example			Pod			_Pods.xcodeproj</span><br><span class="line">LICENSE			README.md		martshow.podspec</span><br></pre></td></tr></table></figure>
+<p>我们添加的文件需要放在Pod/Classes目录，我们可以打开Exaple文件，双击.xcworkspace文件，这个就是我们的pod工作工程，也可以在如下图中加入文件：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/C4ED9A8C-9DAB-49F3-A9D2-8215FB9905C7.png" alt="Editor preferences pane"></p>
+<h3 id="三-提交本地pod库到远端"><a href="#三-提交本地pod库到远端" class="headerlink" title="三,  提交本地pod库到远端"></a>三,  提交本地pod库到远端</h3><p>就这样我们的一个私有pod库创建成功了，然后通过git命令或者git命令工具SourceThree上传代码到远端，其它pod工程需要引用当前的私有pod库可直接在podfile中添加引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iMac-tortoise:martshow tianww$ git add marshow/</span><br><span class="line">iMac-tortoise:martshow tianww$ git commit -a -m &quot;添加文件&quot;</span><br><span class="line">iMac-tortoise:martshow tianww$ git push</span><br></pre></td></tr></table></figure>
+<p>相关参考：</p>
+<ol>
+<li><a href="http://www.cnblogs.com/brycezhang/p/4117180.html" target="_blank" rel="external">使用CocoaPods开发并打包静态库</a></li>
+<li><a href="http://www.cnblogs.com/brycezhang/p/3675670.html" target="_blank" rel="external">CocoaPods版本升级</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-xcodeproj配置技巧" class="article article-type-post" itemscope itemprop="blogPost">
   

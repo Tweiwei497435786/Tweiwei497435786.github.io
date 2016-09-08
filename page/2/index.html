@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/Swift学习/" style="font-size: 10px;">Swift学习</a> <a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 10px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,200 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-xcodebuild-xcrun-simctl" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/22/xcodebuild-xcrun-simctl/" class="article-date">
+  	<time datetime="2016-06-22T02:22:22.000Z" itemprop="datePublished">2016-06-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/22/xcodebuild-xcrun-simctl/">xcodebuild  xcrun simctl</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在iOS中打包是一件繁琐且重复耗时的工作，而且手动操作还会遇到一些操作错误的问题。而且随着iOS的渠道增多更加会浪费额外的时间，在前面的文中有讲到过使用jenkins或者fastlane打包的工具，那么本篇将会讲解如果通过xcode提供的的shell编译工具xcodebuild，xcrun，xcrun simtil等进行相应的打包自动化操作。下面会简单的列举一些操作，更多请查看对应的–help。</p>
+<h4 id="xcodebuild"><a href="#xcodebuild" class="headerlink" title="xcodebuild"></a>xcodebuild</h4><p>xcodebuild负责将工程源文件编译成xxx.app</p>
+<p>在terminate中输入以下命令xcodebuild –help：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcodebuild --help</span><br></pre></td></tr></table></figure>
+<p>可以查看的到xcodebuild的相关的可用命令：</p>
+<p>显示xcodebuildversion：xcodebuild –version</p>
+<p>显示当前系统安装的sdk：xcodebuild –showsdks</p>
+<p>显示当前目录下project Information：xcodebuild –list</p>
+<p> <code>需要注意以上命令是需要在当前的工程.xcodeproj下执行</code></p>
+<p> 清理iphoneos下的.app文件xcodebuild clean</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$xcodebuild clean -workspace BeiBeiAPP.xcworkspace -scheme beibei -configuration release -sdk iphoneos SYMROOT=`pwd`/build_yueyu</span><br></pre></td></tr></table></figure>
+<p> 以下是通过xcodebuild生成workspace类型的.app文件，注意如果是xcodeproj类型打包的话就选择<code>-project</code>，注意此时需要设置好项目的codesign选择自动即可。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$xcodebuild -workspace BeiBeiAPP.xcworkspace -scheme beibei -configuration release -sdk iphoneos build SYMROOT=`pwd`/build_yueyu</span><br></pre></td></tr></table></figure>
+<h4 id="xcrun"><a href="#xcrun" class="headerlink" title="xcrun"></a>xcrun</h4><p>xcrun负责给xxx.app(签名)并打包成xxx.ipa</p>
+<p>在terminate中输入以下命令xcrun –help，可以查看到xcrun的相关所有的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcrun --help</span><br></pre></td></tr></table></figure>
+<p>以下通过.app文件生成ipa文件，并且签名的操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/xcrun -sdk iphoneos PackageApplication -v &quot;$distDir/$appName.app&quot; -o &quot;$distDir/$channelId.ipa&quot; --sign &quot;09E378E966D47195A553BE0EF9F0790D4997A9B5&quot;</span><br></pre></td></tr></table></figure>
+<p>其中，参数 v 就是 build 结果中最后一行 app 文件的路径，参数 o 是生成的 ipa 文件的路径。</p>
+<h4 id="xcrun-simctl"><a href="#xcrun-simctl" class="headerlink" title="xcrun simctl"></a>xcrun simctl</h4><p>通过xcrun simtil相关命令可以调度模拟器的操作，包括安装卸载启动等。</p>
+<p>在terminate中输入以下命令xcrun simctl –help，可以查看到xcrun simctl的相关所有的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcrun simctl --help</span><br></pre></td></tr></table></figure>
+<p>如下简单的写了一个自动启动模拟器，并安装相关APP，并且自动启动的shell脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;ouput xcrun instuments list--&gt;&quot;</span><br><span class="line">xcrun instruments -s #列举当前机器的所有的instruments列表</span><br><span class="line">echo &quot;select instruments device and run---&gt;&quot;</span><br><span class="line">xcrun instruments -w &quot;iPhone 6s (9.3)#[DEB8527E-87D4-4BCE-BDE3-12CAB9463669] (Simulator)&quot; #根据列举的instruments，调用对应的设备</span><br><span class="line">echo &quot;install app--&gt;&quot;</span><br><span class="line">xcrun simctl install booted ~/Desktop/BridgeLabiPhone.app #安装对应地址下的.app文件到上面选择的设备</span><br><span class="line">echo &quot;run app--&gt;&quot;</span><br><span class="line">xcrun simctl launch booted &quot;com.redcat.shandiangou.daily&quot; #启动模拟器，需要传入对应的bundle identifier</span><br></pre></td></tr></table></figure>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://mobile.51cto.com/hot-439106.htm" target="_blank" rel="external">iOS自动化的打渠道包解决方案</a></p>
+<p>2.<a href="http://www.cnblogs.com/qq78292959/archive/2011/06/14/2080751.html" target="_blank" rel="external">xcodebuild 使用手册</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iOS-多线程理解之NSThread" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/31/iOS-多线程理解之NSThread/" class="article-date">
+  	<time datetime="2016-05-31T09:15:05.000Z" itemprop="datePublished">2016-05-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/31/iOS-多线程理解之NSThread/">iOS 多线程理解之NSThread</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于iOS中多线程知识已经有无数前辈总结过，文章的好坏参差不齐，多线程的问题似乎是成为一个高手必修炼的内功。如果说在面试过程中面试官必出的一道题，那么非多线程内容不可，iOS中的多线程开发真的有那么难么？下面是本人的一些总结，当然也参考了前人比较好的文章，只有去实践才能深刻的理解，下面会分三篇去讲解。</p>
+<h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><p>多线程（multithreading)，是指从<code>软件</code>或者<code>硬件</code>上实现多个线程并发执行的技术。在一个程序中，独立运行的程序片段叫做“线程”(Thread)。每个正在系统上运行的程序都是一个进程，每个进程包含一到多个线程。线程是一组指令的集合，或者是程序的特殊段，它可以在程序里独立执行，线程基本上是轻量级的进程，它负责在单个程序里执行多个任务。通常由操作系统负责多个线程的调度和执行。线程是程序中一个单一的循序控制流程，在单个程序中同时运行多个线程完成不同的工作，称为多线程。</p>
+<p>在单一的线程中，一件事情没有处理完林外一件事情就不能开始，这样则会影响用户体验。在单核处理器时期就有多线程，这个时候多线程更多的用于解决线程阻塞造成的用户等待（通常是操作完UI后用户不再干涉，其它的线程在等待队列中，CPU一旦空闲就继续执行，不影响用户其它UI操作），其处理能力并没有变化。如今无论移动还是PC，服务器都是多核处理，于是<code>并行运算</code>就更多的提及。一件事情我们可以划分为多个步骤，在没有顺序要求的情况下使用多线程技能解决线程阻塞又能充分利用多核处理器运行能力。</p>
+<p>下图反映了一个包含8个操作的任务在一个有两核心的CPU中创建四个线程运行的情况。假设每个核心有两个线程，那么每个CPU中两个线程会交替执行，两个CPU之间的操作会并行运算。单就一个CPU而言两个线程可以解决线程阻塞造成的不流畅问题，其本身运行效率并没有提高，多CPU的并行运算才真正解决了运行效率问题，这也正是并发和并行的区别。当然，不管是多核还是单核开发人员不用过多的担心，因为任务具体分配给几个CPU运算是由系统调度的，开发人员不用过多关心系统有几个CPU。开发人员需要关心的是线程之间的依赖关系，因为有些操作必须在某个操作完成完才能执行，如果不能保证这个顺序势必会造成程序问题。</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/202333357067475.png" alt="General preferences"></p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>1.使用线程可以把占据时间长的程序中的任务放到后台去处理</p>
+<p>2.程序的运行速度可能加快（多核更突出）</p>
+<p>……</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>1.大量的的线程，会影响性能，因为操作系统需要在他们之间来回切换</p>
+<p>2.更多的线程需要更多的内存空间</p>
+<p>3.多线程的情况下可能会带来线程操作不当的bug，需要考虑线程之间的资源共享，线程死锁的情况。</p>
+<h4 id="iOS多线程"><a href="#iOS多线程" class="headerlink" title="iOS多线程"></a>iOS多线程</h4><p>在iOS中每个应用程序（进程）启动后都会建立主线程(UI线程)，这个线程被称作其它线程的父线程。如下代码中展示,在main函数中打印发现主线程已经创建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    NSLog(@&quot;应用程序启动的时候在main函数中创建了主线程.......:%@&quot;,[NSThread currentThread]);</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于在iOS中除了主线程，其它子线程是独立于Cocoa Touch的，所以只有<a href="http://www.lai18.com/content/1432808.html" target="_blank" rel="external">主线程可以更新UI界面</a>（同时UI的操作是非线程安全的，如果苹果大量UI部分UIKit设计为线程安全的，将会是非常耗性能的，同时会造成资源共享的bug等。当然新版本iOS中，部分UIFont，UIColor绘图等UI操作已经被设计为线程安全的，但是还是建议UI的操作保证在主线程中执行）。iOS中使用多线程并不复杂，关键是如何控制好各个线程的执行的循序，处理好资源竞争问题。常用的多线程开发有三种方式：</p>
+<ul>
+<li>NSThread</li>
+<li>NSOperation</li>
+<li>GCD</li>
+</ul>
+<p>当然使用各多线程的方式需要考虑当前具体的需求场景，甚至在项目中需要结合多种方式使用。具体的在了解完各自的具体使用后，具体的分析各自的优缺点及使用场景。</p>
+<blockquote>
+<h3 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h3></blockquote>
+<p>NSThread是轻量级的多线程开发，使用起来并不复杂，但是需要管理线程的生命周期(线程的创建create，启动start，调度cancle等）,无法有效控制线程数量。可以通过两种方式来创建线程，实例方法，类方法创建如下：</p>
+<p>通过实例方法调用（需要管理其生命周期）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//使用alloc的方式创建一个新的线程，不会阻塞当前的ui主线程的操作</span><br><span class="line">NSThread *myThread = [[NSThread alloc] initWithTarget:self selector:@selector(loadImage:) object:nil];</span><br><span class="line">[myThread start];//启动线程</span><br></pre></td></tr></table></figure>
+<p>通过类方法直接创建调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//通过类方法直接隐式创建,每次都会创建一条新的线程</span><br><span class="line">[NSThread detachNewThreadSelector:@selector(loadImage:) toTarget:self withObject:nil];</span><br></pre></td></tr></table></figure>
+<p>通过NSThread可以解决线程阻塞的问题，在通过其它线程进行图片等资源下载过程中，保证主线程UI操作不会阻塞。其它线程操作完成，通过调用主线程的方式操作UI。</p>
+<h5 id="NSObject-NSThreadPerformAdditions"><a href="#NSObject-NSThreadPerformAdditions" class="headerlink" title="NSObject (NSThreadPerformAdditions)"></a>NSObject (NSThreadPerformAdditions)</h5><p>为了简单操作，苹果提供了NSOject分类扩展方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@interface NSObject (NSThreadPerformAdditions)</span><br><span class="line"></span><br><span class="line">//在主线程上执行一个方法</span><br><span class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait modes:(nullable NSArray&lt;NSString *&gt; *)array;</span><br><span class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;</span><br><span class="line">	// equivalent to the first method with kCFRunLoopCommonModes </span><br><span class="line"></span><br><span class="line">//在指定的线程上执行一个方法，需要用户创建一个线程对象</span><br><span class="line"></span><br><span class="line">- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(nullable id)arg waitUntilDone:(BOOL)wait modes:(nullable NSArray&lt;NSString *&gt; *)array NS_AVAILABLE(10_5, 2_0);</span><br><span class="line">- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(nullable id)arg waitUntilDone:(BOOL)wait NS_AVAILABLE(10_5, 2_0);</span><br><span class="line">	// equivalent to the first method with kCFRunLoopCommonModes</span><br><span class="line"></span><br><span class="line">//在后台执行一个操作，本质就是重新创建一个线程执行当前方法	</span><br><span class="line">- (void)performSelectorInBackground:(SEL)aSelector withObject:(nullable id)arg NS_AVAILABLE(10_5, 2_0);</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h5 id="多个线程并发-Concurrent"><a href="#多个线程并发-Concurrent" class="headerlink" title="多个线程并发(Concurrent)"></a>多个线程并发(Concurrent)</h5><p>使用NSThread创建多个线程，下载图片并且在相应的UIImageview中展示，通过以下场景来了解并发：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)changeImage:(MultiModel *)model</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.当前图片请求操作都在主线程执行，当前主线程阻塞，在点击加载按钮后图片没有请求完成的情况下无法，点击顶部的返回操作,所有图片全部请求完成后一起显示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//当前主线程阻塞，在点击加载按钮后图片没有请求完成的情况下无法，点击顶部的返回操作</span><br><span class="line">//所有图片全部请求完成后一起显示</span><br><span class="line">[self changeImage:model];</span><br></pre></td></tr></table></figure>
+<p>2.每一个图片的展示使用一个NSThread线程进行请求图片的操作。由于selector不能传递多个参数，可以将数据进行对象封装处理。当点击加载后，可以点击返回到主页，不会阻塞当前的主线程的任何操作（返回首页后，子线程依旧输出内容）。虽然图片是按循序请求的，但是图片的显示顺序不是有序的，由于网络的原因每个请求线程时间都不一致。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(changeImage:) object:model];</span><br><span class="line">           thread.name = [NSString stringWithFormat:@&quot;线程%ld&quot;,index];</span><br><span class="line">           [thread start];</span><br></pre></td></tr></table></figure>
+<p>3.为了能够控制线程执行顺序，通过控制最后一张图片最后展示在最后展示，可以通过当前为1张图片的线程操作的时候，使得图片1的线程（线程0）休眠一段时间达到最后展示，实际测试多次发现并非图片1每一都是最后展示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (void)delay:(MultiModel *)model</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    if (model.index == 0) &#123;//控制第一张图片，最后展示</span><br><span class="line">        NSLog(@&quot;[NSThread currentThread].....:%@&quot;,[NSThread currentThread]);</span><br><span class="line">        [NSThread sleepForTimeInterval:20];</span><br><span class="line">    &#125;</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.当然我们也可以通过修改线程的优先级来控制，图片展示的顺序。线程优先级范围为0~1，值越大优先级越高，每个线程的优先级默认为0.5。修改图片下载方法如下，改变最后一张图片加载的优先级，这样可以提高它被优先加载的几率，但是它也未必就第一个加载:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (void)priority:(MultiModel *)model</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    if (model.index == 8) &#123;//控制最后一个最先加载，设置优先级最高</span><br><span class="line">        NSLog(@&quot;[NSThread currentThread].....:%@&quot;,[NSThread currentThread]);</span><br><span class="line">        [NSThread setThreadPriority:1.0];</span><br><span class="line">    &#125;</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明NSThread的并发操作，并不能有效的保证执行顺序，由于图片加载的顺序以及网络的原因。</p>
+<h5 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h5><p>线程的状态有三种如下，都是只读操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (readonly, getter=isExecuting) BOOL executing NS_AVAILABLE(10_5, 2_0);//判断是否在执行</span><br><span class="line">@property (readonly, getter=isFinished) BOOL finished NS_AVAILABLE(10_5, 2_0);//判断执行是否完成</span><br><span class="line">@property (readonly, getter=isCancelled) BOOL cancelled NS_AVAILABLE(10_5, 2_0);//判断执行是否取消</span><br></pre></td></tr></table></figure>
+<h5 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h5><p>在线程操作过程中可以让某个线程休眠等待，优先执行其他线程操作，而且在这个过程中还可以修改某个线程的状态或者终止某个指定线程。比喻上面并发过程中讲到的线程睡眠，优先级的操作。有下面方法可以控制线程的生命周期，包含类方法和实例方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (void)sleepUntilDate:(NSDate *)date;</span><br><span class="line">+ (void)sleepForTimeInterval:(NSTimeInterval)ti;</span><br><span class="line"></span><br><span class="line">+ (void)exit;</span><br><span class="line"></span><br><span class="line">+ (double)threadPriority;</span><br><span class="line">+ (BOOL)setThreadPriority:(double)p;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@property (readonly, getter=isCancelled) BOOL cancelled NS_AVAILABLE(10_5, 2_0);</span><br><span class="line"></span><br><span class="line">- (void)cancel NS_AVAILABLE(10_5, 2_0);</span><br><span class="line"></span><br><span class="line">- (void)start NS_AVAILABLE(10_5, 2_0);</span><br><span class="line"></span><br><span class="line">- (void)main NS_AVAILABLE(10_5, 2_0);	// thread body method</span><br></pre></td></tr></table></figure>
+<p>在用户并发加载了图片操作，立马取消所有线程操作。通过线程的状态，改变线程的生命周期。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (void)exitAllThread</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;取消所有的线程&quot;);</span><br><span class="line">    //注意如果仅仅是在这里cancel，实际上是不能阻止子线程继续执行，还需要在线程加载数据的时候，取消掉exit</span><br><span class="line">    [self.threadArray enumerateObjectsUsingBlock:^(NSThread * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        if (![obj isFinished]) &#123;</span><br><span class="line">            [obj cancel];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;index....:%ld&quot;,model.index);</span><br><span class="line">    if (model.index &gt; 6) &#123;</span><br><span class="line">       [NSThread sleepForTimeInterval:2];//等待主线程中取消后2s再判断，7，8线程是否取消，取消后则退出当前线程，配合断点不怎好控制</span><br><span class="line">        if ([[NSThread currentThread] isCancelled]) &#123;//当前在主线程中已经被cancle了</span><br><span class="line">            [NSThread exit];//取消掉当前的线程</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    NSData *data = [self requestData:model.imagUrl];</span><br><span class="line">    model.imageData = data;</span><br><span class="line">    //更新的操作放到主线程中操作</span><br><span class="line">    [_multiThreadView performSelector:@selector(updateImageView:) onThread:[NSThread mainThread] withObject:model waitUntilDone:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用NSThread在进行多线程开发过程中操作比较简单，但是要控制线程执行顺序并不容易（前面万不得已采用了休眠的方法），另外在这个过程中如果打印线程会发现循环几次就创建了几个线程，这在实际开发过程中是不得不考虑的问题，因为每个线程的创建也是相当占用系统开销的。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.本篇文章详细demo<a href="https://github.com/Tweiwei497435786/multiThreadingTest" target="_blank" rel="external">multiThreadingTest</a></p>
+<p>2.<a href="http://baike.baidu.com/link?url=avVQJXUNwjVPgGarmWSvyFrLkQYgfXvSgXeSMLv29_L0CptvLlEeUUdzvVmvOYZP25OOmlLpFrh2USlDw0KsH_" target="_blank" rel="external">多线程</a></p>
+<p>3.<a href="http://www.cnblogs.com/kenshincui/p/3983982.html#otherArticle" target="_blank" rel="external">iOS开发系列–并行开发其实很容易</a></p>
+<p>4.<a href="http://www.cocoachina.com/ios/20150807/12911.html" target="_blank" rel="external">超详细！iOS 并发编程之 Operation Queues</a></p>
+<p>5.<a href="http://www.cnblogs.com/yangecnu/p/3164167.html" target="_blank" rel="external">浅谈并发与并行</a></p>
+<p>6.<a href="http://3961409.blog.51cto.com/3951409/759708" target="_blank" rel="external">并发和并行的区别</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-房屋装修设计基础" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -858,153 +1052,6 @@
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发技巧/">开发技巧</a></li></ul>
 	</div>
 
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-去掉Xcode工程相关警告" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/09/去掉Xcode工程相关警告/" class="article-date">
-  	<time datetime="2016-05-09T06:43:45.000Z" itemprop="datePublished">2016-05-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/09/去掉Xcode工程相关警告/">去掉Xcode工程相关警告</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在我们的项目中,通常使用了大量的第三方代码,这些代码可能很复杂,我们不敢改动他们,可是作者已经停止更新了,当sdk升级或者是编译器升级后,这些遗留的代码可能会出现许许多多的警告,又或者我们自己部分的代码出现了警告，那么我们能够有办法将这些警告清理掉么？以下讲的的一些方法可能比较有效的帮助你解决问题。</p>
-<h4 id="第三方代码"><a href="#第三方代码" class="headerlink" title="第三方代码"></a>第三方代码</h4><p>最直接,最一劳永逸,最安全的方式,直接找到警告的那段代码,改为不警告.这个方式,最安全.可是它有一个问题,就是,当我们很多文件都有这种类型的警告的时候,我们就需要改动很多很多的源码了, 对于不是我们写的源码,使用这种方法侵入性太强,显然就不太可取了。</p>
-<p>1.使用编译器提供的宏来操作，如下面我们经常看到的:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored&quot;-Wdeprecated-declarations&quot;</span><br><span class="line">		//写在这个中间的代码,都不会被编译器提示-Wdeprecated-declarations类型的警告</span><br><span class="line">dispatch_queue_tcurrentQueue =dispatch_get_current_queue();</span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __clang_analyzer__</span><br><span class="line">      // Code not to be analyzed</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
-<p>具体的警告对应的类型我们可以查看<a href="http://fuckingclangwarnings.com" target="_blank" rel="external">Which Clang Warning Is Generating This Message</a>，当然也可以通过查看具体的警告信息，选择Reveal in Log可以查看到是哪种“-Wno-shorten-64-to-32”的警告，但是这种改法需要更改大量的地方。</p>
-<p>2.关闭某一个指定文件制定类型的警告，可以选择工程具体的target－&gt;Build Phases－&gt;Compile Sources找到具体的文件，双击后填写需要忽略的类型，类似忽略不使用arc<code>-fno-objc-arc</code>我们可以对这个特定的文件加入<code>-Wno-shorten-64-to-32</code>表示忽略该中类型的警告。这种工作量还是比较大。</p>
-<p>3.关闭工程中指定类型的警告，target－&gt;Build Settings－&gt;Other Warning Flags 加入<code>-Wno-shorten-64-to-32</code>表示忽略工程中该类型的所有警告。这种类型会将当前工程自己部分代码也忽略掉。</p>
-<p>4.在我们使用podfile管理第三方的文件cocoapods的时候，我们可以在引用库的的时候加入<code>inhibit_warnings =&gt; true</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;XGPush&apos;,             &apos;2.3&apos;,     :inhibit_warnings =&gt; true</span><br></pre></td></tr></table></figure>
-<h4 id="当前工程代码"><a href="#当前工程代码" class="headerlink" title="当前工程代码"></a>当前工程代码</h4><p>如果是我们工程中，那么建议最好全部按照最新的要求进行全部修改，为了避免出现警告，可以采取一些有效的措施。</p>
-<p>1.我们可以将int的类型的都定义成NSInteger,float定义成CGFloat的类型，避免在不同的armv中出现警告的问题。</p>
-<p>2.我们可以将target－&gt;Build Settings－&gt;Treat Warnings as Errors（将警告视错误）防止开发人员提交警告。</p>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://stackoverflow.com/questions/5806101/is-it-possible-to-suppress-xcode-4-static-analyzer-warnings" target="_blank" rel="external">is-it-possible-to-suppress-xcode-4-static-analyzer-warnings</a></p>
-<p>2.<a href="http://stackoverflow.com/questions/7017281/performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761" target="_blank" rel="external">performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761</a></p>
-<p>3.<a href="ignore-all-warnings-in-a-specific-file-using-llvm-clang">ignore-all-warnings-in-a-specific-file-using-llvm-clang</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS-Crash" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/04/iOS-Crash/" class="article-date">
-  	<time datetime="2016-05-04T07:59:49.000Z" itemprop="datePublished">2016-05-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/04/iOS-Crash/">iOS Crash</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>   iOS崩溃问题一直是令开发人员痛苦的事情，那么如何高效的定位崩溃问题并有效的解决呢？下面所讲解的一些方式，都能够有效解决崩溃问题。当前归类三种情况，开发人员开发崩溃，测试内测崩溃，使用者线上崩溃。</p>
-<h4 id="开发崩溃定位"><a href="#开发崩溃定位" class="headerlink" title="开发崩溃定位"></a>开发崩溃定位</h4><p>1.当前xcode处于开发模式的时候，使用僵尸调测或者使用LLDB,GDB命令调测，打印崩溃信息，具体选择如下图，选择LLDB调测模式（属于xcode当前自带的内容），如果要选择GDB调测模式，需要下载相关GDB 相关的插件，根据崩溃内存地址内容，使用LLDB,GDB命令可以轻松定位相关的信息，在edit scheme中同时需要勾选Diagnostics的Run中Objective-c (Enable Zombie Objects，Malloc Stack)中显示内存地址。</p>
-<p>2.使用全局断点检测当前xcode运行出现的崩溃信息，对于当前的崩溃位置断点会自动定位。对于没有成功定位的时候，可以结合方式1定位相关的bug</p>
-<p>3.如果是Xcode7以上，在edit sheme中需要够炫Diagnostics的Run选项中的Runtime Sanitization的Enable Address Sanitizer，出现崩溃将会自动定位。</p>
-<p>4.message sent to deallocated instance 0x6d564f0类似的这种崩溃问题，可以通过LLDB的命令(bt或者info malloc-history 0x6d564f0）定为道崩溃信息。当然我们也可以通过打开”活动监视器”找到对应的PID(进程ID)和当前的崩溃地址在终端输入,可以定为到详细的当前崩溃对象的完整的生命周期。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo malloc_history 50127 0x6d564f0</span><br></pre></td></tr></table></figure>
-<h4 id="内测崩溃定位"><a href="#内测崩溃定位" class="headerlink" title="内测崩溃定位"></a>内测崩溃定位</h4><p>1.内测版本具体的某一个设备崩溃了，可以将该设备交与开发人员，开发人员通过xcode到处设备中的crash崩溃信息，即可查看崩溃信息，分析后定为</p>
-<p>2.内测版本中也可通过集成第三方的崩溃捕捉工具进行</p>
-<ul>
-<li>fir的<a href="http://bughd.com" target="_blank" rel="external">BugHD</a>平台CI过程上传ipa同时上传每个版本的dsym文件</li>
-<li>也可以可以通过Crashlytics,友盟这些第三方的平台进行（友盟不可以上传dsym）</li>
-<li><a href="https://www.bugtags.com" target="_blank" rel="external">Bugtags</a>,超级强大的bug管理系统，方便测试人员提交bug并且高效的管理，可以直接使用手机操作提交bug，但是这个是要收费的。</li>
-</ul>
-<h4 id="线上崩溃定位"><a href="#线上崩溃定位" class="headerlink" title="线上崩溃定位"></a>线上崩溃定位</h4><p>1.对于需要发布的项目，可以事先在程序中将如(Crashlytics,友盟等第三方崩溃定位的文件，也可以使用QuincyKit结合PHP服务端搭建自己的bug系统管理后台），根据archive文件（也就是十六进制文件，发包前的编译文件后的内存地址，实际第三方地位到的内存地址就是这个）定位第三方服务端提供的崩溃信息（内存地址）。如下图友盟定位的崩溃信息日志，<br>对于这样的一个崩溃信息，大多数人措手不及，但是通过dsym文件（十六进制内存地址），根据提示信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3   LR                                  0x10c527 LR + 1082663</span><br><span class="line">21  LR                                  0xf258b LR + 976267</span><br></pre></td></tr></table></figure>
-<p>根据之前发包的archive文件，（关于怎么找到archive文件，Command + shift +2）<br>找到对应时间的archive文件后，选择鼠标右键find show archive文件后，找到文件后，选择显示包含的内容知道DAWF文件后具体的路径显示简介即可找到<code>/Users/qianjx_tyrbl/Library/Developer/Xcode/Archives/2014-08-12/4.30.xcarchive/dSYMs/LR.app.dSYM/Contents/Resources/DWARF</code>，进入DWARF文件，在terminate终端输入 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dwarfdump --uuid LR //查看当前项目的uuid（LR表示项目名称），是否和第三方定位的崩溃匹配uuid</span><br><span class="line">atos -arch armv7 -o LR 0x10c527 //armv7内存地址对应的内容</span><br><span class="line">atos -arch arm64 -o LR 0x10c527 //arm64内存地址对应的内容</span><br></pre></td></tr></table></figure>
-<p>2.当然如果你是用电脑archive的方式，在上传appstore的时候，苹果会有提示是否勾选上传dsym文件，那么在本台机器上面即可查到对应提交版本所有线上崩溃的问题。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
