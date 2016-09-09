@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Swift学习/" style="font-size: 10px;">Swift学习</a> <a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 10px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 10px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,88 +188,6 @@
 </nav>
 
       <div class="body-wrap">
-  
-    <article id="post-xcodebuild-xcrun-simctl" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/22/xcodebuild-xcrun-simctl/" class="article-date">
-  	<time datetime="2016-06-22T02:22:22.000Z" itemprop="datePublished">2016-06-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/22/xcodebuild-xcrun-simctl/">xcodebuild  xcrun simctl</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在iOS中打包是一件繁琐且重复耗时的工作，而且手动操作还会遇到一些操作错误的问题。而且随着iOS的渠道增多更加会浪费额外的时间，在前面的文中有讲到过使用jenkins或者fastlane打包的工具，那么本篇将会讲解如果通过xcode提供的的shell编译工具xcodebuild，xcrun，xcrun simtil等进行相应的打包自动化操作。下面会简单的列举一些操作，更多请查看对应的–help。</p>
-<h4 id="xcodebuild"><a href="#xcodebuild" class="headerlink" title="xcodebuild"></a>xcodebuild</h4><p>xcodebuild负责将工程源文件编译成xxx.app</p>
-<p>在terminate中输入以下命令xcodebuild –help：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcodebuild --help</span><br></pre></td></tr></table></figure>
-<p>可以查看的到xcodebuild的相关的可用命令：</p>
-<p>显示xcodebuildversion：xcodebuild –version</p>
-<p>显示当前系统安装的sdk：xcodebuild –showsdks</p>
-<p>显示当前目录下project Information：xcodebuild –list</p>
-<p> <code>需要注意以上命令是需要在当前的工程.xcodeproj下执行</code></p>
-<p> 清理iphoneos下的.app文件xcodebuild clean</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$xcodebuild clean -workspace BeiBeiAPP.xcworkspace -scheme beibei -configuration release -sdk iphoneos SYMROOT=`pwd`/build_yueyu</span><br></pre></td></tr></table></figure>
-<p> 以下是通过xcodebuild生成workspace类型的.app文件，注意如果是xcodeproj类型打包的话就选择<code>-project</code>，注意此时需要设置好项目的codesign选择自动即可。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$xcodebuild -workspace BeiBeiAPP.xcworkspace -scheme beibei -configuration release -sdk iphoneos build SYMROOT=`pwd`/build_yueyu</span><br></pre></td></tr></table></figure>
-<h4 id="xcrun"><a href="#xcrun" class="headerlink" title="xcrun"></a>xcrun</h4><p>xcrun负责给xxx.app(签名)并打包成xxx.ipa</p>
-<p>在terminate中输入以下命令xcrun –help，可以查看到xcrun的相关所有的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcrun --help</span><br></pre></td></tr></table></figure>
-<p>以下通过.app文件生成ipa文件，并且签名的操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/xcrun -sdk iphoneos PackageApplication -v &quot;$distDir/$appName.app&quot; -o &quot;$distDir/$channelId.ipa&quot; --sign &quot;09E378E966D47195A553BE0EF9F0790D4997A9B5&quot;</span><br></pre></td></tr></table></figure>
-<p>其中，参数 v 就是 build 结果中最后一行 app 文件的路径，参数 o 是生成的 ipa 文件的路径。</p>
-<h4 id="xcrun-simctl"><a href="#xcrun-simctl" class="headerlink" title="xcrun simctl"></a>xcrun simctl</h4><p>通过xcrun simtil相关命令可以调度模拟器的操作，包括安装卸载启动等。</p>
-<p>在terminate中输入以下命令xcrun simctl –help，可以查看到xcrun simctl的相关所有的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcrun simctl --help</span><br></pre></td></tr></table></figure>
-<p>如下简单的写了一个自动启动模拟器，并安装相关APP，并且自动启动的shell脚本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;ouput xcrun instuments list--&gt;&quot;</span><br><span class="line">xcrun instruments -s #列举当前机器的所有的instruments列表</span><br><span class="line">echo &quot;select instruments device and run---&gt;&quot;</span><br><span class="line">xcrun instruments -w &quot;iPhone 6s (9.3)#[DEB8527E-87D4-4BCE-BDE3-12CAB9463669] (Simulator)&quot; #根据列举的instruments，调用对应的设备</span><br><span class="line">echo &quot;install app--&gt;&quot;</span><br><span class="line">xcrun simctl install booted ~/Desktop/BridgeLabiPhone.app #安装对应地址下的.app文件到上面选择的设备</span><br><span class="line">echo &quot;run app--&gt;&quot;</span><br><span class="line">xcrun simctl launch booted &quot;com.redcat.shandiangou.daily&quot; #启动模拟器，需要传入对应的bundle identifier</span><br></pre></td></tr></table></figure>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://mobile.51cto.com/hot-439106.htm" target="_blank" rel="external">iOS自动化的打渠道包解决方案</a></p>
-<p>2.<a href="http://www.cnblogs.com/qq78292959/archive/2011/06/14/2080751.html" target="_blank" rel="external">xcodebuild 使用手册</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
   
     <article id="post-iOS-多线程理解之NSThread" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1052,6 +970,79 @@
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发技巧/">开发技巧</a></li></ul>
 	</div>
 
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-去掉Xcode工程相关警告" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/09/去掉Xcode工程相关警告/" class="article-date">
+  	<time datetime="2016-05-09T06:43:45.000Z" itemprop="datePublished">2016-05-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/09/去掉Xcode工程相关警告/">去掉Xcode工程相关警告</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在我们的项目中,通常使用了大量的第三方代码,这些代码可能很复杂,我们不敢改动他们,可是作者已经停止更新了,当sdk升级或者是编译器升级后,这些遗留的代码可能会出现许许多多的警告,又或者我们自己部分的代码出现了警告，那么我们能够有办法将这些警告清理掉么？以下讲的的一些方法可能比较有效的帮助你解决问题。</p>
+<h4 id="第三方代码"><a href="#第三方代码" class="headerlink" title="第三方代码"></a>第三方代码</h4><p>最直接,最一劳永逸,最安全的方式,直接找到警告的那段代码,改为不警告.这个方式,最安全.可是它有一个问题,就是,当我们很多文件都有这种类型的警告的时候,我们就需要改动很多很多的源码了, 对于不是我们写的源码,使用这种方法侵入性太强,显然就不太可取了。</p>
+<p>1.使用编译器提供的宏来操作，如下面我们经常看到的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored&quot;-Wdeprecated-declarations&quot;</span><br><span class="line">		//写在这个中间的代码,都不会被编译器提示-Wdeprecated-declarations类型的警告</span><br><span class="line">dispatch_queue_tcurrentQueue =dispatch_get_current_queue();</span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __clang_analyzer__</span><br><span class="line">      // Code not to be analyzed</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>具体的警告对应的类型我们可以查看<a href="http://fuckingclangwarnings.com" target="_blank" rel="external">Which Clang Warning Is Generating This Message</a>，当然也可以通过查看具体的警告信息，选择Reveal in Log可以查看到是哪种“-Wno-shorten-64-to-32”的警告，但是这种改法需要更改大量的地方。</p>
+<p>2.关闭某一个指定文件制定类型的警告，可以选择工程具体的target－&gt;Build Phases－&gt;Compile Sources找到具体的文件，双击后填写需要忽略的类型，类似忽略不使用arc<code>-fno-objc-arc</code>我们可以对这个特定的文件加入<code>-Wno-shorten-64-to-32</code>表示忽略该中类型的警告。这种工作量还是比较大。</p>
+<p>3.关闭工程中指定类型的警告，target－&gt;Build Settings－&gt;Other Warning Flags 加入<code>-Wno-shorten-64-to-32</code>表示忽略工程中该类型的所有警告。这种类型会将当前工程自己部分代码也忽略掉。</p>
+<p>4.在我们使用podfile管理第三方的文件cocoapods的时候，我们可以在引用库的的时候加入<code>inhibit_warnings =&gt; true</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;XGPush&apos;,             &apos;2.3&apos;,     :inhibit_warnings =&gt; true</span><br></pre></td></tr></table></figure>
+<h4 id="当前工程代码"><a href="#当前工程代码" class="headerlink" title="当前工程代码"></a>当前工程代码</h4><p>如果是我们工程中，那么建议最好全部按照最新的要求进行全部修改，为了避免出现警告，可以采取一些有效的措施。</p>
+<p>1.我们可以将int的类型的都定义成NSInteger,float定义成CGFloat的类型，避免在不同的armv中出现警告的问题。</p>
+<p>2.我们可以将target－&gt;Build Settings－&gt;Treat Warnings as Errors（将警告视错误）防止开发人员提交警告。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://stackoverflow.com/questions/5806101/is-it-possible-to-suppress-xcode-4-static-analyzer-warnings" target="_blank" rel="external">is-it-possible-to-suppress-xcode-4-static-analyzer-warnings</a></p>
+<p>2.<a href="http://stackoverflow.com/questions/7017281/performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761" target="_blank" rel="external">performselector-may-cause-a-leak-because-its-selector-is-unknown/7073761#7073761</a></p>
+<p>3.<a href="ignore-all-warnings-in-a-specific-file-using-llvm-clang">ignore-all-warnings-in-a-specific-file-using-llvm-clang</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
