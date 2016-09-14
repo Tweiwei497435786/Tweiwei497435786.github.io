@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 10px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 13.33px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,144 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-初识React-Native" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/12/初识React-Native/" class="article-date">
+  	<time datetime="2016-09-12T07:36:17.000Z" itemprop="datePublished">2016-09-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/12/初识React-Native/">初识React Native</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iOS-Responder-Chain" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/09/iOS-Responder-Chain/" class="article-date">
+  	<time datetime="2016-08-09T02:49:27.000Z" itemprop="datePublished">2016-08-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/09/iOS-Responder-Chain/">iOS Responder Chain</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不知你是否有思考过，你在Touch一个application的某一点之后，iOS系统是怎么处理这些事件，并且如何准确响应的？那么接下来的知识，将会向你清楚的讲解结合demo关于iOS中事件的<code>响应链</code>:在我们点击屏幕的时候，iPhone OS获取到了用户进行操作行为，操作系统把包含这些点击事件的信息包装成UITouch和UIEvent形式的实例，然后找到当前运行的程序，逐级寻找能够响应这个事件的对象，直到没有响应者响应。</p>
+<h4 id="响应者"><a href="#响应者" class="headerlink" title="响应者"></a>响应者</h4><p>在iOS中，能够响应事件的都是UIResponder的子类对象，其相关的方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Generally, all responders which do custom touch handling should override all four of these methods.</span><br><span class="line">// Your responder will receive either touchesEnded:withEvent: or touchesCancelled:withEvent: for each</span><br><span class="line">// touch it is handling (those touches it received in touchesBegan:withEvent:).</span><br><span class="line">// *** You must handle cancelled touches to ensure correct behavior in your application.  Failure to</span><br><span class="line">// do so is very likely to lead to incorrect behavior or crashes.</span><br><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;//touch开始</span><br><span class="line">- (void)touchesMoved:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;//touch移动</span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;//touch结束</span><br><span class="line">- (void)touchesCancelled:(nullable NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;//取消touch事件</span><br></pre></td></tr></table></figure>
+<p>通过上面我们可以看到每一个响应者的委托方法中返回的有UITouch触发对象集合，以及UIEvent触发的事件类型。</p>
+<ul>
+<li><p>UITouch点击对象</p>
+<p>  表示单个点击，相关属性和方法如下：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	@property(nonatomic,readonly) UITouchPhase        phase;//包含touch的状态（UITouchPhaseBegan，UITouchPhaseMoved，UITouchPhaseStationary，UITouchPhaseEnded，UITouchPhaseCancelled）</span><br><span class="line">	@property(nonatomic,readonly) UITouchType         type </span><br><span class="line">	- (CGPoint)locationInView:(nullable UIView *)view;//获取当前点击坐标点</span><br><span class="line">- (CGPoint)previousLocationInView:(nullable UIView *)view;//获取上个点击位置的坐标点</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>UIEvent点击事件<br>  iOS中使用UIEvent表示用户交互的事件对象，相关属性方法如下：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	@property(nonatomic,readonly) UIEventType     type NS_AVAILABLE_IOS(3_0);//包含事件的响应类型，分别有多点触控、摇一摇以及远程操作等</span><br><span class="line">@property(nonatomic,readonly) UIEventSubtype  subtype NS_AVAILABLE_IOS(3_0);//subtype事件等</span><br><span class="line">@property(nonatomic,readonly) NSTimeInterval  timestamp;//时间戳</span><br><span class="line">- (nullable NSSet &lt;UITouch *&gt; *)touchesForView:(UIView *)view;//可以通过event事件来获取相应view的UITouch的对象集合</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>需要注意的是UIView除了继承自UIResponder的touches事件外，还可以被绑定一些复杂的手势事件，如：UIGestureRecognizer，UITapGestureRecognizer等。在给UIView添加了UITapGestureRecognizer手势后，原本正常的touches事件流程touchesBegan，存在move（touchesMoved），touchesEnded。变成了touchesBegan，UITapGestureRecognizer的selector方法，然后是touchesCancelled。由此可说明手势的事件优先级高于touches的事件。</p>
+<h4 id="Hit-Testing-返回触摸事件发生的视图"><a href="#Hit-Testing-返回触摸事件发生的视图" class="headerlink" title="Hit-Testing 返回触摸事件发生的视图"></a>Hit-Testing 返回触摸事件发生的视图</h4><p>iOS 使用hit-testing来找到事件发生的视图。 Hit-testing包括检查触摸事件是否发生在任何相关视图对象的范围内， 如果是，则递归地检查所有视图的子视图。在视图层次中的最底层视图，如果它包含了触摸点，那么它就是hit-test视图。等 iOS决定了hit-test视图之后，它把触摸事件传递给该视图以便处理。如下图：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/ResponderChain22.png" alt="General preferences pane"></p>
+<p>如果传递到hitTest:withEvent:方法的点不在视图的范围内，pointInside:withEvent:方法返回NO,点被忽视，并且hitTest:withEvent:返回nil. 如果一个子视图返回NO，则视图层次的整个分支都被忽视，因为如果触摸事件没有发生在那个子视图中，那么事件也不会在任何一个该子视图的子视图中发生。 这意味着在一个子视图中的任何点，如果它在其父视图的外面，那么它不能接收触摸事件，因为触摸点必须在父视图和子视图的范围内。</p>
+<p>hit-test是第一处理触摸事件的视图。如果hit-test视图不能处理该事件，事件沿着视图的响应链传递直到系统找到可以处理该事件的视图，如果没有找到处理者则丢弃该事件。</p>
+<h4 id="响应链传递"><a href="#响应链传递" class="headerlink" title="响应链传递"></a>响应链传递</h4><p><code>响应链</code>是一系列相连的响应者对象。 它由第一个响应者开始，以应用对象结束。 如果第一响应者不能处理该事件，它把事件传递给响应链中的下一个响应者。</p>
+<p>在iOS系统检测到手指触摸后，会将其打包成UITouch和UIEvent加入当前活动的Application的事件队列。同时UIApplication会从事件队列中取出触摸事件并传递到keyWindow。</p>
+<p>在UIView.h中存在如下定义的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (nullable UIView *)hitTest:(CGPoint)point withEvent:(nullable UIEvent *)event;   // recursively calls -pointInside:withEvent:. point is in the receiver&apos;s coordinate system</span><br><span class="line">- (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event;   // default returns YES if point is in bounds</span><br></pre></td></tr></table></figure>
+<p>hitTest:withEvent: 方法为给定的CGPoint 和 UIEvent返回hit test 视图。hitTest:withEvent:方法通过在自身调用pointInside:withEvent: 方法开始。 如果传递到方法hitTest:withEvent:内的点在视图的范围内，pointInside:withEvent:返回YES。同时将该响应者加入响应者栈，然后通过递归地给每个子视图调用hitTest:withEvent:方法，如果该防返回YES，则加入响应者栈。如下图（需要注意ViewController，AppDelegate,UIApplication并没有上面View的相关方法，但是由于其是UIResponder的相关类）：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/responderStack.png" alt="General preferences pane"></p>
+<p>很多类型的事件都在事件传递中依赖响应链。 响应链是一系列相连的响应者对象。 它由第一个响应者开始，以应用对象结束。 如果第一响应者不能处理该事件，它把事件传递给响应链中的下一个响应者。</p>
+<p>响应者对象是可以响应并处理各种事件的对象。 UIResponder 类是所有响应者对象的基类，它为事件处理和通用响应者行为都定义了可编程接口。 UIApplication, UIViewController, 和UIView的实例都是响应者，就是说所有的视图和大多数主要对象都是响应者。 请注意Core 动画层不是响应者。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="https://yishuiliunian.gitbooks.io/implementate-tableview-to-understand-ios/content/uikit/132event-chains.html" target="_blank" rel="external">事件传递：响应链</a></p>
+<p>2.<a href="http://www.cocoachina.com/ios/20160108/14897.html" target="_blank" rel="external">iOS-hitTest:withEvent与自定义hit-testing规则</a></p>
+<p>3.<a href="http://www.cocoachina.com/ios/20160113/14896.html" target="_blank" rel="external">iOS开发 - 事件传递响应链</a></p>
+<p>3.下载<a href="https://github.com/Tweiwei497435786/ReponderChain/tree/master" target="_blank" rel="external">demo</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS技术/">iOS技术</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-iOS中RunLoop" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -980,159 +1118,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书屋/">读书屋</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS多线程理解之NSOperation" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/23/iOS多线程理解之NSOperation/" class="article-date">
-  	<time datetime="2016-06-23T13:03:29.000Z" itemprop="datePublished">2016-06-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/23/iOS多线程理解之NSOperation/">iOS多线程理解之NSOperation</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上一节有讲到过关于NSThread的方式实现多线程，本章将会采用NSOperation实现多线程。使用NSOperation去操作，相对较为简单，只需要将NSOperation放到NSOperationQueue这个队列中，线程就会依次的启动，NSOperationQueue负责管理，执行所有的NSOperation，可以更加方便容易的管理线程总的数量和线程之间的优先级关系。有效的解决NSThread中存在的问题。</p>
-<p>在NSOperation中有两个常用子类用于创建线程的操作：</p>
-<ul>
-<li>NSInvocationOperation</li>
-<li>NSBlockOperation(block形式组织代码)</li>
-</ul>
-<h4 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h4><p>可以将其看做线程管理器，对线程进行管理操作。下面看一下其属性和方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)addOperation:(NSOperation *)op;//将创建的Operation放入操作队列，`添加到操作队列后，队列会开启一个新的线程执行此操作`</span><br><span class="line">- (void)addOperationWithBlock:(void (^)(void))block NS_AVAILABLE(10_6, 4_0);//采用block的形式加入操作队列</span><br><span class="line">@property NSInteger maxConcurrentOperationCount;////限制队列同时只运行线程的最大数量</span><br><span class="line">- (void)cancelAllOperations;//取消当前队列的所有操作</span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
-<h4 id="NSInvocationOperation"><a href="#NSInvocationOperation" class="headerlink" title="NSInvocationOperation"></a>NSInvocationOperation</h4><p>相对于使用NSThread代码减少，不需要管理其线程。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSInvocationOperation *invocationOperation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:) object:model];</span><br><span class="line">//创建完NSInvocationOperation对象并不会调用，它由一个start方法启动操作，但是注意如果直接调用start方法，则此操作会在主线程中调用，一般不会这么操作,而是添加到NSOperationQueue中</span><br><span class="line">//[invocationOperation start];</span><br><span class="line">[self.operationQueue addOperation:invocationOperation];//注意添加到操作队后，队列会开启一个线程执行此操作</span><br></pre></td></tr></table></figure>
-<h4 id="NSBlockOperation"><a href="#NSBlockOperation" class="headerlink" title="NSBlockOperation"></a>NSBlockOperation</h4><p>相对于NSInvocationOperation使用更加简单，直接使用block块。可以不必单独定义新的方法，直接在block中写代码即可。可以避免参数传递限制的问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSBlockOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^&#123;//简洁，避免传递参数的问题</span><br><span class="line">   [self loadImage:model];</span><br><span class="line">&#125;];</span><br><span class="line">[self.operationQueue addOperation:blockOperation];</span><br></pre></td></tr></table></figure>
-<h5 id="使用NSOperation进行多线程开发可以设置最大并发线程，有效的对线程进行了控制。"><a href="#使用NSOperation进行多线程开发可以设置最大并发线程，有效的对线程进行了控制。" class="headerlink" title="使用NSOperation进行多线程开发可以设置最大并发线程，有效的对线程进行了控制。"></a><code>使用NSOperation进行多线程开发可以设置最大并发线程，有效的对线程进行了控制。</code></h5><h4 id="线程执行顺序"><a href="#线程执行顺序" class="headerlink" title="线程执行顺序"></a>线程执行顺序</h4><p>在之前使用NSThread很难控制线程的执行顺序，但是在NSOperation中就相对比较容易控制，每一个NSOperation可以设置依赖线程，NSOperation提供了addDependency方法可以有效的控制当前queue中的线程之间的依赖关系。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//创建多个线程用于填充图片</span><br><span class="line">for (int i=0; i&lt;count-1; ++i) &#123;</span><br><span class="line">   //方法1：创建操作块添加到队列</span><br><span class="line">   //创建多线程操作</span><br><span class="line">   NSBlockOperation *blockOperation=[NSBlockOperation blockOperationWithBlock:^&#123;</span><br><span class="line">       [self loadImage:[NSNumber numberWithInt:i]];</span><br><span class="line">   &#125;];</span><br><span class="line">   //设置依赖操作为最后一张图片加载操作</span><br><span class="line">   [blockOperation addDependency:lastBlockOperation];</span><br><span class="line">   </span><br><span class="line">   [operationQueue addOperation:blockOperation];</span><br><span class="line">   </span><br><span class="line">&#125;</span><br><span class="line">//将最后一个图片的加载操作加入线程队列</span><br><span class="line">[operationQueue addOperation:lastBlockOperation];</span><br></pre></td></tr></table></figure>
-<p>需要注意的是不可以设置为<code>循环依赖</code>，否则不会被执行。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS技术/">iOS技术</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-xcodebuild-xcrun-simctl" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/22/xcodebuild-xcrun-simctl/" class="article-date">
-  	<time datetime="2016-06-22T02:22:22.000Z" itemprop="datePublished">2016-06-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/22/xcodebuild-xcrun-simctl/">xcodebuild  xcrun simctl</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在iOS中打包是一件繁琐且重复耗时的工作，而且手动操作还会遇到一些操作错误的问题。而且随着iOS的渠道增多更加会浪费额外的时间，在前面的文中有讲到过使用jenkins或者fastlane打包的工具，那么本篇将会讲解如果通过xcode提供的的shell编译工具xcodebuild，xcrun，xcrun simtil等进行相应的打包自动化操作。下面会简单的列举一些操作，更多请查看对应的–help。</p>
-<h4 id="xcodebuild"><a href="#xcodebuild" class="headerlink" title="xcodebuild"></a>xcodebuild</h4><p>xcodebuild负责将工程源文件编译成xxx.app</p>
-<p>在terminate中输入以下命令xcodebuild –help：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcodebuild --help</span><br></pre></td></tr></table></figure>
-<p>可以查看的到xcodebuild的相关的可用命令：</p>
-<p>显示xcodebuildversion：xcodebuild –version</p>
-<p>显示当前系统安装的sdk：xcodebuild –showsdks</p>
-<p>显示当前目录下project Information：xcodebuild –list</p>
-<p> <code>需要注意以上命令是需要在当前的工程.xcodeproj下执行</code></p>
-<p> 清理iphoneos下的.app文件xcodebuild clean</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$xcodebuild clean -workspace BeiBeiAPP.xcworkspace -scheme beibei -configuration release -sdk iphoneos SYMROOT=`pwd`/build_yueyu</span><br></pre></td></tr></table></figure>
-<p> 以下是通过xcodebuild生成workspace类型的.app文件，注意如果是xcodeproj类型打包的话就选择<code>-project</code>，注意此时需要设置好项目的codesign选择自动即可。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$xcodebuild -workspace BeiBeiAPP.xcworkspace -scheme beibei -configuration release -sdk iphoneos build SYMROOT=`pwd`/build_yueyu</span><br></pre></td></tr></table></figure>
-<h4 id="xcrun"><a href="#xcrun" class="headerlink" title="xcrun"></a>xcrun</h4><p>xcrun负责给xxx.app(签名)并打包成xxx.ipa</p>
-<p>在terminate中输入以下命令xcrun –help，可以查看到xcrun的相关所有的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcrun --help</span><br></pre></td></tr></table></figure>
-<p>以下通过.app文件生成ipa文件，并且签名的操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/xcrun -sdk iphoneos PackageApplication -v &quot;$distDir/$appName.app&quot; -o &quot;$distDir/$channelId.ipa&quot; --sign &quot;09E378E966D47195A553BE0EF9F0790D4997A9B5&quot;</span><br></pre></td></tr></table></figure>
-<p>其中，参数 v 就是 build 结果中最后一行 app 文件的路径，参数 o 是生成的 ipa 文件的路径。</p>
-<h4 id="xcrun-simctl"><a href="#xcrun-simctl" class="headerlink" title="xcrun simctl"></a>xcrun simctl</h4><p>通过xcrun simtil相关命令可以调度模拟器的操作，包括安装卸载启动等。</p>
-<p>在terminate中输入以下命令xcrun simctl –help，可以查看到xcrun simctl的相关所有的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tianww@tortoise-MacBook-Pro xcrun simctl --help</span><br></pre></td></tr></table></figure>
-<p>如下简单的写了一个自动启动模拟器，并安装相关APP，并且自动启动的shell脚本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;ouput xcrun instuments list--&gt;&quot;</span><br><span class="line">xcrun instruments -s #列举当前机器的所有的instruments列表</span><br><span class="line">echo &quot;select instruments device and run---&gt;&quot;</span><br><span class="line">xcrun instruments -w &quot;iPhone 6s (9.3)#[DEB8527E-87D4-4BCE-BDE3-12CAB9463669] (Simulator)&quot; #根据列举的instruments，调用对应的设备</span><br><span class="line">echo &quot;install app--&gt;&quot;</span><br><span class="line">xcrun simctl install booted ~/Desktop/BridgeLabiPhone.app #安装对应地址下的.app文件到上面选择的设备</span><br><span class="line">echo &quot;run app--&gt;&quot;</span><br><span class="line">xcrun simctl launch booted &quot;com.redcat.shandiangou.daily&quot; #启动模拟器，需要传入对应的bundle identifier</span><br></pre></td></tr></table></figure>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://mobile.51cto.com/hot-439106.htm" target="_blank" rel="external">iOS自动化的打渠道包解决方案</a></p>
-<p>2.<a href="http://www.cnblogs.com/qq78292959/archive/2011/06/14/2080751.html" target="_blank" rel="external">xcodebuild 使用手册</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li></ul>
 	</div>
 
       
