@@ -18,7 +18,7 @@ Alcatraz一款简化了Xcode的插件的插件，安装了此插件可以极其�
 Alcatraz一款简化了Xcode的插件的插件，安装了此插件可以极其方便的管理Xcode的插件。
 在terminate中输入以下命令即可安装：
 1curl -fsSL https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/instal">
-<meta property="og:updated_time" content="2016-10-31T08:57:19.000Z">
+<meta property="og:updated_time" content="2016-10-31T09:06:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode插件">
 <meta name="twitter:description" content="在开发过程中，使用插件可以极大的提高工作的效率，下面简单的介绍一些常用的插件。
@@ -245,7 +245,7 @@ Alcatraz一款简化了Xcode的插件的插件，安装了此插件可以极其�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef DEBUG</span><br><span class="line">#define INJECTION_ENABLED</span><br><span class="line"></span><br><span class="line">#import &quot;/tmp/injectionforxcode/BundleInterface.h&quot;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
 <p>和main文件中插入如下代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// From here to end of file added by Injection Plugin //</span><br><span class="line"></span><br><span class="line">#ifdef DEBUG</span><br><span class="line">static char _inMainFilePath[] = __FILE__;</span><br><span class="line">static const char *_inIPAddresses[] = &#123;&quot;192.168.1.159&quot;, &quot;127.0.0.1&quot;, 0&#125;;</span><br><span class="line"></span><br><span class="line">#define INJECTION_ENABLED</span><br><span class="line">#import &quot;/tmp/injectionforxcode/BundleInjection.h&quot;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
-<p>同时我们在当前项目目录下面可以看到一个iOSInjectionProject的文件夹，里面包含了当前项目的Inject配置等信息。</p>
+<p>同时我们在当前项目目录下面可以看到一个iOSInjectionProject的文件夹，里面包含了当前项目的Inject配置等信息。如果我们想要移除Inject的所有操作，可以选择“Rever Injection’s Changes”。</p>
 <h5 id="模拟器"><a href="#模拟器" class="headerlink" title="模拟器"></a>模拟器</h5><p>需要注意的是，在修改Xcode中的相关的代码后，我们再也不需要通过command+R来运行项目，而是选择<code>control +</code> 即可在当前页面实时查看到效果。</p>
 <h5 id="真机"><a href="#真机" class="headerlink" title="真机"></a>真机</h5><p>需要注意是真机调测，由于需要证书支持。直接使用的话会出错，所以我们需要修改iOSInjectionProject中的相关机型下面identify.text文件中证书的配置，改为当前真机调测的证书即可。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.cnblogs.com/jys509/p/5439654.html" target="_blank" rel="external">iOS UI调试神器，插件injection for Xcode使用方法</a></p>
