@@ -77,7 +77,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 12.5px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 15px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 12.5px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 17.5px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 13.33px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,88 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-ClangFormat代码格式化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/05/ClangFormat代码格式化/" class="article-date">
+  	<time datetime="2016-04-05T03:13:23.000Z" itemprop="datePublished">2016-04-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/05/ClangFormat代码格式化/">ClangFormat代码格式化</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在一个团队中如何保证所有的开发人员的代码风格一致，并且符合一定的规范，也许<a href="https://github.com/travisjeffery/ClangFormat-Xcode" target="_blank" rel="external">ClangFormat－Xcode</a>插件可以帮助你解决该问题。</p>
+<h3 id="定制ClangFormat-Xcode"><a href="#定制ClangFormat-Xcode" class="headerlink" title="定制ClangFormat-Xcode"></a>定制ClangFormat-Xcode</h3><p>如何需要定制你自己的格式化插件，下载ClangFormat-Xcode需要修改项目根本目录相面的<code>.clang-format</code>不可见文件(“defaults write com.apple.finder AppleShowAllFiles -bool true”）。修改完成后，然后将该项目运行，运行的时候会提示「Skip Bundle」和「Load Bundle」选择「Load Bundle」后插件即可安装成功后重新启动xcode，在你的<code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/</code>目录下面可看到插件安装成功。</p>
+<p>其中<code>.clang-format</code>如下，参考<a href="http://clang.llvm.org/docs/ClangFormatStyleOptions.html" target="_blank" rel="external">ClangFormatStyleOptions</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AccessModifierOffset: 0</span><br><span class="line">AlignEscapedNewlinesLeft: false</span><br><span class="line">AlignTrailingComments: true</span><br><span class="line">AllowAllParametersOfDeclarationOnNextLine: false</span><br><span class="line">AllowShortFunctionsOnASingleLine: false</span><br><span class="line">AllowShortIfStatementsOnASingleLine: false</span><br><span class="line">AllowShortLoopsOnASingleLine: false</span><br><span class="line">AlwaysBreakBeforeMultilineStrings: false</span><br><span class="line">AlwaysBreakTemplateDeclarations: false</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>Edit-&gt;HBClang Format</p>
+<p>Format Selected Text // 格式化选中的内容 快捷键为Ctrl+U</p>
+<p>Enable Format on Save //当保存的时候自动格式化。</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/2016-01-13_4.56.29.png" alt="Markdown preferences pane"></p>
+<h3 id="提交代码检测"><a href="#提交代码检测" class="headerlink" title="提交代码检测"></a>提交代码检测</h3><p>如果我们想要在提交之前做些检测代码规范的工作，那么接下来的操作就很重要了，通过下面的<a href="https://gist.github.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9" target="_blank" rel="external">脚本</a>，这个检测的规范就是上面ClangFormat中制定的规范内容。</p>
+<h5 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h5><ol>
+<li>打开命令行，进入项目目录，执行命令：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/clang-format-githook-install.sh | sh</span><br></pre></td></tr></table></figure>
+<ol>
+<li>或者手动下载保存为项目目录下的 .git/hooks/pre-commit，并修改文件权限为可执行。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gist.githubusercontent.com/dorentus/387fbaa28de22ce8f34e157c0d1ecfe9/raw/pre-commit-clang-format</span><br></pre></td></tr></table></figure>
+<p>这种方法并不会自动使用 [HBClangFormat-Xcode] 里面自带的 <code>clang-format</code>，而是写死了用 <code>/usr/local/bin/clang-format</code>，如果需要用其它路径的话可以自己修改文件头部的路径</p>
+<h5 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h5><ol>
+<li>我们提交代码通过sourceTree或者命令行提交代码，通过检测如果代码不符合规范，会出现提示信息，无法提交代码。</li>
+</ol>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>Xcode 安装插件手误选择了「Skip Bundle」后需要重新允许「Load Bundle」的解决方法。<a href="http://www.cnblogs.com/huangjianwu/archive/2015/11/06/4943737.html" target="_blank" rel="external">参考</a>。</li>
+<li>在使用代码提交检测的时候，由于在别人的代码基础上面做的修改，而检测的范围是提交的整个文件，这个时候不想改其它人的代码。我们可以修改项目目录下的 .git/hooks/pre-commit的exit为1，或者删除该文件。</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://www.tuicool.com/articles/22AN7rN" target="_blank" rel="external">iOS代码规范自动化</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-iOS开发工具" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -843,82 +925,9 @@
 
 
   
-    <article id="post-Hexo+Github搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/07/Hexo+Github搭建个人博客/" class="article-date">
-  	<time datetime="2016-03-07T13:15:17.000Z" itemprop="datePublished">2016-03-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/07/Hexo+Github搭建个人博客/">Hexo+Github搭建个人博客</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>总想着搭建自己的个人博客，找了好久。再一次面试过程中，有看到面试者的个人简历介绍中有谈到Hexo+Github的方式搭建自己个人博客，如是就有了下面的内容了。之前有使用过其它的一些第三方的博客，总之是各种广告内容，看着不舒服；当然也有使用有道笔记，总是感觉缺少点什么。一方面为了，提升自己的写作能力，同时也是对日常工作的整理。好吧，正文从下面开始吧。</p>
-<h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><h5 id="安装Node（必须）"><a href="#安装Node（必须）" class="headerlink" title="安装Node（必须）"></a>安装Node（必须）</h5><p>作用：用来生成静态页面的到Node.js<a href="https://nodejs.org/en/" target="_blank" rel="external">官网</a>下载相应平台的最新版本，一路安装即可。<br>安装Git（必须）作用：把本地的hexo内容提交到github上去.安装Xcode就自带有Git，我就不多说了。<br>申请<a href="https://github.com" target="_blank" rel="external">GitHub</a>（必须）作用：是用来做博客的远程创库、域名、服务器之类的，怎么与本地hexo建立连接等下讲。github账号我也不再啰嗦了,没有的话直接申请就行了，跟一般的注册账号差不多，SSH Keys，看你自己了，可以不配制，不配置的话以后每次对自己的博客有改动提交的时候就要手动输入账号密码，配置了就不需要了，怎么配置我就不多说了，网上有很多教程。</p>
-<h5 id="正式安装Hexo"><a href="#正式安装Hexo" class="headerlink" title="正式安装Hexo"></a>正式安装Hexo</h5><p>Node和Git都安装好后，可执行如下命令安装hexo：<br>npm install -g （安装hexo的命令）<br>hexo初始化然后，执行init命令初始化hexo到你指定的目录，<br>我是直接cd到目标目录执行hexo init的。命令：<br>hexo init（init hexo的目录）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-<h5 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h5><p>启动本地服务，进行文章预览调试，命令：<br>hexo server<br>浏览器输入<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 配置正常的话，会进入本地服务的页面<br>我不知道你们能不能，反正我不能，因为我还有环境没配置好<br>我的hexo版本信息如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:beibei tianww$ hexo version</span><br><span class="line">hexo-cli: 1.0.1</span><br><span class="line">os: Darwin 15.3.0 darwin x64</span><br><span class="line">http_parser: 2.6.2</span><br><span class="line">node: 5.7.0</span><br><span class="line">v8: 4.6.85.31</span><br><span class="line">uv: 1.8.0</span><br><span class="line">zlib: 1.2.8</span><br><span class="line">ares: 1.10.1-DEV</span><br><span class="line">icu: 56.1</span><br><span class="line">modules: 47</span><br><span class="line">openssl: 1.0.2f</span><br></pre></td></tr></table></figure>
-<h3 id="配置Github"><a href="#配置Github" class="headerlink" title="配置Github"></a>配置Github</h3><p>首先需要在Github上面注册帐号后，建立Repository项目，仓库的名称必须为【your_user_name.github.io】固定写法，然后建立关联。本地的blog地址为/Users/tianww/Desktop/hexo,ls目录下面的内容：<br>_config.yml    node_modules    public        source<br>db.json        package.json    scaffolds    themes<br>现在我们需要_config.yml文件，来建立关联，命令：<br>vim _config.yml到最下面加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/Tweiwei497435786/Tweiwei497435786.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>把上面对应的改成你的帐户就可以了。网上会有很多说法，有的type是github, 还有repository 最后面的后缀也不一样是github.com.git，我也踩了很多坑，我现在的版本见上面，执行命令hexo -vsersion就出来了,貌似3.0后全部改成我上面这种格式了<br>然后执行配置部署命令：<br>hexo deploy<br>在浏览器中输入<a href="http://Tweiwei497435786.github.io/" target="_blank" rel="external">http://Tweiwei497435786.github.io/</a>就行了,改成你自己的。</p>
-<h5 id="部署的步骤"><a href="#部署的步骤" class="headerlink" title="部署的步骤"></a>部署的步骤</h5><p>每次部署的步骤，可以按照三步进行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>1.如发生 ERROR Deployer not found: git 或者 ERROR Deployer not found: github<br>解决方法： npm install hexo-deployer-git  –save</p>
-<p>2.由于yml语法比较严格，注意配置的时候冒号：之前都是有空格的</p>
-<p>3.在本地生成的目录中的public文件夹和你远程的github的项目中是对应，不能通过git方式直接操作远程的。由于每次本地会deploy操作。所以需要添加文件的操作，可以直接在本地文件目录public下面直接添加，然后重新部署，这样远端和本地就一样了。</p>
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h5 id="hexo常用的命令"><a href="#hexo常用的命令" class="headerlink" title="hexo常用的命令"></a>hexo常用的命令</h5><p>hexo new”postName” #新建文章<br>hexo new page”pageName” #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo deploy #将.deploy目录部署到GitHub<br>hexo help #查看帮助<br>hexo version #查看Hexo的版本</p>
-<h5 id="博客主题theme"><a href="#博客主题theme" class="headerlink" title="博客主题theme"></a>博客主题theme</h5><p>这里有大量的<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">主题</a>,选择一款自己喜欢的主题</p>
-<p><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">Yilia</a>- Responsive and simple style 优雅简洁响应式主题，我用得就是这个<br>注意直接下载该主题，然后拷贝yilia文件目录到本地目录的themes下面，修改_config.yml文件的theme: yilia就可以了，开始你的博客吧！</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 </div>
