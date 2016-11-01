@@ -18,7 +18,7 @@ Alcatraz一款简化了Xcode的插件的插件，安装了此插件可以极其�
 Alcatraz一款简化了Xcode的插件的插件，安装了此插件可以极其方便的管理Xcode的插件。
 在terminate中输入以下命令即可安装：
 1curl -fsSL https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/instal">
-<meta property="og:updated_time" content="2016-10-31T09:06:25.000Z">
+<meta property="og:updated_time" content="2016-11-01T01:31:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode插件">
 <meta name="twitter:description" content="在开发过程中，使用插件可以极大的提高工作的效率，下面简单的介绍一些常用的插件。
@@ -240,7 +240,7 @@ Alcatraz一款简化了Xcode的插件的插件，安装了此插件可以极其�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh | sh</span><br></pre></td></tr></table></figure>
 <p>安装成功后，选择退出Xcode重新启动，会有提示选项，选择load bundle即可。在顶部选项卡里面，通过选择Window可以看到多出了一个Pagekage Manager选项，这个就是Alcatraz插件管理工具。选择后，可以搜索，安装，卸载相关的插件。</p>
 <h4 id="KSImageNamed"><a href="#KSImageNamed" class="headerlink" title="KSImageNamed"></a><a href="https://github.com/ksuther/KSImageNamed-Xcode" target="_blank" rel="external">KSImageNamed</a></h4><p>一款图片名称自动补全的图片插件，并且可以在coding的时候直接看到图片的缩略图极其方便。可以通过Alcatraz直接安装</p>
-<h4 id="InjectionforXcode"><a href="#InjectionforXcode" class="headerlink" title="InjectionforXcode"></a><a href="https://github.com/johnno1962/injectionforxcode" target="_blank" rel="external">InjectionforXcode</a></h4><p>一款实时UI调测工具，不需要重复的run模拟器，节省UI调测时间。可以通过Alcatraz直接安装</p>
+<h4 id="InjectionPlugin"><a href="#InjectionPlugin" class="headerlink" title="InjectionPlugin"></a><a href="https://github.com/johnno1962/injectionforxcode" target="_blank" rel="external">InjectionPlugin</a></h4><p>一款实时UI调测工具，不需要重复的run模拟器，节省UI调测时间。可以通过Alcatraz直接安装</p>
 <p>通过Alcatraz安装后，重新启动Xcode，可以看到Product的菜单下多了一个Injection Plugin的选项。在当前项目中确定要使用改插件的功能需要选择“Patch Project for Injection”,选择后，会在项目pch文件插入相关代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef DEBUG</span><br><span class="line">#define INJECTION_ENABLED</span><br><span class="line"></span><br><span class="line">#import &quot;/tmp/injectionforxcode/BundleInterface.h&quot;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
 <p>和main文件中插入如下代码：</p>
