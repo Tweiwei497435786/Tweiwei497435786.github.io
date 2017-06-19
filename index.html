@@ -455,82 +455,6 @@
 
 
   
-    <article id="post-React Native环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/12/React Native环境搭建/" class="article-date">
-  	<time datetime="2016-09-12T07:36:17.000Z" itemprop="datePublished">2016-09-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h4><p><a href="http://brew.sh" target="_blank" rel="external">Homebrew</a>, Mac系统的包管理器，用于安装NodeJS和一些其他必需的工具软件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
-<p>在Max OS X 10.11（El Capitan)版本中，homebrew在安装软件时可能会碰到/usr/local目录不可写的权限问题。可以使用下面的命令修复：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R `whoami` /usr/local</span><br></pre></td></tr></table></figure>
-<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p><a href="https://nodejs.org" target="_blank" rel="external">Node</a>使用Homebrew来安装Node.js.在安装完成了Node后，会自动安装node的包管理工具npm</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br></pre></td></tr></table></figure>
-<h3 id="React-Native的命令行工具（react-native-cli"><a href="#React-Native的命令行工具（react-native-cli" class="headerlink" title="React Native的命令行工具（react-native-cli)"></a>React Native的命令行工具（react-native-cli)</h3><p>React Native的命令行工具用于执行创建、初始化、更新项目、运行打包服务（packager）等任务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g react-native-cli</span><br></pre></td></tr></table></figure>
-<p>如果你看到EACCES: permission denied这样的权限报错，那么请参照上文的homebrew译注，修复/usr/local目录的所有权：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R `whoami` /usr/local</span><br></pre></td></tr></table></figure>
-<h3 id="推荐安装的工具"><a href="#推荐安装的工具" class="headerlink" title="推荐安装的工具"></a>推荐安装的工具</h3><h4 id="Watchman"><a href="#Watchman" class="headerlink" title="Watchman"></a>Watchman</h4><p><a href="https://facebook.github.io/watchman/docs/install.html" target="_blank" rel="external">Watchman</a>是由Facebook提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager可以快速捕捉文件的变化从而实现实时刷新）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install watchman</span><br></pre></td></tr></table></figure>
-<h3 id="Nuclide"><a href="#Nuclide" class="headerlink" title="Nuclide"></a>Nuclide</h3><p><a href="https://nuclide.io" target="_blank" rel="external">Nuclide</a>（此链接需要科学上网）是由Facebook提供的基于atom的集成开发环境，可用于编写、运行和 调试React Native应用</p>
-<p>译注：我们更推荐使用WebStorm或<a href="http://www.sublimetext.com" target="_blank" rel="external">Sublime Text</a>来编写React Native应用。</p>
-<h3 id="创建React-Native-Project"><a href="#创建React-Native-Project" class="headerlink" title="创建React - Native Project"></a>创建React - Native Project</h3><h4 id="React-native-cli创建项目"><a href="#React-native-cli创建项目" class="headerlink" title="React-native-cli创建项目"></a>React-native-cli创建项目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">react-native init AwesomeProject(项目名称)</span><br><span class="line">cd AwesomeProject</span><br><span class="line">react-native run-ios</span><br></pre></td></tr></table></figure>
-<p>你也可以在Nuclide中打开AwesomeProject文件夹 然后运行，或是双击ios/AwesomeProject.xcodeproj文件然后在Xcode中点击Run按钮。</p>
-<ul>
-<li>使用你喜欢的编辑器打开index.ios.js并随便改上几行.</li>
-<li>在iOS Emulator中按下⌘-R就可以刷新APP并看到你的最新修改！</li>
-</ul>
-<h4 id="React-native-cocoaPods"><a href="#React-native-cocoaPods" class="headerlink" title="React-native-cocoaPods"></a>React-native-cocoaPods</h4><p>1.进入项目根目录，创建node的package.json</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">npm install react-native --save-dev </span><br><span class="line">npm install react --save-dev</span><br></pre></td></tr></table></figure>
-<p>执行以上命令后，会在跟目录生成package.json文件，以及node_modules文件</p>
-<p>2.进入podfile中添加如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pod ‘React’,:path =&gt; &apos;./node_modules/react-native&apos;, :subspecs =&gt; [</span><br><span class="line">&apos;Core&apos;,</span><br><span class="line">&apos;RCTImage&apos;,</span><br><span class="line">&apos;RCTNetwork&apos;,</span><br><span class="line">&apos;RCTText&apos;,</span><br><span class="line">&apos;RCTWebSocket&apos;,</span><br><span class="line"># 添加其他RN库</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>3.在根目录下创建index.ios.js文件，具体的内容可以参看方式一的自动生成的内容。</p>
-<p>4.进入server服务，进入<code>node_modules/react-native/local-cli/server</code>，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
-<p>启动服务器，当看到控制台中出现：React packager ready表示启动服务成功</p>
-<p>5.在info.plist中添加 AppTransport Security Settings 在其下再添加 Allow Arbitrary Loads选择为 yes，修改网络可以使用http请求</p>
-<p>6.在需要的地方加入如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NSURL *jsCodeLocation;</span><br><span class="line"></span><br><span class="line">jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@&quot;index.ios&quot; fallbackResource:nil];</span><br><span class="line"></span><br><span class="line">RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</span><br><span class="line">                                                    moduleName:@&quot;startRN&quot;</span><br><span class="line">                                             initialProperties:nil</span><br><span class="line">                                                 launchOptions:nil];</span><br><span class="line">[self.view addSubview:rootView];</span><br></pre></td></tr></table></figure>
-<p>7.启动模拟器在使用RN的地方，即可看到效果.</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://reactnative.cn/docs/0.36/getting-started.html#接下来" target="_blank" rel="external">React Native 中文网搭建开发环境</a></p>
-<p>2.<a href="http://blog.csdn.net/u011690583/article/details/51700662" target="_blank" rel="external">ReactNative-Cocoapods-Swift-Project项目搭建</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-iOS-Responder-Chain" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1278,6 +1202,75 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/旅行计划/">旅行计划</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-房屋装修之装修步骤" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/25/房屋装修之装修步骤/" class="article-date">
+  	<time datetime="2016-06-25T02:41:13.000Z" itemprop="datePublished">2016-06-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/25/房屋装修之装修步骤/">房屋装修之装修步骤</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>装修的步骤一般包含如下的基本21个步骤:</p>
+<p>1.前期设计 – 2.主体拆改 – 3.水电改造 – 4.木工 – 5.贴砖 – 6.刷墙面漆 – 7.热水器安装 – 8.厨卫吊顶 – 9.橱柜安装– 10.烟机灶安装 – 11.木门安装 – 12.地板安装 – 13.铺贴壁纸 – 14. 开关插座安装 – 15.灯具安装 – 16.五金洁具安装 – 17.窗帘杆安装 – 18.拓荒保洁 – 19.家具进场 – 20.家电安装 – 21.家居配饰</p>
+<p>接下来将会对21环节拆分讲解及需要注意的事项：</p>
+<h4 id="一-前期设计"><a href="#一-前期设计" class="headerlink" title="一 前期设计"></a>一 前期设计</h4><p>在前期设计前，需要对房子做一个详细的测量，测量需要包括(下面是原平面图):<code>原设计图，原设计图线路图</code>，墙体厚度，原开关线路的位置等，原来门窗的宽高度，原墙面的宽高度，原开关的位置，不可动墙体部分等具体的位置坐标。</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/fangwujiancaotuyuantu.JPG" alt="Markdown preferences pane"></p>
+<p>做完以上的原设计图等内容，是方便重新设计出符合自己装修的图纸，在原来的基础上适当的改拆，进行二次设计。</p>
+<p>选定装修风格，开始利用sweethome工具进行初期设计，在原设计图上改拆等具体的都要标注清楚。</p>
+<p>1.设计好装修图之后，需要设计好家居的摆放位置，进行渲染后看效果图，确定好所有的家居，灯，家电,五金，等设备摆放位置后，可以根据设计图进行电路图的设计，开关位置，开关数量都需要确定（数量，坐标位置）将这些信息标注都在设计图上面标注清楚。</p>
+<p>2.根据墙面等大小，摆放各种家具装置，确定大小位置高度，后期方便家具购买。（注意各家具的大小都需要具体的坐标大小)</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://jingyan.baidu.com/article/7f766daf7bc9b34100e1d044.html" target="_blank" rel="external">装修房子的过程</a></p>
+<p>2.<a href="http://mt.sohu.com/20150310/n409584382.shtml" target="_blank" rel="external">史上最详细的房屋装修流程，看懂了再装！不收藏可惜！！！</a></p>
+<p>3.<a href="http://www.sweethome3d.com/zh-tw/userGuide.jsp" target="_blank" rel="external">Sweet Home 3D 使用者指南</a></p>
+<p>4.<a href="http://www.ooopic.com" target="_blank" rel="external">昵图网素材</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/房屋装修/">房屋装修</a></li></ul>
 	</div>
 
       
