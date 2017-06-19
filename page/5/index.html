@@ -189,6 +189,79 @@
 
       <div class="body-wrap">
   
+    <article id="post-iOS使用Jenkins进行持续集成" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/21/iOS使用Jenkins进行持续集成/" class="article-date">
+  	<time datetime="2016-03-21T12:50:33.000Z" itemprop="datePublished">2016-03-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/21/iOS使用Jenkins进行持续集成/">iOS使用Jenkins进行持续集成</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>持续集成是个简单重复劳动，人来操作费时费力，使用自动化构建工具完成是最好不过的了,为了达到这个需求我选择了<a href="https://jenkins.io" target="_blank" rel="external">jenkins</a></p>
+<p>Jenkins是基于Java开发的一种持续集成工具，用于监控持续重复的工作，功能包括：</p>
+<p>1、持续的软件版本发布/测试项目。</p>
+<p>2、监控外部调用执行的工作。</p>
+<p>3、类目丰富的插件8000多种支持</p>
+<p>4、支持RSS/Email通知机制</p>
+<h3 id="搭建Mac系统的jenkins-CI-Continuous-integration"><a href="#搭建Mac系统的jenkins-CI-Continuous-integration" class="headerlink" title="搭建Mac系统的jenkins CI(Continuous integration)"></a>搭建Mac系统的jenkins CI(Continuous integration)</h3><p>1、进入<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">brew</a>官网,通过使用Homebrew命令安装jenkins，安装brew的方式按照提示在terminate中输入以下命令。或者直接从<a href="https://jenkins.io/index.html" target="_blank" rel="external">Jenkins</a>下载，推荐使用第一种方式，以下为第一种方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
+<p>2、安装jenkins，在terminate中输入以下命令，安装jenkins。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install jenkins</span><br></pre></td></tr></table></figure>
+<p>3、步骤1，2成功后，在terminate中输入jenkins启动Jenkins后，打开<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>，即可进入jenkins主页面,如下图：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/96C581C1-831C-463A-8F2E-547FFE618229.png" alt="Markdown preferences pane"></p>
+<p>4、设置jenkins安全权限设置，点击左侧的系统管理，选择Configure Global Security，参考<a href="http://blog.csdn.net/wangmuming/article/details/22926025" target="_blank" rel="external">安全设置</a>，如下图：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/5C226026-8205-4409-9070-F16E88D8F4EF.png" alt="Markdown preferences pane"></p>
+<p>5、安装必要的插件，选择系统管理－&gt;管理插件－&gt;可选插件（选择必要的插件即可，CocaoPods Jenkins Integration,fir-plugin,Github plugin,Publish Over FTP,Xcode integration等可根据实际情况选择。如果仅仅测试jenkins打包ipa可直接选择最后一个插件即可）。当前我选择的所有插件满足以下需求，每隔15分钟（如果有开发人员提交代码），会自动从github上面拉取代码，更新pod库，jenkins打包成功后自动上传到fir或者FTP服务器。</p>
+<p>6、以上基本环境搭建成功后，即可选择新建一个项目item－&gt;item名称－&gt;构建一个自由风格的软件项目（一些必要的信息填写）</p>
+<p>7、下一篇会重点介绍<a href="http://tweiwei497435786.github.io/2016/03/28/Jenkins-Github-Xcode-Fir-CI实战/" target="_blank" rel="external">Jenkins+Github+Xcode+Fir CI实战</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Hexo+Github搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -272,7 +345,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 Tortoise
+    		&copy; 2017 Tortoise
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

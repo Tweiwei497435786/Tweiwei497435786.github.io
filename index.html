@@ -189,6 +189,47 @@
 
       <div class="body-wrap">
   
+    <article id="post-Python环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/16/Python环境搭建/" class="article-date">
+  	<time datetime="2016-11-16T02:20:34.000Z" itemprop="datePublished">2016-11-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Xcode插件" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -455,10 +496,10 @@
 
 
   
-    <article id="post-初识React-Native" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-React Native环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/09/12/初识React-Native/" class="article-date">
+      <a href="/2016/09/12/React Native环境搭建/" class="article-date">
   	<time datetime="2016-09-12T07:36:17.000Z" itemprop="datePublished">2016-09-12</time>
 </a>
     </div>
@@ -468,20 +509,44 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/12/初识React-Native/">初识React Native</a>
-    </h1>
-  
-
-      </header>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h4><p><a href="http://brew.sh" target="_blank" rel="external">Homebrew</a>, Mac系统的包管理器，用于安装NodeJS和一些其他必需的工具软件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
+<p>在Max OS X 10.11（El Capitan)版本中，homebrew在安装软件时可能会碰到/usr/local目录不可写的权限问题。可以使用下面的命令修复：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R `whoami` /usr/local</span><br></pre></td></tr></table></figure>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p><a href="https://nodejs.org" target="_blank" rel="external">Node</a>使用Homebrew来安装Node.js.在安装完成了Node后，会自动安装node的包管理工具npm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br></pre></td></tr></table></figure>
+<h3 id="React-Native的命令行工具（react-native-cli"><a href="#React-Native的命令行工具（react-native-cli" class="headerlink" title="React Native的命令行工具（react-native-cli)"></a>React Native的命令行工具（react-native-cli)</h3><p>React Native的命令行工具用于执行创建、初始化、更新项目、运行打包服务（packager）等任务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g react-native-cli</span><br></pre></td></tr></table></figure>
+<p>如果你看到EACCES: permission denied这样的权限报错，那么请参照上文的homebrew译注，修复/usr/local目录的所有权：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R `whoami` /usr/local</span><br></pre></td></tr></table></figure>
+<h3 id="推荐安装的工具"><a href="#推荐安装的工具" class="headerlink" title="推荐安装的工具"></a>推荐安装的工具</h3><h4 id="Watchman"><a href="#Watchman" class="headerlink" title="Watchman"></a>Watchman</h4><p><a href="https://facebook.github.io/watchman/docs/install.html" target="_blank" rel="external">Watchman</a>是由Facebook提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager可以快速捕捉文件的变化从而实现实时刷新）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install watchman</span><br></pre></td></tr></table></figure>
+<h3 id="Nuclide"><a href="#Nuclide" class="headerlink" title="Nuclide"></a>Nuclide</h3><p><a href="https://nuclide.io" target="_blank" rel="external">Nuclide</a>（此链接需要科学上网）是由Facebook提供的基于atom的集成开发环境，可用于编写、运行和 调试React Native应用</p>
+<p>译注：我们更推荐使用WebStorm或<a href="http://www.sublimetext.com" target="_blank" rel="external">Sublime Text</a>来编写React Native应用。</p>
+<h3 id="创建React-Native-Project"><a href="#创建React-Native-Project" class="headerlink" title="创建React - Native Project"></a>创建React - Native Project</h3><h4 id="React-native-cli创建项目"><a href="#React-native-cli创建项目" class="headerlink" title="React-native-cli创建项目"></a>React-native-cli创建项目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">react-native init AwesomeProject(项目名称)</span><br><span class="line">cd AwesomeProject</span><br><span class="line">react-native run-ios</span><br></pre></td></tr></table></figure>
+<p>你也可以在Nuclide中打开AwesomeProject文件夹 然后运行，或是双击ios/AwesomeProject.xcodeproj文件然后在Xcode中点击Run按钮。</p>
+<ul>
+<li>使用你喜欢的编辑器打开index.ios.js并随便改上几行.</li>
+<li>在iOS Emulator中按下⌘-R就可以刷新APP并看到你的最新修改！</li>
+</ul>
+<h4 id="React-native-cocoaPods"><a href="#React-native-cocoaPods" class="headerlink" title="React-native-cocoaPods"></a>React-native-cocoaPods</h4><p>1.进入项目根目录，创建node的package.json</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">npm install react-native --save-dev </span><br><span class="line">npm install react --save-dev</span><br></pre></td></tr></table></figure>
+<p>执行以上命令后，会在跟目录生成package.json文件，以及node_modules文件</p>
+<p>2.进入podfile中添加如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pod ‘React’,:path =&gt; &apos;./node_modules/react-native&apos;, :subspecs =&gt; [</span><br><span class="line">&apos;Core&apos;,</span><br><span class="line">&apos;RCTImage&apos;,</span><br><span class="line">&apos;RCTNetwork&apos;,</span><br><span class="line">&apos;RCTText&apos;,</span><br><span class="line">&apos;RCTWebSocket&apos;,</span><br><span class="line"># 添加其他RN库</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>3.在根目录下创建index.ios.js文件，具体的内容可以参看方式一的自动生成的内容。</p>
+<p>4.进入server服务，进入<code>node_modules/react-native/local-cli/server</code>，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p>启动服务器，当看到控制台中出现：React packager ready表示启动服务成功</p>
+<p>5.在info.plist中添加 AppTransport Security Settings 在其下再添加 Allow Arbitrary Loads选择为 yes，修改网络可以使用http请求</p>
+<p>6.在需要的地方加入如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NSURL *jsCodeLocation;</span><br><span class="line"></span><br><span class="line">jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@&quot;index.ios&quot; fallbackResource:nil];</span><br><span class="line"></span><br><span class="line">RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</span><br><span class="line">                                                    moduleName:@&quot;startRN&quot;</span><br><span class="line">                                             initialProperties:nil</span><br><span class="line">                                                 launchOptions:nil];</span><br><span class="line">[self.view addSubview:rootView];</span><br></pre></td></tr></table></figure>
+<p>7.启动模拟器在使用RN的地方，即可看到效果.</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.<a href="http://reactnative.cn/docs/0.36/getting-started.html#接下来" target="_blank" rel="external">React Native 中文网搭建开发环境</a></p>
+<p>2.<a href="http://blog.csdn.net/u011690583/article/details/51700662" target="_blank" rel="external">ReactNative-Cocoapods-Swift-Project项目搭建</a></p>
+
       
     </div>
     
@@ -1081,200 +1146,6 @@
 
 
   
-    <article id="post-国庆节杭州骑行胶东半岛计划" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/26/国庆节杭州骑行胶东半岛计划/" class="article-date">
-  	<time datetime="2016-06-26T05:50:25.000Z" itemprop="datePublished">2016-06-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/26/国庆节杭州骑行胶东半岛计划/">国庆节杭州骑行胶东半岛计划</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<h3 id="出行概要"><a href="#出行概要" class="headerlink" title="出行概要"></a>出行概要</h3></blockquote>
-<p>活动时间：2016.9.28–2016.10.7</p>
-<p>活动目的：骑游，赏景</p>
-<p>道路状况：平坦路面为主</p>
-<p>出发时间：2016.9.27</p>
-<p>回程时间：2016.10.7</p>
-<p>路程：1200KM+</p>
-<p>活动强度：强</p>
-<p>活动费用：含路费计划1500以内</p>
-<p>联系人：Tweiwei497435786[微信] </p>
-<blockquote>
-<h3 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h3></blockquote>
-<p>总行者路书编号：675752</p>
-<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/lushuguoqingjiejiaodongbandao.png" alt="Markdown preferences pane"></p>
-<p>分段路书编号：见下面每天行程</p>
-<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/jiaodongbandao_lushu.png" alt="Markdown preferences pane"></p>
-<blockquote>
-<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3></blockquote>
-<h4 id="Day1-杭州乘坐大巴到南通南通汽车客运东站（0KM）"><a href="#Day1-杭州乘坐大巴到南通南通汽车客运东站（0KM）" class="headerlink" title="Day1 杭州乘坐大巴到南通南通汽车客运东站（0KM）"></a>Day1 杭州乘坐大巴到南通南通汽车客运东站（0KM）</h4><p><code>9.28 周三</code>16:30（杭州北站）集合出发乘坐大巴到南通，预计（晚上21:00左右达到南通，提前预定好宾馆住宿入住。</p>
-<p>杭州天气：</p>
-<p>南通天气：</p>
-<p>说明：</p>
-<p>（1）<a href="http://bus.ctrip.com/buslist.html?allianceid=30613&amp;sid=555538&amp;ouid=000401app-&amp;utm_medium=onebox&amp;utm_campaign=bus&amp;utm_source=baidu_pc&amp;&amp;isctrip=&amp;from=杭州&amp;to=南通&amp;ctm_ref=baidu_pc" target="_blank" rel="external">杭州 - 南通</a>，选择当天最晚时间点班次的汽车，汽车费用（120不包含自行车托运），汽车预计耗费4个小时。</p>
-<h4 id="Day2-南通汽车客运东站－盐城（150KM）"><a href="#Day2-南通汽车客运东站－盐城（150KM）" class="headerlink" title="Day2 南通汽车客运东站－盐城（150KM）"></a>Day2 南通汽车客运东站－盐城（150KM）</h4><p><code>9.29 周四</code>6:30起床，南通汽车客运东站附近吃完早餐，预计下午6:30左右到达盐城市，选择住宾馆或者帐篷。</p>
-<p>路况：S225,G228(路书编号:675795)</p>
-<p>沿路风景名胜：</p>
-<p>南通天气：</p>
-<p>盐城天气：</p>
-<p>说明：</p>
-<h4 id="Day3-盐城市－连云港（160KM）"><a href="#Day3-盐城市－连云港（160KM）" class="headerlink" title="Day3 盐城市－连云港（160KM）"></a>Day3 盐城市－连云港（160KM）</h4><p><code>9：30 周五</code>6:30起床，收拾整理吃完早餐出发，预计下午7：00左右到达连云港连云区，选择在连云港港务局附近露营。</p>
-<p>路况：G228(路书编号:675795)</p>
-<p>沿路风景名胜：</p>
-<p>盐城天气：</p>
-<p>连云港天气：</p>
-<p>说明：</p>
-<h4 id="Day4-连云港－日照市区（170KM）"><a href="#Day4-连云港－日照市区（170KM）" class="headerlink" title="Day4 连云港－日照市区（170KM）"></a>Day4 连云港－日照市区（170KM）</h4><p><code>10.1 周六</code>6:30起床，收拾整理吃完早餐出发，预计下午7：30左右到达日照市区，选择在市区住宾馆或者海边露营。</p>
-<p>路况：G228,G204,滨海沿路,碧海路(路书编号:570172)</p>
-<p>沿路风景名胜：</p>
-<p>连云港天气：</p>
-<p>日照市天气：</p>
-<p>说明：</p>
-<h4 id="Day5-日照市－青岛市（135KM）"><a href="#Day5-日照市－青岛市（135KM）" class="headerlink" title="Day5 日照市－青岛市（135KM）"></a>Day5 日照市－青岛市（135KM）</h4><p><code>10.2 周日</code>6:30起床，收拾整理吃完早餐出发，预计下午4：00左右到达青岛市（崂山国家森林公园），选择在海边露营。</p>
-<p>路况：G204,S293,S329,薛家岛港，S214(路书编号:570181)</p>
-<p>沿路风景名胜：</p>
-<p>日照市天气：</p>
-<p>青岛市天气：</p>
-<p>说明：路程相对较少，青岛有许多好玩的地方，可以多晚一些地方，选择海边露营。</p>
-<h4 id="Day6-青岛－乳山市（140KM）"><a href="#Day6-青岛－乳山市（140KM）" class="headerlink" title="Day6 青岛－乳山市（140KM）"></a>Day6 青岛－乳山市（140KM）</h4><p><code>10.3 周一</code>6:30起床，收拾整理吃完早餐出发，预计下午5：00左右到达青岛市（崂山国家森林公园），选择住宿宾馆。</p>
-<p>路况：S293,S202(路书编号:570189)</p>
-<p>沿路风景名胜：</p>
-<p>青岛市天气：</p>
-<p>乳山市天气：</p>
-<p>说明：</p>
-<h4 id="Day7-乳山市－威海市（215KM）"><a href="#Day7-乳山市－威海市（215KM）" class="headerlink" title="Day7 乳山市－威海市（215KM）"></a>Day7 乳山市－威海市（215KM）</h4><p><code>10.4 周二</code>6:30起床，收拾整理吃完早餐出发，预计下午5：00左右到达青岛市（崂山国家森林公园），选择住宿宾馆。</p>
-<p>路况：S293,S202(路书编号:570199)</p>
-<p>沿路风景名胜：</p>
-<p>乳山市天气：</p>
-<p>威海市天气：</p>
-<p>说明：该段路程规划的沿海骑行，可能路线是这几天中最重的路线。(该段路线较差或者沿路风景一般)可考虑走直线距离直接到达威海市。</p>
-<h4 id="Day8-威海市－烟台市-蓬莱市（150KM）"><a href="#Day8-威海市－烟台市-蓬莱市（150KM）" class="headerlink" title="Day8 威海市－烟台市 - 蓬莱市（150KM）"></a>Day8 威海市－烟台市 - 蓬莱市（150KM）</h4><p><code>10.5 周三</code>6:30起床，收拾整理吃完早餐出发，预计下午6：00左右到达蓬莱市，选择露营或者住宿宾馆。</p>
-<p>路况：S302,S264,G206(路书编号:570222)</p>
-<p>沿路风景名胜：</p>
-<p>威海市天气：</p>
-<p>烟台市天气：</p>
-<p>蓬莱市天气：</p>
-<p>说明：</p>
-<h4 id="Day9-蓬莱市－潍坊市（195KM）"><a href="#Day9-蓬莱市－潍坊市（195KM）" class="headerlink" title="Day9 蓬莱市－潍坊市（195KM）"></a>Day9 蓬莱市－潍坊市（195KM）</h4><p><code>10.6 周四</code>6:30起床，收拾整理吃完早餐出发，预计下午8：00左右到达潍坊市，选择住宿宾馆。</p>
-<p>路况：G206(路书编号:570225)</p>
-<p>沿路风景名胜：</p>
-<p>蓬莱市天气</p>
-<p>潍坊天气：</p>
-<p>说明：</p>
-<h4 id="Day10-潍坊市-杭州（高铁）"><a href="#Day10-潍坊市-杭州（高铁）" class="headerlink" title="Day10 潍坊市- 杭州（高铁）"></a>Day10 潍坊市- 杭州（高铁）</h4><p><code>10.7 周五</code>9:30起床，收拾整理吃完早餐出发，下午15:00到达潍坊火车站，乘坐下午15:48的高铁准备回杭州。</p>
-<p>路况：</p>
-<p>沿路风景名胜：</p>
-<p>潍坊天气：</p>
-<p>杭州天气：</p>
-<p>说明：</p>
-<p>（1）乘坐<a href="http://train.qunar.com/stationToStation.htm?fromStation=潍坊&amp;toStation=杭州&amp;date=2016-06-27&amp;ex_track=bd_aladin_train_p2p_title&amp;ex_track=bd_aladin_train_p2p_title" target="_blank" rel="external">G256</a>次高铁回杭州，时长6个小时左右，费用450，预计晚上21:40到达火车东站。</p>
-<blockquote>
-<h3 id="预计费用"><a href="#预计费用" class="headerlink" title="预计费用"></a>预计费用</h3></blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">名称</th>
-<th style="text-align:center">费用</th>
-<th style="text-align:center">备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">住宿</td>
-<td style="text-align:center">4 * 80 = 320</td>
-<td style="text-align:center">自带帐篷+宾馆，总共出行9天，按照一半住宿宾馆，费用80/天</td>
-</tr>
-<tr>
-<td style="text-align:center">餐费</td>
-<td style="text-align:center">9 * 50 ＝ 450</td>
-<td style="text-align:center">餐费包含水</td>
-</tr>
-<tr>
-<td style="text-align:center">自行车托运</td>
-<td style="text-align:center">70 + 120 = 210</td>
-<td style="text-align:center">去大巴直接随车，回程办理火车托运非随车</td>
-</tr>
-<tr>
-<td style="text-align:center">车费</td>
-<td style="text-align:center">120 + 450 = 570</td>
-<td style="text-align:center">大巴，高铁</td>
-</tr>
-<tr>
-<td style="text-align:center">其它费用</td>
-<td style="text-align:center">未知</td>
-<td style="text-align:center">包含个人消费等</td>
-</tr>
-<tr>
-<td style="text-align:center">总计</td>
-<td style="text-align:center">1550</td>
-<td style="text-align:center">当前费用为大概统计，具体依据消费而定</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3></blockquote>
-<p>1.由于时间关系，本计划只是大概的行程计划，本次出行时间不低于8天，后期可考虑裁剪路线或者增加出行日程，大家注意时间安排。</p>
-<p>2.关于行程中的景点，天气会在出行之前不断完善，期望大家多出主意，可以尽快联系我。</p>
-<p>2.期望大家能够在出游之前提出更多的建议，将会根据相关建议做出修改。让大家都能有一个开心，快乐美好的骑行游玩旅程。</p>
-<p>3.戴好头盔手套与能量补给；需要带基本衣物，手电，防雨装备，防晒，基本药物等。</p>
-<p>4.本次出行采取露营方式，需要自备帐篷。</p>
-<p>5.本次活动强度较大骑行9天，需参与人员能够有150KM/天的骑行经验。</p>
-<blockquote>
-<h3 id="免责声明"><a href="#免责声明" class="headerlink" title="免责声明"></a>免责声明</h3></blockquote>
-<p>1.本活动是自发的，有一定的危险性，参加者须对自己的安全负责。活动中当由于意外事故或急性疾病等不可预测因素造成身体损伤时，团队的其他成员会尽全力救助，但不承担任何法律和经济责任，望能理解。</p>
-<p>2.任何参与本活动的人均视为同意此免责声明。</p>
-<blockquote>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3></blockquote>
-<p>1.<a href="http://bbs.biketo.com/thread-792308-1-1.html" target="_blank" rel="external">上海骑行青岛路上拍照</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/旅行计划/">旅行计划</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1285,7 +1156,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 Tortoise
+    		&copy; 2017 Tortoise
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
