@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android Studio 3.0 项目搭建及目录结构 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mac Android studio下载Android studio是Google公司出的一款Android集成开发工具，类似 Eclipse ADT，提供了集成的Android开发工具用于开发调试。
+
+基于Gradle的构建支持
+Android 专属的重构和快速修复
+提示工具以捕获性能、可用性、版本兼容性等问题
+支持ProGuard 和应用签名
+基于模板的向导来生成常用的 Android 应用设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Studio 3.0 项目搭建及目录结构">
+<meta property="og:url" content="http://www.tortoise.com/2018/01/31/Android-Studio-3-0-项目搭建及目录结构/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Mac Android studio下载Android studio是Google公司出的一款Android集成开发工具，类似 Eclipse ADT，提供了集成的Android开发工具用于开发调试。
+
+基于Gradle的构建支持
+Android 专属的重构和快速修复
+提示工具以捕获性能、可用性、版本兼容性等问题
+支持ProGuard 和应用签名
+基于模板的向导来生成常用的 Android 应用设">
+<meta property="og:image" content="https://github.com/Tweiwei497435786/HexoResource/blob/master/article/Android_stucture.png?raw=true">
+<meta property="og:updated_time" content="2018-01-31T08:55:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Studio 3.0 项目搭建及目录结构">
+<meta name="twitter:description" content="Mac Android studio下载Android studio是Google公司出的一款Android集成开发工具，类似 Eclipse ADT，提供了集成的Android开发工具用于开发调试。
+
+基于Gradle的构建支持
+Android 专属的重构和快速修复
+提示工具以捕获性能、可用性、版本兼容性等问题
+支持ProGuard 和应用签名
+基于模板的向导来生成常用的 Android 应用设">
+<meta name="twitter:image" content="https://github.com/Tweiwei497435786/HexoResource/blob/master/article/Android_stucture.png?raw=true">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Tortoise</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
+					        
+								<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
+					        
+						</div>					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 12.5px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 15px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 12.5px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 17.5px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://objccn.io">Objc中国</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.devtang.com">唐巧的技术博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://bluereader.org/rss/25188">Casa Taloyum</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，追求自由与极致…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Tortoise</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/assets/avatar.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Tortoise</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Enjoying my work!Enjoying my life!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Tweiwei497435786" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/han-mo-xiang-ning" title="zhihu">zhihu</a>
+			        
+						<a class="linkedin" target="_blank" href="http://www.cocoachina.com/bbs/u.php?tid=211552" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Android-Studio-3-0-项目搭建及目录结构" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/31/Android-Studio-3-0-项目搭建及目录结构/" class="article-date">
+  	<time datetime="2018-01-31T07:01:36.000Z" itemprop="datePublished">2018-01-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android Studio 3.0 项目搭建及目录结构
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Android学习/">Android学习</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Mac-Android-studio下载"><a href="#Mac-Android-studio下载" class="headerlink" title="Mac Android studio下载"></a>Mac Android studio下载</h4><p><a href="https://developer.android.com/studio/index.html" target="_blank" rel="external">Android studio</a>是Google公司出的一款Android集成开发工具，类似 Eclipse ADT，提供了集成的Android开发工具用于开发调试。</p>
+<ul>
+<li>基于<a href="https://baike.baidu.com/item/Gradle" target="_blank" rel="external">Gradle</a>的构建支持</li>
+<li>Android 专属的重构和快速修复</li>
+<li>提示工具以捕获性能、可用性、版本兼容性等问题</li>
+<li>支持ProGuard 和应用签名</li>
+<li>基于模板的向导来生成常用的 Android 应用设计和组件</li>
+<li>功能强大的布局编辑器，可以让你拖拉 UI 控件并进行效果预览</li>
+</ul>
+<p>注意：<code>下载需要翻墙VPN，在安装的过程中部分插件安装也需要翻墙</code>，如果不翻墙可以使用国内的一些已经下载好的地址<a href="http://www.android-studio.org/index.php/component/content/category/88-download" target="_blank" rel="external">下载</a></p>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><h5 id="一-Android工程"><a href="#一-Android工程" class="headerlink" title="一. Android工程"></a>一. Android工程</h5><p>1.创建一个Hello world的项目，按照默认提示操作即可，注意第一次创建项目会加载过程较长（需要下载一些插件内容VPN）耐心等待即可。</p>
+<p>2.项目结构如下截图：</p>
+<p><img src="https://github.com/Tweiwei497435786/HexoResource/blob/master/article/Android_stucture.png?raw=true" alt="Markdown preferences pane"></p>
+<p>在项目没有配置正确的情况下，会出现右上角的运行等为灰色不可点击的情况，一旦Gradle自动化构建有问题则会出现这种情况，注意Gradle出现下载不完全等情况可以通过手动下载APN（地址：<a href="https://services.gradle.org/distributions/gradle-4.1-all.zip)，同时修改配Android" target="_blank" rel="external">https://services.gradle.org/distributions/gradle-4.1-all.zip)，同时修改配Android</a> Studio -&gt;Preferences-&gt;Gradle-&gt;选择 Use local Gradle Distribution（地址：Android Studio安装的位置显示包含内容，将刚刚手动下载的gradle替换）</p>
+<p>3.Android工程于截图左侧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">manifests：AndroidManifest.xml：APP的配置信息</span><br><span class="line">java：主要为源代码和测试代码</span><br><span class="line">res：主要是资源目录，存储所有的项目资源</span><br><span class="line">		 drawable：存储一些xml文件，-*dpi表示存储分辨率的图片，用于适配不同的屏幕。</span><br><span class="line">				  -mdpi:320x480</span><br><span class="line">				  -hdpi:480x800、480x854</span><br><span class="line">				  -xhdpi:至少960x720</span><br><span class="line">				  -xxhdpi:1280x720</span><br><span class="line">        layout：存储布局文件</span><br><span class="line">        mipmap：存储原声图片资源</span><br><span class="line">        values：存储app引用的一些值</span><br><span class="line">                     - colors.xml：存储了一些color的样式</span><br><span class="line">                     - dimens.xml：存储了一些公用的dp值                       </span><br><span class="line">                     - strings.xml：存储了引用的string值</span><br><span class="line">                     - styles.xml：存储了app需要用到的一些样式</span><br><span class="line">         Gradle Scripts:build.gradle为项目的gradle配置文件</span><br></pre></td></tr></table></figure>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://blog.csdn.net/eastmoon502136/article/details/50596806" target="_blank" rel="external">Android开发学习之路–Android Studio项目目录结构简介</a></p>
+<p>2.<a href="http://www.runoob.com/android/android-tutorial.html" target="_blank" rel="external">Android 菜鸟教程</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/08/ChushandaoTravel/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          衢山岛旅游攻略
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/24/自动化测试/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自动化测试</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Android-Studio-3-0-项目搭建及目录结构" data-title="Android Studio 3.0 项目搭建及目录结构" data-url="http://www.tortoise.com/2018/01/31/Android-Studio-3-0-项目搭建及目录结构/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Tortoise
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

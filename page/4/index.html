@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 13.33px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 13.33px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 16.67px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
+						<a href="/tags/iOS开发/" style="font-size: 20px;">iOS开发</a> <a href="/tags/iOS技术/" style="font-size: 12.5px;">iOS技术</a> <a href="/tags/工具/" style="font-size: 15px;">工具</a> <a href="/tags/开发技巧/" style="font-size: 10px;">开发技巧</a> <a href="/tags/房屋装修/" style="font-size: 12.5px;">房屋装修</a> <a href="/tags/旅行计划/" style="font-size: 17.5px;">旅行计划</a> <a href="/tags/读书屋/" style="font-size: 10px;">读书屋</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,247 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-SSH" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/19/SSH/" class="article-date">
+  	<time datetime="2016-04-19T06:29:47.000Z" itemprop="datePublished">2016-04-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/19/SSH/">SSH</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SSH（全称 Secure Shell)是一种加密的网络协议。使用该协议的数据将被加密，如果在传输中间数据泄漏，也可以确保没有人能读取出有用信息。要使用 SSH，目标机器应该安装 SSH 服务端应用程序，因为 SSH 是基于客户-服务模式的。 当你想安全的远程连接到主机，可中间的网络（比如因特网）并不安全，通常这种情况下就会使用 SSH</p>
+<h3 id="一-安装SSH"><a href="#一-安装SSH" class="headerlink" title="一.安装SSH"></a>一.安装SSH</h3><p>1.安装ssh的服务端，需要在目标服务器安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure>
+<p>2.安装ssh的客户端，需要在客户端安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-client</span><br></pre></td></tr></table></figure>
+<p>由于Mac系统已经安装了ssh，所以可以直接使用。</p>
+<h3 id="一-SSH简单命令"><a href="#一-SSH简单命令" class="headerlink" title="一.SSH简单命令"></a>一.SSH简单命令</h3><p>1.无选项参数运行 SSH</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 192.168.40.140</span><br></pre></td></tr></table></figure>
+<p>2.指定登陆用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh wuxian@192.168.40.140或者下面</span><br><span class="line">ssh -l wuxian 192.168.40.140</span><br></pre></td></tr></table></figure>
+<p>3.上传本地文件到服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp /path/filename username@servername:/path</span><br><span class="line">iMac-tortoise% scp /Users/tianww/Desktop/beibei_work/小工具/renameDeliver/renameDeliver.sh wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/</span><br></pre></td></tr></table></figure>
+<p>4.从服务器上下载文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp username@servername:/path/filename /var/www/local_dir（本地目录）</span><br><span class="line">iMac-tortoise% scp wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/renameDeliver.sh /Users/tianww/Desktop/iOS</span><br></pre></td></tr></table></figure>
+<p>5.上传目录到服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp  -r local_dir username@servername:remote_dir</span><br><span class="line">iMac-tortoise% scp -r /Users/tianww/Desktop/iOS wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/</span><br></pre></td></tr></table></figure>
+<p>6.从服务器下载整个目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**注意这里不能先通过ssh登陆到服务器后再操作如下的：</span><br><span class="line">scp -r username@servername:/var/www/remote_dir/（远程目录） /var/www/local_dir（本地目录）</span><br><span class="line">iMac-tortoise% scp -r wuxian@192.168.40.140:/Users/wuxian/.jenkins/jobs/iOS_BeiBei_Appstore_FastLane/ /Users/tianww/Desktop/iOS</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/工具/">工具</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-FTP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/19/FTP/" class="article-date">
+  	<time datetime="2016-04-19T05:51:37.000Z" itemprop="datePublished">2016-04-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/19/FTP/">FTP</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>FTP 是File Transfer Protocol（文件传输协议）的英文简称，而中文简称为“文传协议”。用于Internet上的控制文件的双向传输。在FTP的使用当中，用户经常遇到两个概念：”下载”（Download）和”上传”（Upload）。”下载”文件就是从远程主机拷贝文件至自己的计算机上；”上传”文件就是将文件从自己的计算机中拷贝至远程主机上。用Internet语言来说，用户可通过客户机程序向（从）远程主机上传（下载）文件。</p>
+<h3 id="一-FTP常用的命令"><a href="#一-FTP常用的命令" class="headerlink" title="一. FTP常用的命令"></a>一. FTP常用的命令</h3><ol>
+<li>用户连接远程FTP服务器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp 主机名称</span><br><span class="line">eg:ftp v0.ftp.upyun.com</span><br></pre></td></tr></table></figure>
+<ol>
+<li>进入对应的ftp的目录，将目录下面的文件下载到本地文件夹中,或者本地的文件上传到服务端</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">首先需要在本地创建目录，登录成功后进入ftp目录，lcd进入本地创建的目录</span><br><span class="line"> lcd 本地的目录</span><br><span class="line"> eg:lcd /Users/tianww/Desktop/NewiOS</span><br><span class="line"> get ftp文件名称</span><br><span class="line"> eg:get Install.html</span><br><span class="line"> put 本地文件名称</span><br><span class="line"> put Install.html</span><br></pre></td></tr></table></figure>
+<h3 id="二-FTP常用的Mac端工具"><a href="#二-FTP常用的Mac端工具" class="headerlink" title="二. FTP常用的Mac端工具"></a>二. FTP常用的Mac端工具</h3><ol>
+<li>Mac自带的FTP工具，连接服务器即可</li>
+<li>Mac的<a href="http://www.macgg.com/archives/21664.html" target="_blank" rel="external">FTP工具集合</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/工具/">工具</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Jenkins-Git-Fastlane-Fir-CI集成" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/08/Jenkins-Git-Fastlane-Fir-CI集成/" class="article-date">
+  	<time datetime="2016-04-08T13:27:38.000Z" itemprop="datePublished">2016-04-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/08/Jenkins-Git-Fastlane-Fir-CI集成/">Jenkins+Git+Fastlane+Fir CI集成</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一篇有讲关于<a href="http://tweiwei497435786.github.io/2016/04/08/Fastlane自动化部署/" target="_blank" rel="external">fastlane自动化部署</a>，本篇将会着重讲关于fastlane的实际应用。</p>
+<h3 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h3><ul>
+<li>利用自动化jenkins打包工具，自动拉取git仓库代码</li>
+<li>不需要通过手动<code>检查修改</code>xcode中项目配置修改（provisioning,codesigning)</li>
+<li>支持多渠道(chanel,appstore,enterprise,develop,adhoc)</li>
+<li>支持一键上传appstore（首次需要输入账户，密码）</li>
+<li>企业版本自动上传序号dsym文件到对应平台（fir的hdbug平台）</li>
+</ul>
+<h4 id="创建fastlane文件"><a href="#创建fastlane文件" class="headerlink" title="创建fastlane文件"></a>创建fastlane文件</h4><p>进入项目目录在终端输入fastlane init命令，会要求输入Apple ID信息按照提示输入即可，选择是否deliver等初始化工作按照上篇讲解即可。操作完成即可看到下图所示的基本内容，下面会对图中文件一一讲解：</p>
+<p><img src="https://raw.githubusercontent.com/Tweiwei497435786/HexoResource/master/article/4F0D8B45-1587-47D7-8C74-5AC99D09C98C.png" alt="General preferences pane"></p>
+<h4 id="fastlane源码解析"><a href="#fastlane源码解析" class="headerlink" title="fastlane源码解析"></a>fastlane源码解析</h4><h4 id="一-统一管理fastlane操作脚本文件"><a href="#一-统一管理fastlane操作脚本文件" class="headerlink" title="一.  统一管理fastlane操作脚本文件"></a>一.  统一管理fastlane操作脚本文件</h4><p>1.外界控制版本号，并且控制渠道AdHoc AppStore Develop InHouse</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">versionNumber=$2 # 1.0.0</span><br><span class="line">outLaneName=$1 #&quot;AdHoc AppStore Develop InHouse&quot;其中的一种，外界传入</span><br><span class="line">curDir=`pwd`</span><br><span class="line">distDir=&quot;$curDir/build&quot;</span><br></pre></td></tr></table></figure>
+<p>2.根据外界传递的数据控制，调用fastlane的lane操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">basicLanes=&quot;AdHoc Release Develop InHouse&quot;</span><br><span class="line">for laneName in $basicLanes</span><br><span class="line">do</span><br><span class="line">if [ $outLaneName == $laneName ]</span><br><span class="line">then</span><br><span class="line">echo &quot;outer setValue is:$outLaneName&quot;</span><br><span class="line">fastlane $laneName version:$versionNumber</span><br><span class="line">fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="二-Appfile文件修改"><a href="#二-Appfile文件修改" class="headerlink" title="二.  Appfile文件修改"></a>二.  Appfile文件修改</h4><p>1.同一个app，appfile控制渠道（appstore非appstore的）。当然也可以通过控制多个app区分不同的lane即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app_identifier &quot;com.tww.test&quot; # App Store的版本的app_idendifier</span><br><span class="line">apple_id &quot;2501046883@qq.com&quot; # 对应的账号appid</span><br><span class="line">for_lane :InHouse do #企业及账号的</span><br><span class="line">app_identifier &quot;com.tww.test.enterprise&quot; # 企业及账号app_idendifier</span><br><span class="line">apple_id &quot;2501046883@qq.com&quot;&quot; # 对应的账号的密码</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h4 id="三-Deliverfile文件修改"><a href="#三-Deliverfile文件修改" class="headerlink" title="三.  Deliverfile文件修改"></a>三.  Deliverfile文件修改</h4><p>1.上传appstore的deliver文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app_identifier &quot;com.tww.test&quot; # The bundle identifier of your app</span><br><span class="line">username &quot;2501046883@qq.com&quot; # your Apple ID user</span><br></pre></td></tr></table></figure>
+<h4 id="四-Fastfile文件修改"><a href="#四-Fastfile文件修改" class="headerlink" title="四.  Fastfile文件修改"></a>四.  Fastfile文件修改</h4><p>1.修改app identifier（就是bundle id，例如：com.husor.beibei）注意xcode7.0以上苹果改了CFBundleIdentifier or PRODUCT_BUNDLE_IDENTIFIER</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">update_app_identifier(</span><br><span class="line">    xcodeproj:PROJECT_FILE_PATH ,#project路径</span><br><span class="line">    plist_path:&quot;#&#123;PLIST_FILE_PATH&#125;&quot; ,#plist文件的路径</span><br><span class="line">    app_identifier:app_id</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>2.修改team（teamid）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def prepare_update_project_team(team_id)</span><br><span class="line"></span><br><span class="line">	update_project_team(</span><br><span class="line">  	   path:PROJECT_FILE_PATH,</span><br><span class="line">     teamid: &quot;K4W62VQT27&quot;</span><br><span class="line">	)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>3.修改info_plist（就是bundle id，例如：com.tww.test）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def prepare_update_info_plist(app_id)</span><br><span class="line">    update_info_plist(</span><br><span class="line">        xcodeproj:PROJECT_FILE_PATH ,</span><br><span class="line">        plist_path:&quot;#&#123;PLIST_FILE_PATH&#125;&quot; ,</span><br><span class="line">        app_identifier:app_id</span><br><span class="line">        </span><br><span class="line">    )</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>4.修改版本号和build号（修改为外部传入的版本，例如：1.0.0和100）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def prepare_version(options)</span><br><span class="line">    #say &apos;version number:&apos;</span><br><span class="line">    #say options[:version]</span><br><span class="line">    increment_version_number(</span><br><span class="line">        version_number: options[:version],</span><br><span class="line">        xcodeproj: PROJECT_FILE_PATH,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    #say &apos;build number:&apos;</span><br><span class="line">    #say options[:build]</span><br><span class="line">    increment_build_number(</span><br><span class="line">        build_number: options[:version],</span><br><span class="line">        xcodeproj: PROJECT_FILE_PATH,</span><br><span class="line">    )</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>5.修改签名的配置，配置对应的provision file，事先将个provisioning放入provision文件内容，关于怎么找到对应的provison可以通过xcode配置正确后，查看project文件（/Users/tianww/Library/MobileDevice/Provisioning Profiles/）找到后复制到这里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def prepare_version(options)</span><br><span class="line">    #say &apos;version number:&apos;</span><br><span class="line">    #say options[:version]</span><br><span class="line">    increment_version_number(</span><br><span class="line">        version_number: options[:version],</span><br><span class="line">        xcodeproj: PROJECT_FILE_PATH,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    #say &apos;build number:&apos;</span><br><span class="line">    #say options[:build]</span><br><span class="line">    increment_build_number(</span><br><span class="line">        build_number: options[:version],</span><br><span class="line">        xcodeproj: PROJECT_FILE_PATH,</span><br><span class="line">    )</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>6.编译打包为ipa使用gym，当然首先要安装gym。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def generate_ipa(typePrefix,options,exportMethod,codeSignID)</span><br><span class="line">    #say &apos;generate ipa&apos;</span><br><span class="line">    fullVersion = options[:version]</span><br><span class="line">gym(</span><br><span class="line">      workspace: &apos;./BeiBeiAPP.xcworkspace&apos;,</span><br><span class="line">      configuration: &quot;#&#123;typePrefix&#125;&quot;,</span><br><span class="line">      scheme: &quot;#&#123;SCHEME_NAME&#125;&quot;,</span><br><span class="line">      output_directory: &quot;./build&quot;,</span><br><span class="line">      output_name: &quot;#&#123;APP_NAME&#125;.ipa&quot;,</span><br><span class="line">      archive_path: &apos;./build/&apos;,</span><br><span class="line">      clean: true,</span><br><span class="line">      codesigning_identity: &quot;#&#123;codeSignID&#125;&quot;,</span><br><span class="line">      provisioning_profile_path: &quot;./fastlane/provision/#&#123;typePrefix&#125;.mobileprovision&quot;,</span><br><span class="line">      include_symbols: &apos;true&apos;,</span><br><span class="line">      include_bitcode: &apos;false&apos;,</span><br><span class="line">      export_method: &quot;#&#123;exportMethod&#125;&quot;</span><br><span class="line">    )</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>或者使用<a href="https://github.com/fastlane/shenzhen" target="_blank" rel="external">shenzhen</a> ,但是发现使用shenzhen比gym的要大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def generate_ipa(typePrefix,options,exportMethod,codeSignID)</span><br><span class="line">    #say &apos;generate ipa&apos;</span><br><span class="line">     fullVersion = options[:version] + &apos;.&apos; + options[:build]</span><br><span class="line">    channelId = options[:channel_id]</span><br><span class="line">    ipa(</span><br><span class="line">        configuration: typePrefix,</span><br><span class="line">        scheme:&quot;#&#123;SCHEME_NAME&#125;&quot;,</span><br><span class="line">        clean: true,</span><br><span class="line">        destination:&quot;./build&quot;,</span><br><span class="line">        ipa:&quot;#&#123;APP_NAME&#125;_#&#123;fullVersion&#125;_#&#123;typePrefix&#125;.ipa&quot;,</span><br><span class="line">        archive:false</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>7.构建不同的lane，处理不同的包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 企业版 证书打包</span><br><span class="line">  desc &quot;InHouse by personal apple account&quot;</span><br><span class="line">  lane :InHouse do |options|</span><br><span class="line">    typePrefix = &apos;InHouse&apos;</span><br><span class="line">    exportMethod = &apos;enterprise&apos;</span><br><span class="line">    codeSigningIdentify = &apos;iPhone Distribution:tww&apos;</span><br><span class="line">    prepare_version(options)</span><br><span class="line">    update_provision(typePrefix)</span><br><span class="line">    prepare_update_project_team(&apos;K4W62VQT27&apos;)</span><br><span class="line">    prepare_update_app_identifier(&quot;#&#123;INHOUSE_IDENTIFIER&#125;&quot;)</span><br><span class="line">    prepare_update_info_plist(&quot;#&#123;INHOUSE_IDENTIFIER&#125;&quot;)</span><br><span class="line">    generate_ipa(typePrefix,options,exportMethod,codeSigningIdentify)</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><p><a href="https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md" target="_blank" rel="external">fastlane actions</a>所有的actions的详细讲解。当然我们也可以在terminate中输入以下命令：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fastlane actions（会列出所有的action）</span><br><span class="line">fastlane action deliver（单独详细的列出deliver的action对应的所有的内容）</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><a href="https://everettjf.github.io/2015/09/08/ios-ci-with-fastlane" target="_blank" rel="external">使用fastlane实现iOS持续集成</a></li>
+<li><a href="https://github.com/fastlane/fastlane/blob/master/gym/lib/gym/options.rb" target="_blank" rel="external">gym actions</a>，关于gym中选择命令</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Fastlane自动化部署" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -848,216 +1089,6 @@
 
 
   
-    <article id="post-UITouch简单使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/23/UITouch简单使用/" class="article-date">
-  	<time datetime="2016-03-23T12:19:40.000Z" itemprop="datePublished">2016-03-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/23/UITouch简单使用/">UITouch简单使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有些时候为了项目的需求需要（在一张广告的图片中，点击不同的区域，需要响应不同的操作）那么我们可以创建一个UIImageView,然后通过UIResponder的相关方法，获取当前的点击区域，通过判断分别处理事件。具体代码如下：</p>
-<p>由于UIView继承UIResponder类，可以通过实现如下方法，来获取点击区域操作。</p>
-<p>-(void)touchesBegan:(NSSet<uitouch *=""> <em>)touches withEvent:(nullable UIEvent </em>)event</uitouch></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    [touches enumerateObjectsUsingBlock:^(UITouch * _Nonnull obj, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        if (obj.view == self) &#123;</span><br><span class="line">            CGPoint touchPoint = [obj locationInView:self];</span><br><span class="line">            NSInteger index = [self locationJugement:touchPoint];</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">            NSLog(@&quot;touchPoint....:%@&quot;,NSStringFromCGPoint(touchPoint));</span><br><span class="line">#endif</span><br><span class="line">            if (self.delegate &amp;&amp; [self.delegate respondsToSelector:@selector(tapEventOption:)]&amp;&amp; index &gt;= 0) &#123;</span><br><span class="line">                [self.delegate tapEventOption:[self.hotSpotAdsArray safeObjectAtIndex:index]];</span><br><span class="line">            &#125;</span><br><span class="line">            *stop = YES;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSInteger)locationJugement:(CGPoint)point</span><br><span class="line">&#123;</span><br><span class="line">   __block NSInteger returnIndex = -1;//默认为－1</span><br><span class="line">    [self.hotSpotAdsArray enumerateObjectsUsingBlock:^(BBHotspotModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">        NSLog(@&quot;obj.rect...:%@&quot;,obj.rect);</span><br><span class="line">#endif</span><br><span class="line">        if ([obj.rect count] &gt;= 4) &#123;//防止越界</span><br><span class="line">            CGFloat orgX = [[obj.rect objectAtIndex:0] floatValue];</span><br><span class="line">            CGFloat orgY = [[obj.rect objectAtIndex:1] floatValue];</span><br><span class="line">            CGFloat width = [[obj.rect objectAtIndex:2] floatValue];</span><br><span class="line">            CGFloat height = [[obj.rect objectAtIndex:3] floatValue];</span><br><span class="line">            if ( (point.x &gt; orgX &amp;&amp; point.x &lt; orgX + width) &amp;&amp; (point.y &gt; orgY &amp;&amp; point.y &lt; orgY + height)) &#123;</span><br><span class="line">                returnIndex = idx;</span><br><span class="line">                *stop = YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    return returnIndex;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>可以通过以下方法测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (void)createTestModelArray</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:4];</span><br><span class="line">    for (NSInteger j = 0; j &lt; 4; j++) &#123;</span><br><span class="line">        NSArray *array = [[NSArray alloc] init];</span><br><span class="line">        BBHotspotModel *mode = [[BBHotspotModel alloc] init];</span><br><span class="line">        for (NSInteger i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">            NSInteger hang = ((j%2 == 0) ? j/2:(j/2));</span><br><span class="line">            NSInteger lei = ((j%2 == 0) ? 0:1);</span><br><span class="line">            CGFloat orgX = lei * (SCREEN_WIDTH/2.0);</span><br><span class="line">            CGFloat orgY = hang * (200/2.0);</span><br><span class="line">            array = [NSArray arrayWithObjects:@(orgX),@(orgY),@(SCREEN_WIDTH/2.0),@(200/2.0),nil];</span><br><span class="line">        &#125;</span><br><span class="line">        mode.rect = array;</span><br><span class="line">        mode.target = [NSString stringWithFormat:@&quot;跳转%ld&quot;,j];</span><br><span class="line">        [tempArray addObject:mode];</span><br><span class="line">    &#125;</span><br><span class="line">    self.hotspotArray = [NSMutableArray arrayWithObjects:tempArray,nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经过测试发现，根据给定每一个特定区域,点击操作实现相关委托即可。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Git常用命令" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/23/Git常用命令/" class="article-date">
-  	<time datetime="2016-03-23T01:59:38.000Z" itemprop="datePublished">2016-03-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/23/Git常用命令/">Git常用命令</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001373962845513aefd77a99f4145f0a2c7a7ca057e7570000" target="_blank" rel="external">Git</a>是什么？</p>
-<p>Git是目前世界上最先进的分布式版本控制系统<br>由于使用的mac系统，mac默认安装了Git。可以通过下面命令，在terminate确认是否安装了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git</span><br></pre></td></tr></table></figure>
-<p>如果出现了The program ‘git’ is currently not installed. You can install it by typing:提示则表示没有安装，使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
-<p>输入密码即可以等待安装成功。</p>
-<h5 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">1. git clone &lt;https,ssh项目的地址&gt;  (表示clone所有的分支)</span><br><span class="line">   example: git clone http://git.husor.com.cn/ios/beibei.git</span><br><span class="line"></span><br><span class="line">2. git clone -b &lt;分支名称&gt; &lt;https,ssh项目的地址&gt; （表示clone某一个分支）</span><br><span class="line">   example: git clone -b release/v4.0.0 http://git.husor.com.cn/ios/beibei.git</span><br><span class="line">   </span><br><span class="line">3. git branch -r （查看当前项目所有的分支）</span><br><span class="line">   example: git branch -r</span><br><span class="line">    origin/HEAD -&gt; origin/master</span><br><span class="line">  	origin/beibei_pod</span><br><span class="line">  	origin/develop_merge_to_pods</span><br><span class="line">  	origin/feature/brand_martshow_4.0</span><br><span class="line">  	origin/feature/develop_4.0.1</span><br><span class="line">  	origin/feature/lyd_chaozhi</span><br><span class="line">  	origin/release/v4.0.0</span><br><span class="line">  	......</span><br><span class="line">4. git checkout &lt;分支名称&gt; （表示检出新的远程分支到本地）</span><br><span class="line">   example: git checkout feature/martshow_peel</span><br><span class="line">	Branch feature/martshow_peel set up to track remote branch feature/martshow_peel from origin.</span><br><span class="line">	Switched to a new branch &apos;feature/martshow_peel&apos;</span><br><span class="line">5. git commit -a (提交本地的修改文件到暂存区，这个时候会默认调用vim编辑器，输入提交信息)；也可以使用git commit -a  -m &quot;commit info&quot;</span><br><span class="line">   example1: git commit -a</span><br><span class="line">   </span><br><span class="line">   example2: git commit -a -m &quot;.gitignore文件&quot;</span><br><span class="line">   </span><br><span class="line">   如果出现：(表示没有跟踪到的问题）</span><br><span class="line">   Untracked files:</span><br><span class="line">	BeiBeiAPP.xcodeproj/xcshareddata/</span><br><span class="line">	这种类型行的问题，则需要使用git add BeiBeiAPP.xcodeproj/xcshareddata/命令后重新提交即可</span><br><span class="line">6. git push &lt;远程分支&gt;  (表示将本地修改的暂存区的内容提交到对应的远程分支）</span><br><span class="line">   example: git push feature/martshow_peel</span><br><span class="line">7. git merge &lt;远程分支&gt; (表示从远程分支拉取代码合并到本地)</span><br><span class="line">   example: git merge release/v4.0.0 （以下的合并存在冲突）</span><br><span class="line">            Auto-merging BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (content): Merge conflict in BeiBeiAPP/BeiBei-Info.plist</span><br><span class="line">			  CONFLICT (modify/delete): BeiBeiAPP/BBClasses/C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m 			  deleted in HEAD and modified in release/v4.0.0. Version release/v4.0.0 of BeiBeiAPP/BBClasses/			  C2C（圈儿）/Common（基础）/BBNavigator+C2CNavigator.m left in tree.</span><br><span class="line">            Auto-merging BeiBeiAPP.xcodeproj/project.pbxproj</span><br><span class="line">            Automatic merge failed; fix conflicts and then commit the result.</span><br><span class="line">            </span><br><span class="line">8. git tag -l</span><br><span class="line">   example: iMac-tortoise:BBCore tianww$ git tag -l</span><br><span class="line">9. git branch [name] (基于当前分支创建本地分之，name分之名称)</span><br><span class="line">   example: git branch feature/tianww</span><br><span class="line">10. git push origin [localBranchName]:[branchName](提交本地分支到远程分支)</span><br><span class="line">   example: git push origin feature/tianww:feature/tianww</span><br><span class="line"> </span><br><span class="line">11. git rm -r [filesName] //删除filesName文件所有的文件包含文件夹</span><br><span class="line">   example: git rm -r View//删除View文件夹下所有的内容</span><br><span class="line">12.</span><br></pre></td></tr></table></figure>
-<p>高级篇</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. git status (查看当前所有文件的状态）</span><br><span class="line">2. git log（查看提交的log）</span><br><span class="line">3. git reset --hard (reset本地的所有文件，不保留修改untrack的文件）</span><br><span class="line">4. git checkout .(本地所有没有提交的，都返回到原来状态）</span><br><span class="line">5. git diff（查看详细的修改文件代码）</span><br></pre></td></tr></table></figure>
-<h5 id="Git常用的工具"><a href="#Git常用的工具" class="headerlink" title="Git常用的工具"></a>Git常用的工具</h5><p>SourceTree（推荐，appstore上面即可下载，简单实用功能强大）</p>
-<p><a href="http://www.isofts.org/tower/" target="_blank" rel="external">Tower</a> （强大，但是要钱）</p>
-<p>GitBash</p>
-<p>EGit</p>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>1.<a href="http://www.jianshu.com/p/4c0139d14b9b" target="_blank" rel="external">Git命令总结（本地仓库篇）</a></p>
-<p>2.<a href="http://blog.163.com/fenglang_2006/blog/static/13366231820111171542658/" target="_blank" rel="external">Git常用操作命令</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Git版本控制-gitignore文件" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/22/Git版本控制-gitignore文件/" class="article-date">
-  	<time datetime="2016-03-22T09:55:33.000Z" itemprop="datePublished">2016-03-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/22/Git版本控制-gitignore文件/">Git版本控制.gitignore文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Git忽略规则。"><a href="#Git忽略规则。" class="headerlink" title="Git忽略规则。"></a>Git忽略规则。</h3><h5 id="gitignore文件。"><a href="#gitignore文件。" class="headerlink" title=".gitignore文件。"></a>.gitignore文件。</h5><p>.gitignore 配置文件用于配置不需要加入版本管理的文件，配置好该文件可以为我们的版本管理带来很大的便利.版本库中目录下的.gitignore文件作用于整个目录及子目录，会随着该版本库同其他人共享。文件存放在当前Respositories工作目录下，当然默认是不可见的，可以调用如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.finder AppleShowAllFiles YES //显示隐藏文件</span><br><span class="line">defaults write com.apple.finder AppleShowAllFiles NO//隐藏不可见文件</span><br></pre></td></tr></table></figure>
-<p>然后输入以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:beibei tianww$ cd /Users/tianww/Documents/ipa_Project/beibei </span><br><span class="line">iMac-7:beibei tianww$ vim .gitignore</span><br></pre></td></tr></table></figure>
-<p>我们会看到以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">*~</span><br><span class="line">.DS_Store</span><br><span class="line">.idea/</span><br><span class="line"></span><br><span class="line"># Xcode</span><br><span class="line">#</span><br><span class="line">build/</span><br><span class="line">buildipa/</span><br><span class="line">*.pbxuser</span><br><span class="line">!default.pbxuser</span><br><span class="line">*.mode1v3</span><br><span class="line">!default.mode1v3</span><br><span class="line">*.mode2v3</span><br><span class="line">!default.mode2v3</span><br><span class="line">*.perspectivev3</span><br><span class="line">!default.perspectivev3</span><br><span class="line">xcuserdata</span><br><span class="line">*.xccheckout</span><br><span class="line">*.moved-aside</span><br><span class="line">DerivedData</span><br><span class="line">*.hmap</span><br><span class="line">*.ipa</span><br><span class="line">*.xcuserstate</span><br><span class="line">xcshareddata/</span><br><span class="line"></span><br><span class="line">Pods/</span><br><span class="line">Podfile.lock</span><br><span class="line"></span><br><span class="line">*.xcuserdatad</span><br><span class="line">&quot;.gitignore&quot; 8501L, 482577C</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，有些东西是xcode默认会在.gitignore中忽略掉的：比喻在修改了schemes的时候，无论你怎么修改，都看不到在在git里面有修改记录的，其实这个是默认会忽略掉的。这个时候，我们为了统一控制一些东西，就需要修改.gitignore中的内容了，需要将（*.xcuserstate xcshareddata/）两个删除掉，修改成功后提交git，那么所有人的配置就一致了，这个时候我们重新添加刚刚删除的内容，无论别人怎么修改也不会修改默认的统一的配置了。</p>
-<h5 id="exclude文件。"><a href="#exclude文件。" class="headerlink" title="exclude文件。"></a>exclude文件。</h5><p>本地的针对具体版本库的独享式忽略文件</p>
-<p>即在版本库.git目录下的文件info/exclude中设置文件忽略</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iMac-7:~ tianww$ cd /Users/tianww/Documents/ipa_Project/beibei/.git/info/</span><br><span class="line">iMac-7:info tianww$ ls</span><br><span class="line">exclude	refs</span><br><span class="line">iMac-7:info tianww$ vim exclude</span><br></pre></td></tr></table></figure>
-<h5 id="core-excludesfile文件。"><a href="#core-excludesfile文件。" class="headerlink" title="core.excludesfile文件。"></a>core.excludesfile文件。</h5><p> 本地的全局的独享式忽略文件,通过Git的配置变量core.excludesfile指定的一个忽略文件（指定文件名），其设置的忽略对所有本地版本库均有效。设置方法如下（文件名可以任意设置）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.excludesfile ~/.gitignore</span><br></pre></td></tr></table></figure>
-<h3 id="Git忽略文件语法。"><a href="#Git忽略文件语法。" class="headerlink" title="Git忽略文件语法。"></a>Git忽略文件语法。</h3><ol>
-<li>忽略文件中的空行或以井号（#）开始的行将会被忽略。</li>
-<li>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等。</li>
-<li>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</li>
-<li>如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在此目录下，而子目录中的文件不忽略。</li>
-<li>如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</li>
-</ol>
-<p>example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这是注释行，将被忽略</span><br><span class="line">*.a       # 忽略所有以.a为扩展名的文件    </span><br><span class="line">!lib.a    # 但是名为lib.a的文件或目录不要忽略，即使前面设置了对*.a的忽略</span><br><span class="line">/TODO     # 只忽略此目录下的TODO文件，子目录中的TODO文件不忽略</span><br><span class="line">build/    # 忽略所有build目录下的文件，但如果是名为build的文件则不忽略</span><br><span class="line">doc/*.txt # 忽略文件如doc/notes.txt，但是文件如doc/server/arch.txt不忽略</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1068,7 +1099,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 Tortoise
+    		&copy; 2018 Tortoise
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
